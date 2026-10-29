@@ -1,0 +1,232 @@
+---
+name: alejandromejia-brand
+description: The brand rules of alejandromejia.dev (Alejandro Mejía's design engineer portfolio): identity and voice, the monochrome palette with system dark mode, Geist + Geist Mono with a sans wordmark (no serif), the small type scale, the one-column layout, corners and hairlines, the motion vocabulary (blur page transition, staggered entrances, the single halftone-shape loop), imagery for private work, and the page vocabulary; layered on code-conventions. Use for any UI work in src/ (pages, sections, components, Tailwind classes, CSS, motion, copy), even if the user doesn't mention the brand.
+---
+
+# alejandromejia.dev brand
+
+Two jobs: the **brand rules** every UI change follows, and the **page
+vocabulary** new pages build with. Both layer on `code-conventions`
+(code, generic styling, performance) and the `page-building`
+workflow, and win over the template's defaults when the two disagree.
+Research behind these decisions: `BENCHMARK.md` at the repo root.
+
+**The one-line brief:** *a business card that turns out to be a craft
+object.* Minimal, quiet, very little text; the precision of the details and
+one living loop show the skill.
+
+When a choice is unclear, pick the **quieter** option: less text, fewer
+elements, smaller motion, one gray instead of two.
+
+## Identity and voice
+
+- **Who:** Alejandro Mejía, Senior Design Engineer in Navarra, Spain. 13+
+  years on the web, 8+ in React / Next.js / TypeScript. Design systems,
+  component architecture, motion, accessibility, Core Web Vitals.
+- **For whom:** hiring managers and design/engineering leads at product
+  companies (remote EU/UK/US).
+- **The feeling:** calm, precise, confident. A senior person who doesn't need
+  to shout.
+- **Copy:** first person ("I build…"), plain English, short sentences,
+  specific nouns over adjectives. Say what was built and why. No hype words
+  ("passionate", "rockstar", "cutting-edge", "pixel-perfect"), no emoji, no
+  exclamation marks.
+- **No em dashes** anywhere: copy, code, comments, docs. Use a comma,
+  colon, semicolon, parentheses or a new sentence; an en dash only for
+  ranges ("2021–23"), a middle dot as a separator ("Writing · Page 2").
+- **Headline:** "Senior Design Engineer" plus one line, e.g. "I build design
+  systems and the interfaces that use them." Same wording as LinkedIn and
+  the CV.
+
+Applies to placeholder copy, `SITE.description` and `SITE.llmsDetails` in
+`src/lib/seo/seo.const.ts`, and the UI copy (`src/lib/constants/copy.ts`).
+
+## Colors
+
+**Monochrome.** Two tokens drive everything; grays are the foreground at an
+opacity, so dark mode is one swap.
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `--background` | `#fcfcfc` | `#0f0f0f` |
+| `--foreground` | `#111111` | `#ededed` |
+| `--accent` | = foreground | = foreground |
+| `--accent-foreground` | = background | = background |
+
+Grays, by role (use these steps only):
+
+- `text-foreground`: titles, body.
+- `text-foreground/60`: secondary text (descriptions, meta).
+- `text-foreground/40`: tertiary (dates, captions, disabled).
+- `border-foreground/10`: hairlines and dividers.
+- `bg-foreground/3`: surfaces (media frames, code blocks, hover rows).
+- Text selection: a `foreground/10` background.
+
+**The one exception:** `bg-positive` (green, lighter in dark mode), used
+only for the "open to work" dot (`AvailabilityDot`). A status signal, never
+decoration. It pulses slowly (see Motion) and shows only while "Open to
+work" is on in the Profile global's sidebar.
+
+**Dark mode** follows the system (`prefers-color-scheme`) until the visitor
+picks a theme (footer toggle or ⌘K); the choice is stored and set on `<html>`
+as `data-theme` before the first paint (`src/lib/styles/theme-preference.ts`). Use `dark:` for
+theme-dependent styles: it is a custom variant that reads both. No colored
+accent: focus rings (a 1px foreground outline, 4px offset) and active states
+use the foreground.
+
+Where it lives: `src/lib/styles/tokens.css`, `THEME_COLORS` in
+`src/lib/styles/theme-preference.ts` (kept in step), `SITE.themeColor`. Components use the tokens,
+never raw hex or Tailwind's palettes.
+
+## Typography
+
+- **Geist** (sans, 400 and 500) for everything. **No bold:** 500 is the
+  heaviest weight.
+- **Geist Mono** (400) for meta: dates, labels, tags, numbers in tables,
+  code. Labels in mono are sentence case, never uppercase-tracked.
+- **No serif**, not even for the wordmark (dropped on 2026-10-28). Emphasis
+  comes from weight (500), size and ink against the grays, never from a
+  second typeface or italics.
+
+Type scale (`--fs-*` in `tokens.css`, `text-*` utilities):
+
+| Token | Size | Line height | Use |
+| --- | --- | --- | --- |
+| `text-micro` | 12px | 1.4 | Mono labels, tags |
+| `text-caption` | 13px | 1.5 | Captions, dates, footnotes |
+| `text-body` | 15px | 1.6 | Body, lists, nav |
+| `text-lead` | 18px | 1.5 | Intro paragraph, post subtitle |
+| `text-display-s` | 24px | 1.25 | Page titles |
+| `text-display-m` | 32px | 1.15 | Case study titles |
+| `text-display-l` | 48px | 1.05 | Rare: one statement per page at most |
+| `text-display-xl` | 72px | 1 | Not used by default |
+
+Headings are `font-medium` with `tracking-tight` from 24px up. Body text
+uses `text-pretty`, headings `text-balance`. The root font-size is a fixed
+16px (no fluid scaling: this is a reading site).
+
+Where it lives: `src/lib/styles/fonts.ts`, `tokens.css`, `theme.css`, and
+the `extendTailwindMerge` list in `src/lib/utils/styles.ts`.
+
+## Shapes and spacing
+
+- **Layout:** a sidebar and a content column. From `lg` up, the sidebar
+  (`--sidebar-width`, 272px) is fixed on the left at the viewport's height,
+  96px (`--sidebar-gap`) from the content column (`--shell-width`, 640px);
+  the pair is centered. Below `lg` they stack: the header opens the page,
+  the footer closes it. Side gutter 24px on phones, 48px from `lg`. Pages
+  fill the content column; they never set their own width or gutter.
+- **Vertical rhythm:** 48px (`pad-xl`) between sections on the home page,
+  96px (`pad-3xl`) at the top of a page, 16–24px inside a section.
+- **Corners:** 12px (`rounded-xl`) for media frames and code blocks, 8px
+  (`rounded-lg`) for small controls, `rounded-full` for tags. No pill buttons.
+- **Borders:** 1px hairlines at `foreground/10`. **No shadows**, ever.
+- **Buttons:** rare. Prefer text links with an underline on hover; a
+  button, when needed, is a hairline-bordered, 8px-radius box.
+
+## Motion
+
+Personality: **calm and precise**. Small distances, a normal pace (never
+snappy, never slow), no bounce. Motion explains (something arrived, something changed) or delights
+once; it never decorates continuously, except the one signature loop and
+the availability dot's status pulse.
+
+| Moment | Motion | Timing |
+| --- | --- | --- |
+| Page transition | Content (`<main>`) blurs to 4px and fades out; new content fades in from 4px blur with an 8px rise. The sidebar stays still | Out 300ms, in 600ms starting at 200ms |
+| Entrance (first view of a page) | Lines and list rows fade in with an 8px rise and 4px blur, staggered | 700ms `ease-out-quint`, 80ms stagger, at most ~8 items |
+| Hover (links, rows) | Color/opacity, underline appears | 250ms ease |
+| Popover / menu | Scale from 0.96 + fade | 250ms `ease-out-quint` |
+| Signature loop | `HalftoneShape`: a cube rounding into a sphere and back, on the home page only | Continuous, paused off-screen |
+| Status pulse | The "open to work" dot fades to 40% and back (`animate-status-pulse`) | 3s ease-in-out, continuous |
+
+Eases (`theme.css`): `ease-out-quint` for things arriving, `ease-in-quart`
+for things leaving. Under `prefers-reduced-motion`, page transitions are an
+instant cut, entrances are skipped, the loop renders one still frame, and
+the status dot stays still.
+
+Where it lives: `ease-*` tokens in `theme.css`, the page transition in
+`src/lib/styles/view-transitions.css` and `src/components/ui/page-transition.tsx`,
+the loop in `src/components/effects/halftone-shape/`. No preloader. Every rule
+in `code-conventions/performance.md` still applies.
+
+## Logo and icons
+
+- **Wordmark:** "Alejandro Mejía" in Geist 500, `text-lead`,
+  `tracking-tight`, foreground color (`Logo`); the `/40` headline under it
+  makes it stand out. No symbol, no logo mark.
+- **Favicon:** TODO (an "am" monogram in Geist 500, or a single halftone
+  dot).
+- **Icons:** `lucide-react` at 16px with a 1.5 stroke, only where text can't
+  do the job.
+
+## Imagery
+
+- **Real work only.** No stock photos, no illustrations, no 3D mockups.
+- **Private work is shown as short muted recordings** (10–20s loops) and
+  before/after comparisons, on a `bg-foreground/3` surface with a hairline
+  border and 12px corners. Optional minimal browser chrome (three gray dots
+  and a hairline), never device frames.
+- Recordings are captured at 2× and cropped to the interesting part; no
+  cursor-hunting, no long scrolls.
+- **Never show a client's or employer's brand assets** (logos, licensed
+  fonts such as Desigual's Founders Grotesk) or confidential data without
+  permission. Desigual: Storybook UI and examples only.
+
+## Components and page vocabulary
+
+Filled as the site grows.
+
+- **Effects:** `HalftoneShape` (`src/components/effects/halftone-shape/`), the
+  home page's signature loop. Other UI experiments are Craft pieces only:
+  they are showcased on `/craft`, never used in the site's own pages.
+- **Page transition:** blur cross-fade of `<main>`, the sidebar anchored.
+- **Shell:** `Sidebar` (`src/components/layout/sidebar/`) holds the header
+  and the footer; the frontend layout puts it beside `<main>`.
+- **Entrance:** `enter(index)` from `@/lib/utils` (`motion-safe:animate-enter`,
+  80ms per item).
+- **Section label:** `SectionLabel` (`src/components/ui/section-label/`),
+  mono micro text at `/40` with an optional link at the end.
+- **Lists (home, Work):** whole-row links with a `bg-foreground/3` hover surface
+  (`LIST_ROW_CLASSNAME`); meta (years, dates, formats) in mono micro `/40`.
+- **Page header:** `PageHeader` (`src/components/ui/page-header/`): an inner
+  page's `<h1>` (`text-display-s`) and a `/60` description, entering first.
+  Case studies use `text-display-m` with a back link, facts and outcomes.
+- **Media frame:** `MediaFrame` (`src/components/story/media-frame.tsx`):
+  the surface, hairline and 12px corners every piece of work sits in,
+  optional browser chrome; a halftone dot texture stands in for missing media.
+- **Story blocks** (`src/components/story/`), rendered by `StoryContent`
+  from plain `StoryNode` data that mirrors the Payload blocks: h2s in
+  `text-lead`, paragraphs at `/80`, then `Clip`, `BeforeAfter` (a drag and
+  keyboard slider, or a toggle), `CodeBlock` (monochrome, highlighted lines
+  on a `foreground/5` band), `Callout`, `Steps` (mono numbers between
+  hairlines) and `Metrics`.
+- **Recommendations:** `RecommendationQuote` (`app/(frontend)/_components/`): the
+  quote word for word (an excerpt on the home page, in full on a case
+  study), then the name, role and company, and "At ChromaWay · Sep 2025" in
+  mono. No company logos or initials (dropped: the logos are other
+  companies' trademarks). Every list of them ends with
+  `RecommendationsSource`: "Copied word for word from LinkedIn" and a link
+  to all of them on the profile, so visitors can check they are real.
+- **Inspect mode** (`src/components/effects/inspect-mode/`): on site-wide,
+  toggled with `I`. Its Figma blue and red appear only while it is on.
+  - **Header** (top of the sidebar): the wordmark and headline, the intro,
+    the availability line and the live clock, then the menu (Home, the
+    Header global's links, CV): a column from `lg`, a row on phones, where
+    the ⌘K trigger ("Menu") sits beside the wordmark.
+  - **Footer** (bottom of the sidebar): three rows in `text-caption`: the
+    links out; ⌘K, inspect and theme; then ©, Source (the repository) and
+    any links from the Footer global.
+- **Links in chrome:** `text-foreground/60`, ink on hover and on the current
+  section, underline drawn on hover. Transition `color` and
+  `background-size` together, never `transition-colors` alone (it would
+  replace the underline's transition).
+- **Command menu:** a hairline-bordered 12px box, `bg-background`, over a
+  `background/80` backdrop. Group labels are mono micro text at `/40`, and
+  the highlighted row is `bg-foreground/3`.
+
+## TODO
+
+- [ ] Favicon and OG image design.
+- [x] Theme toggle (Phase 3), wired to `[data-theme]`.
+- [ ] Page vocabulary: fill in as Home, Work, Writing, Craft and CV are built (no About page).
