@@ -1,0 +1,96 @@
+# PRODUCTION stack for a VPS, deployed as a Dokploy Compose service. Dokploy
+# writes the Environment tab to a .env next to this file, then on every push
+# runs:
+#
+#   docker compose -p <app> -f docker-compose.prod.yml up -d --build
+#
+# That one command is the whole deploy. The image build needs no database
+# (CMS routes render at request time). The one-off `migrate` service applies
+# pending Payload migrations, and the app starts only once it has succeeded. A
+# failed migration fails the deploy and leaves the running app untouched.
+#
+# The `:?` markers below fail fast if a required value is missing.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB}
+    # No published port: only the services in this stack can reach Postgres.
+    volumes:
+      # Outlives every deploy. Never `down -v` this stack: that deletes the data.
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-off job: bring the prod DB schema up to date before the app serves.
+  # Production disables Payload's auto schema-push, so a fresh or upgraded
+  # database only gets its schema from migrations. Runs to completion and exits;
+  # the app waits for it via `service_completed_successfully` below.
+  migrate:
+    build:
+      context: .
+      target: migrator
+    restart: 'no'
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET}
+      NODE_ENV: production
+
+  app:
+    build:
+      context: .
+      target: runner
+      # Public values the build bakes in (see the Dockerfile `builder` stage).
+      args:
+        NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:?set NEXT_PUBLIC_SERVER_URL}
+        R2_PUBLIC_URL: ${R2_PUBLIC_URL:-}
+        UMAMI_ENABLED: ${UMAMI_ENABLED:-}
+        UMAMI_WEBSITE_ID: ${UMAMI_WEBSITE_ID:-}
+        UMAMI_DOMAINS: ${UMAMI_DOMAINS:-}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    # Everything in .env (IndexNow key, Umami settings, …);
+    # the explicit entries below override it and fail fast when missing.
+    env_file: .env
+    environment:
+      # Point at the compose `db` service, or override with a managed Postgres.
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?set PAYLOAD_SECRET}
+      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:?set NEXT_PUBLIC_SERVER_URL}
+      PREVIEW_SECRET: ${PREVIEW_SECRET:?set PREVIEW_SECRET}
+      # Media uploads go to Cloudflare R2. Required here: without them Payload
+      # falls back to the container's disk and uploads vanish on every rebuild.
+      R2_BUCKET: ${R2_BUCKET:?set R2_BUCKET}
+      R2_ENDPOINT: ${R2_ENDPOINT:?set R2_ENDPOINT}
+      R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID:?set R2_ACCESS_KEY_ID}
+      R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY:?set R2_SECRET_ACCESS_KEY}
+      # Bucket folder for this environment's uploads (e.g. website/cms/prod).
+      R2_MEDIA_PREFIX: ${R2_MEDIA_PREFIX:?set R2_MEDIA_PREFIX}
+      R2_PUBLIC_URL: ${R2_PUBLIC_URL:-}
+      NODE_ENV: production
+    # No published port. Dokploy's Traefik routes the domain to container port
+    # 3000 (Domains tab: service `app`, port 3000). Publishing 3000 on the host
+    # would also collide with the Dokploy dashboard, which listens there.
+    expose:
+      - '3000'
+    # Dokploy attaches the service that has a domain to its `dokploy-network`.
+    # Listing `default` keeps the app on this stack's own network as well, so
+    # it can still reach `db`.
+    networks:
+      - default
+
+volumes:
+  postgres_data:

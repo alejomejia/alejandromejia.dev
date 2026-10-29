@@ -1,0 +1,70 @@
+# Local DEVELOPMENT stack: Postgres + the Next.js/Payload app (frontend + CMS).
+#
+#   docker compose up            → start db + app with hot reload
+#   docker compose up -d db      → start only Postgres (run the app on the host)
+#
+# Dependencies are reconciled to the committed lockfile every time the app
+# container starts, so adding a package (`pnpm add x` on the host, which updates
+# package.json + pnpm-lock.yaml) is picked up on the next `docker compose up`;
+# no image rebuild needed. See the `app` service `command` below.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portfolio}
+      POSTGRES_DB: ${POSTGRES_DB:-portfolio}
+    ports:
+      # Host port is configurable: 5432 (and several others) are taken by other
+      # local stacks on this machine. The in-network port stays 5432.
+      - '${POSTGRES_HOST_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-portfolio}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      target: dev
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Inside the compose network the database host is the `db` service.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-portfolio}:${POSTGRES_PASSWORD:-portfolio}@db:5432/${POSTGRES_DB:-portfolio}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-change-me-in-production}
+      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL:-http://localhost:3000}
+      PREVIEW_SECRET: ${PREVIEW_SECRET:-change-me-preview-secret}
+      NODE_ENV: development
+      # Marks the shell as non-interactive so pnpm reconciles node_modules
+      # without prompting for confirmation (a container has no TTY, which
+      # otherwise aborts the install with ERR_PNPM_ABORTED_REMOVE_MODULES_DIR).
+      CI: 'true'
+    ports:
+      - '3000:3000'
+    volumes:
+      # Bind-mount source for hot reload, but keep deps and build cache in named
+      # volumes so the host's platform-specific copies never shadow them.
+      - .:/app
+      - node_modules:/app/node_modules
+      - next_cache:/app/.next
+      # Dedicated pnpm store (also set via --store-dir below) so the container
+      # never writes a `.pnpm-store` into the bind-mounted project, and package
+      # downloads are cached across installs and volume resets.
+      - pnpm_store:/pnpm-store
+    # Reconcile deps to the committed lockfile, then start the dev server. The
+    # install is a fast no-op when nothing changed and only adds the delta when
+    # the lockfile moved, so dependency changes "just work" across restarts.
+    command: sh -c "pnpm install --frozen-lockfile --prefer-offline --store-dir /pnpm-store && pnpm dev"
+
+volumes:
+  postgres_data:
+  node_modules:
+  next_cache:
+  pnpm_store:

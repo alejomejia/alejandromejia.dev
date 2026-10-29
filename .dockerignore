@@ -1,0 +1,27 @@
+node_modules
+.next
+.git
+.github
+.vscode
+.idea
+npm-debug.log*
+.pnpm-debug.log*
+.DS_Store
+*.pem
+.env*
+!.env.example
+coverage
+build
+out
+# Reference Payload monorepo, not part of the app image.
+payload-3.x
+Dockerfile
+docker-compose.yml
+docker-compose.prod.yml
+README.md
+.pnpm-store
+# Local DB dumps from pnpm db:push (contain user data)
+.db-backups
+
+# Local Media uploads; production stores them in R2
+public/media
