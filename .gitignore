@@ -1,0 +1,60 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# payload
+/payload-*
+
+# pnpm store (created if a container ever falls back to a project-local store)
+.pnpm-store/
+
+# local database backups (pnpm db:push)
+/.db-backups
+
+# local Media uploads (when R2 isn't configured)
+/public/media
+
+# Personal CV export (contains a phone number); the public CV is uploaded in the CMS
+/cv.pdf
+
+# Personal to-do list, kept out of the repo
+/todo.md
+
+# local setup notes, not published
+/docs/development.md

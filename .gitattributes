@@ -1,0 +1,2 @@
+# Payload migration schema snapshots: generated, collapsed in GitHub diffs
+src/payload/migrations/*.json linguist-generated=true
