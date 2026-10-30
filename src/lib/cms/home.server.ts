@@ -11,7 +11,8 @@ import type { Craft, Work, Writing } from '@/payload-types'
 import { CMS_CACHE_TAG } from './cms.const'
 
 /** How many entries each home page list shows. */
-const HOME_LIMITS = { work: 4, writing: 4, craft: 4 }
+// Craft is a sneak peek: one row of two tiles.
+const HOME_LIMITS = { work: 4, writing: 4, craft: 2 }
 
 type Status = { _status?: 'draft' | 'published' | null }
 

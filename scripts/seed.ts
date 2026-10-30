@@ -7,8 +7,8 @@ import { seedProfile } from './seed/profile'
 
 /**
  * Development seed: an admin user, the topics, the Profile global (the CV),
- * the Site settings/Header/Footer globals, drafts of the planned case studies
- * and articles. Safe to re-run: globals with content are kept. Pass `--overwrite` to reset the globals and the Profile.
+ * the Site settings/Header/Footer globals, drafts of the planned case studies,
+ * articles and Craft experiments. Safe to re-run: globals with content are kept. Pass `--overwrite` to reset the globals and the Profile.
  *
  * The seed runs outside Next, so a
  * deployed site keeps its cached pages: save any document in that
@@ -33,7 +33,7 @@ async function seed() {
   await seedGlobals(payload, { overwrite })
   await seedDrafts(payload)
 
-  payload.logger.info('Seed complete: profile, topics, work and writing drafts')
+  payload.logger.info('Seed complete: profile, topics, work, writing and craft drafts')
   process.exit(0)
 }
 

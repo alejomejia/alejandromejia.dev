@@ -121,9 +121,38 @@ const WRITING = [
   },
 ]
 
+/** The experiments with a live demo, as on the Craft page's mock (newest first). */
+const CRAFT = [
+  {
+    slug: 'inspect-mode',
+    title: 'Inspect mode',
+    description: 'A Figma-like inspector over any page of this site: sizes, padding and the distance between two elements.',
+    publishedAt: '2026-10-27',
+  },
+  {
+    slug: 'halftone-morph',
+    title: 'Halftone morph',
+    description: 'A cube rounding into a sphere and back, ray-marched into halftone dots on the 8px grid.',
+    publishedAt: '2026-10-20',
+  },
+  {
+    slug: 'before-after-slider',
+    title: 'Before and after slider',
+    description: 'Two versions of a screen behind one divider, dragged with a pointer, a finger or the arrow keys.',
+    publishedAt: '2026-09-15',
+  },
+  {
+    slug: 'sun-to-moon-toggle',
+    title: 'Sun to moon toggle',
+    description: 'One circle that turns into a crescent: a second circle in its mask slides in while the rays fade.',
+    publishedAt: '2026-08-30',
+  },
+]
+
 /**
- * Drafts for the case studies and articles planned in CONTENT-MODEL.md, so
- * the admin opens with the work to do. Existing slugs are left alone.
+ * Drafts for the case studies, articles and Craft experiments planned in
+ * CONTENT-MODEL.md, so the admin opens with the work to do. Existing slugs
+ * are left alone.
  */
 export async function seedDrafts(payload: Payload) {
   const context = { disableRevalidate: true }
@@ -146,5 +175,12 @@ export async function seedDrafts(payload: Payload) {
     })
   }
 
-  payload.logger.info(`Seed: ${WORK.length} case study drafts, ${WRITING.length} article drafts`)
+  for (const { slug, ...data } of CRAFT) {
+    const { totalDocs } = await payload.count({ collection: 'craft', where: { slug: { equals: slug } } })
+    if (totalDocs > 0) continue
+    // Drafts skip the required demo, which waits for the Craft collection's sync.
+    await payload.create({ collection: 'craft', draft: true, context, data: { ...data, slug, _status: 'draft' } })
+  }
+
+  payload.logger.info(`Seed: ${WORK.length} case study drafts, ${WRITING.length} article drafts, ${CRAFT.length} craft drafts`)
 }
