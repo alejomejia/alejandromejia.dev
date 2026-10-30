@@ -9,17 +9,14 @@ export type OgCard = {
   description?: string | null
 }
 
-type WritingFormat = keyof typeof COPY.home.formats
-
-/** A writing entry's card: its format, title and excerpt. */
+/** A Writing article's card: its title and excerpt. */
 export function writingCard(doc: {
   title: string
-  format: WritingFormat
   excerpt?: string | null
   meta?: { description?: string | null } | null
 }): OgCard {
   return {
-    label: `${COPY.shareCard.writing} · ${COPY.home.formats[doc.format]}`,
+    label: `${COPY.shareCard.writing} · ${COPY.shareCard.article}`,
     title: doc.title,
     // The excerpt is capped to fit the card; the SEO description may run longer.
     description: doc.excerpt || doc.meta?.description,

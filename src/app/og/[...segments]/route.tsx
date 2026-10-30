@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
 
 import { findChapter, findWork } from '@/app/(frontend)/work/_components/work.mock'
+import { findWriting } from '@/app/(frontend)/writing/_components/writing.mock'
 import { getShareCard } from '@/lib/cms/share-card.server'
-import { caseStudyCard, chapterCard, type OgCard, ogCardVersion } from '@/lib/seo/og/og-cards'
+import { caseStudyCard, chapterCard, type OgCard, ogCardVersion, writingCard } from '@/lib/seo/og/og-cards'
 import { renderOgImage } from '@/lib/seo/og/og-image.server'
 
 // Rendered once, on the first request for each path, then served from Next's
@@ -26,11 +27,18 @@ function workCard(slug: string, chapterSlug?: string): OgCard | null {
   return chapter ? chapterCard(work, chapter) : null
 }
 
+/** Articles. Read from the mock data until Writing moves to the CMS. */
+function articleCard(slug: string): OgCard | null {
+  const entry = findWriting(slug)
+  return entry ? writingCard(entry) : null
+}
+
 async function findCard([section, slug, chapter, ...rest]: string[]): Promise<OgCard | null> {
   if (!slug || rest.length > 0) return null
   if (section === 'work') return workCard(slug, chapter)
   if (chapter) return null
-  if (section === 'writing' || section === 'craft') return getShareCard(section, slug)
+  if (section === 'writing') return articleCard(slug)
+  if (section === 'craft') return getShareCard(section, slug)
   return null
 }
 

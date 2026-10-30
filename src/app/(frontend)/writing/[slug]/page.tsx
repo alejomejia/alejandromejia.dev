@@ -1,99 +1,122 @@
 import type { Metadata } from 'next'
-import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
-import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 
-import { Media } from '@/components/cms/media'
-import { RichText } from '@/components/cms/rich-text'
-import { PayloadRedirects } from '@/components/cms/payload-redirects'
-import { LivePreviewListener } from '@/components/cms/live-preview-listener'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Breadcrumb } from '@/components/ui/breadcrumb'
-import { breadcrumbJsonLd, writingJsonLd } from '@/lib/seo/json-ld'
-import { generateMeta } from '@/lib/seo/metadata'
-import { writingPath } from '@/lib/seo/seo.utils'
-import { queryWritingBySlug } from '@/lib/cms/writing.server'
+import { StoryContent } from '@/components/story'
+import { MediaFrame } from '@/components/story/media-frame'
+import { SITE_ROUTES } from '@/lib/constants/routes'
 import { COPY } from '@/lib/constants/copy'
-import { formatDate } from '@/lib/utils'
+import { breadcrumbJsonLd, writingJsonLd } from '@/lib/seo/json-ld'
+import { buildMetadata, generatedShareImage } from '@/lib/seo/metadata'
+import { ogImagePath, writingCard } from '@/lib/seo/og/og-cards'
+import { absoluteURL, writingPath } from '@/lib/seo/seo.utils'
+import { enter, formatMonth } from '@/lib/utils'
+
+import { BackLink } from '@/app/(frontend)/_components/back-link'
+import { OnwardLink } from '@/app/(frontend)/_components/onward-link'
+import { findWriting, nextWriting } from '@/app/(frontend)/writing/_components/writing.mock'
+import { WritingContents } from './_components/writing-contents'
+import { WritingFacts } from './_components/writing-facts'
+import { WritingRelated } from './_components/writing-related'
 
 type Args = {
-  params: Promise<{ slug?: string }>
+  params: Promise<{ slug: string }>
 }
 
-/** Rendered on first visit, then cached until publish (see the `[slug]` page). */
-export async function generateStaticParams() {
+/**
+ * Nothing is prerendered at build, so the Docker build never needs the
+ * database (the root layout reads it). Each page renders on its first visit
+ * and stays cached.
+ */
+export function generateStaticParams() {
   return []
 }
 
-/** A Writing entry. A placeholder layout until Phase 6 designs each format. */
-export default async function WritingEntryPage({ params }: Args) {
-  const { slug = '' } = await params
-  const decodedSlug = decodeURIComponent(slug)
-  const url = writingPath(decodedSlug)
-
-  const { isEnabled: draft } = await draftMode()
-  const post = await queryWritingBySlug(decodedSlug)
-
-  if (!post) return <PayloadRedirects url={url} />
-
-  const topics = (post.topics ?? [])
-    .map((topic) => (typeof topic === 'object' ? topic.title : null))
-    .filter(Boolean)
-    .join(', ')
-
-  // Only worth showing once it falls on a different day than publication.
-  const showUpdated = !post.publishedAt || formatDate(post.updatedAt) !== formatDate(post.publishedAt)
-
-  return (
-    <article className="mx-auto w-full max-w-3xl px-6 py-16">
-      <PayloadRedirects disableNotFound url={url} />
-      {draft && <LivePreviewListener />}
-      <JsonLd data={writingJsonLd(post)} />
-      <JsonLd
-        data={breadcrumbJsonLd([
-          { name: COPY.writing.title, path: '/writing' },
-          { name: post.title, path: url },
-        ])}
-      />
-
-      <header className="mb-8 flex flex-col gap-4">
-        <Breadcrumb crumbs={[{ label: COPY.writing.title, href: '/writing' }, { label: post.title }]} className="mb-4" />
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-foreground/60">
-          {topics && <span className="uppercase tracking-wide">{topics}</span>}
-          {post.publishedAt && <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>}
-          {/* A visible "updated" date backs up JSON-LD `dateModified`; search and
-              AI engines favor content that is demonstrably fresh. */}
-          {showUpdated && (
-            <span>
-              {COPY.writing.updated} <time dateTime={post.updatedAt}>{formatDate(post.updatedAt)}</time>
-            </span>
-          )}
-        </div>
-
-        <h1 className="text-4xl font-semibold tracking-tight">{post.title}</h1>
-
-        {post.cover && typeof post.cover === 'object' && (
-          <Media
-            resource={post.cover}
-            className="mt-4 overflow-hidden rounded-xl"
-            lcp
-            sizes="(max-width: 768px) 100vw, 768px"
-          />
-        )}
-      </header>
-
-      {post.format === 'snippet' && post.code && (
-        <pre className="mb-8 overflow-x-auto rounded-xl bg-foreground/5 p-4 font-mono text-caption">
-          <code>{post.code}</code>
-        </pre>
-      )}
-      {post.content && <RichText data={post.content as DefaultTypedEditorState} />}
-    </article>
-  )
+export async function generateMetadata({ params }: Args): Promise<Metadata> {
+  const { slug } = await params
+  const entry = findWriting(slug)
+  if (!entry) return {}
+  const path = writingPath(entry.slug)
+  return buildMetadata({
+    title: entry.title,
+    description: entry.excerpt,
+    path,
+    image: generatedShareImage(path, writingCard(entry)),
+    article: {
+      publishedTime: entry.publishedAt,
+      modifiedTime: entry.updatedAt,
+      // The author's profile URL, which `og:article:author` expects.
+      authors: [absoluteURL('/')],
+    },
+  })
 }
 
-export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  const { slug = '' } = await params
-  const decodedSlug = decodeURIComponent(slug)
-  const post = await queryWritingBySlug(decodedSlug)
-  return generateMeta({ doc: post, path: writingPath(decodedSlug) })
+/**
+ * An article: the title, excerpt and facts, the optional cover, the
+ * contents when there are enough sections, then the story (text and story
+ * blocks), the case studies it draws on, and the next article. Reads the
+ * mock until the design is signed off.
+ */
+export default async function WritingEntryPage({ params }: Args) {
+  const { slug } = await params
+  const entry = findWriting(slug)
+  if (!entry) notFound()
+  const copy = COPY.writing
+  const path = writingPath(entry.slug)
+  const next = nextWriting(entry.slug)
+
+  return (
+    <article className="flex flex-col gap-pad-2xl">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: copy.title, path: SITE_ROUTES.writing },
+          { name: entry.title, path },
+        ])}
+      />
+      <JsonLd
+        data={writingJsonLd({
+          path,
+          title: entry.title,
+          description: entry.excerpt,
+          image: ogImagePath(path, writingCard(entry)),
+          publishedAt: entry.publishedAt,
+          updatedAt: entry.updatedAt,
+          topics: entry.topics,
+        })}
+      />
+
+      <header className="flex flex-col gap-pad-l">
+        <div className="flex flex-col gap-pad-xs">
+          <BackLink href={SITE_ROUTES.writing}>{copy.back}</BackLink>
+          <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{entry.title}</h1>
+          <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{entry.excerpt}</p>
+        </div>
+        <div {...enter(3)}>
+          <WritingFacts entry={entry} copy={copy} />
+        </div>
+      </header>
+
+      {entry.cover && (
+        <div {...enter(4)}>
+          <MediaFrame media={entry.cover} />
+        </div>
+      )}
+
+      <WritingContents nodes={entry.content} label={copy.contents} enterStep={4} />
+
+      <StoryContent nodes={entry.content} />
+
+      <WritingRelated entries={entry.relatedWork} label={copy.relatedWork} />
+
+      {next.slug !== entry.slug && (
+        <OnwardLink
+          label={copy.next}
+          href={writingPath(next.slug)}
+          title={next.title}
+          summary={next.excerpt}
+          meta={formatMonth(next.publishedAt)}
+        />
+      )}
+    </article>
+  )
 }

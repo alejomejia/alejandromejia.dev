@@ -45,3 +45,17 @@ export function mapStrings<T>(value: T, map: (text: string, key: string | undefi
   }
   return value
 }
+
+/**
+ * Groups items by a key, keeping the order in which each key and item first
+ * appears (so a list sorted by date stays sorted inside and across groups).
+ * @example groupBy(posts, (post) => post.year) // [['2026', [...]], ['2025', [...]]]
+ */
+export function groupBy<T>(items: T[], key: (item: T) => string): Array<[string, T[]]> {
+  const groups = new Map<string, T[]>()
+  for (const item of items) {
+    const group = key(item)
+    groups.set(group, [...(groups.get(group) ?? []), item])
+  }
+  return [...groups]
+}

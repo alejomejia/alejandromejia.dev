@@ -19,6 +19,14 @@ export function formatMonth(iso: string): string {
 }
 
 /**
+ * Formats an ISO date as a short month and day, for lists already grouped by year.
+ * @example formatMonthDay('2026-10-07') // 'Oct 7'
+ */
+export function formatMonthDay(iso: string): string {
+  return new Date(iso).toLocaleDateString(FORMAT_LOCALE, { month: 'short', day: 'numeric', timeZone: 'UTC' })
+}
+
+/**
  * The years a project ran, compact: one year when it started and ended in
  * it, an open dash while it runs, the end year's last two digits otherwise.
  * @example formatYears('2021-03-01', '2023-06-01') // '2021–23'
@@ -48,7 +56,7 @@ export function slugify(text: string): string {
 /**
  * Fills the `{name}` placeholders of a message. Unknown placeholders are left
  * as they are, so a typo shows up on the page.
- * @example formatMessage(COPY.pagination.status, { page: 2, total: 5 }) // 'Page 2 of 5'
+ * @example formatMessage('Page {page} of {total}', { page: 2, total: 5 }) // 'Page 2 of 5'
  */
 export function formatMessage(message: string, values: Record<string, string | number>): string {
   return message.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match))

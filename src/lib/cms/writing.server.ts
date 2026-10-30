@@ -41,31 +41,3 @@ export const queryWritingBySlug = cache(async function queryWritingBySlug(
   const { isEnabled: draft } = await draftMode()
   return draft ? findWriting(slug, true) : getCachedPublishedWriting(slug)
 })
-
-/**
- * Paginated list of published Writing entries for the archive.
- * Access control (`overrideAccess: false`, no user) restricts results to
- * published docs.
- */
-export async function queryPublishedWriting({ page = 1, limit = 9 }: { page?: number; limit?: number } = {}) {
-  const payload = await getPayload({ config: configPromise })
-
-  return payload.find({
-    collection: 'writing',
-    depth: 1,
-    page,
-    limit,
-    sort: '-publishedAt',
-    overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      format: true,
-      excerpt: true,
-      topics: true,
-      cover: true,
-      meta: true,
-      publishedAt: true,
-    },
-  })
-}
