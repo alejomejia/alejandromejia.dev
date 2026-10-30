@@ -1,6 +1,6 @@
 ---
 name: alejandromejia-brand
-description: The brand rules of alejandromejia.dev (Alejandro Mejía's design engineer portfolio): identity and voice, the monochrome palette with system dark mode, Geist + Geist Mono with a sans wordmark (no serif), the small type scale, the one-column layout, corners and hairlines, the motion vocabulary (blur page transition, staggered entrances, the single halftone-shape loop), imagery for private work, and the page vocabulary; layered on code-conventions. Use for any UI work in src/ (pages, sections, components, Tailwind classes, CSS, motion, copy), even if the user doesn't mention the brand.
+description: The brand rules of alejandromejia.dev (Alejandro Mejía's design engineer portfolio): identity and voice, the monochrome, dark-only palette, Geist + Geist Mono with a sans wordmark (no serif), the small type scale, the one-column layout, corners and hairlines, the motion vocabulary (blur page transition, staggered entrances, the single halftone-shape loop), imagery for private work, and the page vocabulary; layered on code-conventions. Use for any UI work in src/ (pages, sections, components, Tailwind classes, CSS, motion, copy), even if the user doesn't mention the brand.
 ---
 
 # alejandromejia.dev brand
@@ -43,15 +43,15 @@ Applies to placeholder copy, `SITE.description` and `SITE.llmsDetails` in
 
 ## Colors
 
-**Monochrome.** Two tokens drive everything; grays are the foreground at an
-opacity, so dark mode is one swap.
+**Monochrome and dark only.** Two tokens drive everything; grays are the
+foreground at an opacity.
 
-| Token | Light | Dark |
-| --- | --- | --- |
-| `--background` | `#fcfcfc` | `#0f0f0f` |
-| `--foreground` | `#111111` | `#ededed` |
-| `--accent` | = foreground | = foreground |
-| `--accent-foreground` | = background | = background |
+| Token | Value |
+| --- | --- |
+| `--background` | `#0f0f0f` |
+| `--foreground` | `#ededed` |
+| `--accent` | = foreground |
+| `--accent-foreground` | = background |
 
 Grays, by role (use these steps only):
 
@@ -62,21 +62,20 @@ Grays, by role (use these steps only):
 - `bg-foreground/3`: surfaces (media frames, code blocks, hover rows).
 - Text selection: a `foreground/10` background.
 
-**The one exception:** `bg-positive` (green, lighter in dark mode), used
+**The one exception:** `bg-positive` (`#4ade80`), used
 only for the "open to work" dot (`AvailabilityDot`). A status signal, never
 decoration. It pulses slowly (see Motion) and shows only while "Open to
 work" is on in the Profile global's sidebar.
 
-**Dark mode** follows the system (`prefers-color-scheme`) until the visitor
-picks a theme (footer toggle or ⌘K); the choice is stored and set on `<html>`
-as `data-theme` before the first paint (`src/lib/styles/theme-preference.ts`). Use `dark:` for
-theme-dependent styles: it is a custom variant that reads both. No colored
-accent: focus rings (a 1px foreground outline, 4px offset) and active states
-use the foreground.
+**Dark only:** no light theme, no theme toggle, and no `dark:` variants
+(there is nothing to switch). `color-scheme: dark` keeps native controls and
+scrollbars dark. Print is the one exception: on paper the tokens swap to dark
+ink on white (`@media print` in `tokens.css`). No colored accent: focus rings
+(a 1px foreground outline, 4px offset) and active states use the foreground.
 
-Where it lives: `src/lib/styles/tokens.css`, `THEME_COLORS` in
-`src/lib/styles/theme-preference.ts` (kept in step), `SITE.themeColor`. Components use the tokens,
-never raw hex or Tailwind's palettes.
+Where it lives: `src/lib/styles/tokens.css` and `SITE.themeColor` (kept equal
+to `--background`). Components use the tokens, never raw hex or Tailwind's
+palettes.
 
 ## Typography
 
@@ -219,7 +218,7 @@ Filled as the site grows.
   - **Intro** (bottom of the sidebar, above the footer): the one-line intro
     in `text-caption` at `/60`.
   - **Footer** (bottom of the sidebar): three rows in `text-caption`: the
-    links out; ⌘K, inspect and theme; then ©, Source (the repository) and
+    links out; ⌘K and inspect; then ©, Source (the repository) and
     any links from the Footer global. On phones the intro and footer close
     the page below a hairline.
 - **Links:** every link turns ink (`text-foreground`) on hover, fading in
@@ -247,5 +246,4 @@ Filled as the site grows.
 ## TODO
 
 - [ ] Favicon and OG image design.
-- [x] Theme toggle (Phase 3), wired to `[data-theme]`.
 - [ ] Page vocabulary: fill in as Home, Work, Writing, Craft and CV are built (no About page).
