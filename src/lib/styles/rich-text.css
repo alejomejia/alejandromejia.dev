@@ -1,0 +1,36 @@
+/*
+ * Baseline rich-text styling. Kept minimal on purpose; swap for the Tailwind
+ * typography plugin (`prose`) if richer defaults are needed.
+ */
+.rich-text > * + * {
+  margin-top: 1rem; /* 16px */
+}
+.rich-text h1,
+.rich-text h2,
+.rich-text h3 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+.rich-text h1 {
+  font-size: 2rem; /* 32px */
+}
+.rich-text h2 {
+  font-size: 1.5rem; /* 24px */
+}
+.rich-text h3 {
+  font-size: 1.25rem; /* 20px */
+}
+.rich-text a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rich-text ul,
+.rich-text ol {
+  padding-left: 1.5rem; /* 24px */
+}
+.rich-text ul {
+  list-style: disc;
+}
+.rich-text ol {
+  list-style: decimal;
+}

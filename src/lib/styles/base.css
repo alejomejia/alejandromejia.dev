@@ -1,0 +1,34 @@
+/* Document-level defaults. */
+html {
+  /* Native controls and scrollbars follow the page's light/dark tokens. */
+  color-scheme: light dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+/* Keyboard focus: a hairline in the ink, no colored ring (see the brand skill).
+ * In the base layer, so utilities (`outline-none` on the menu's input) win. */
+@layer base {
+  :focus-visible {
+    outline: 1px solid var(--foreground);
+    outline-offset: 0.25rem; /* 4px */
+  }
+}

@@ -1,0 +1,94 @@
+/* ---------------------------------------------------------------------------
+ * Page transitions
+ *
+ * A soft blur cross-fade of the page content (after shud.in, made lighter):
+ * the old `<main>` blurs and fades away, then the new one fades in from a
+ * blur with a small rise. The sidebar has its own snapshot and stays still.
+ * The root snapshot (the background; on phones, the footer) only fades in with the new
+ * content: opacity is cheap, and blurring a full-viewport snapshot is the
+ * most expensive thing a transition can animate, so the blur stays on
+ * `<main>` alone. `PageTransition` gives `<main>` the `page-out` / `page-in`
+ * classes; tune the variables, edit the keyframes to change the motion.
+ * ------------------------------------------------------------------------- */
+:root {
+  /* A normal pace: long enough to read as one calm motion, short enough
+   * that navigating never feels like waiting. */
+  --vt-duration-out: 300ms;
+  --vt-duration-in: 600ms;
+  /* The new page starts before the old one has fully left; the overlap is
+   * what makes the cross-fade read as one motion instead of two. */
+  --vt-delay-in: 200ms;
+  --vt-blur: 0.25rem; /* 4px */
+  --vt-rise: 0.5rem; /* 8px, from below */
+}
+
+@keyframes vt-blur-out {
+  to {
+    opacity: 0;
+    filter: blur(var(--vt-blur));
+  }
+}
+
+@keyframes vt-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--vt-blur));
+    translate: 0 var(--vt-rise);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The color the old page dissolves into and the new one comes out of. */
+::view-transition {
+  background-color: var(--background);
+  /* Let clicks reach the live page while a transition is still animating. */
+  pointer-events: none;
+}
+
+::view-transition-old(.page-out) {
+  animation: vt-blur-out var(--vt-duration-out) var(--ease-in-quart) both;
+}
+
+::view-transition-new(.page-in) {
+  animation: vt-blur-in var(--vt-duration-in) var(--ease-out-quint) var(--vt-delay-in) both;
+}
+
+/* Background (and the footer on phones): the old ones go at once, the new ones fade in with
+ * the content. `PageTransition` reads this delay to start page intros. */
+::view-transition-old(root) {
+  display: none;
+}
+
+::view-transition-new(root) {
+  animation: vt-fade-in var(--vt-duration-in) var(--ease-out-quint) var(--vt-delay-in) both;
+}
+
+/* The sidebar (the header on phones) is the fixed reference point: no motion, drawn above the
+ * content, and only its new snapshot is shown so it never double-draws. */
+::view-transition-group(sidebar) {
+  z-index: 1;
+  animation: none;
+}
+
+::view-transition-old(sidebar) {
+  display: none;
+}
+
+::view-transition-new(sidebar) {
+  animation: none;
+}
+
+/* Reduced motion: the new page replaces the old one at once. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

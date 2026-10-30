@@ -1,0 +1,87 @@
+/* Tailwind theme: registers the design tokens as utility classes. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-positive: var(--positive);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale. Keep the names in sync with `extendTailwindMerge` in
+   * `src/lib/utils/styles.ts`, or `cn()` reads them as colors. */
+  --text-micro: var(--fs-micro);
+  --text-micro--line-height: 1.4;
+  --text-caption: var(--fs-caption);
+  --text-caption--line-height: 1.5;
+  --text-body: var(--fs-body);
+  --text-body--line-height: 1.6;
+  --text-lead: var(--fs-lead);
+  --text-lead--line-height: 1.5;
+  --text-display-s: var(--fs-display-s);
+  --text-display-s--line-height: 1.25;
+  --text-display-m: var(--fs-display-m);
+  --text-display-m--line-height: 1.15;
+  --text-display-l: var(--fs-display-l);
+  --text-display-l--line-height: 1.05;
+  --text-display-xl: var(--fs-display-xl);
+  --text-display-xl--line-height: 1;
+
+  /* Section and layout spacing (`p-pad-m`, `gap-pad-s`, …), on the 8px grid. */
+  --spacing-pad-xxs: 0.25rem; /* 4px */
+  --spacing-pad-xs: 0.5rem; /* 8px */
+  --spacing-pad-s: 1rem; /* 16px */
+  --spacing-pad-m: 1.5rem; /* 24px */
+  --spacing-pad-l: 2rem; /* 32px */
+  --spacing-pad-xl: 3rem; /* 48px */
+  --spacing-pad-2xl: 4rem; /* 64px */
+  --spacing-pad-3xl: 6rem; /* 96px */
+  --spacing-pad-4xl: 8rem; /* 128px */
+  --spacing-pad-5xl: 12rem; /* 192px */
+  --spacing-pad-6xl: 16rem; /* 256px */
+
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  /* Brand eases: things arrive on out-quint and leave on in-quart. */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
+
+  /* Entrance (brand): fade in with an 8px rise from a 4px blur. Stagger with
+   * an animation delay of 50ms per item; reduced motion skips it. */
+  --animate-enter: enter 700ms var(--ease-out-quint) both;
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      translate: 0 0.5rem; /* 8px */
+      filter: blur(0.25rem); /* 4px */
+    }
+  }
+
+  /* Status pulse (brand): the "open to work" dot fades to 40% and back, slowly,
+   * to read as live. Opacity only, so it stays on the compositor; reduced
+   * motion keeps it still. */
+  --animate-status-pulse: status-pulse 3s ease-in-out infinite;
+
+  @keyframes status-pulse {
+    50% {
+      opacity: 0.4;
+    }
+  }
+}
+
+/* `dark:` matches what tokens.css shows: a stored `data-theme="dark"`, or the
+ * OS in dark mode when no light theme is stored. Tailwind's default only
+ * reads the OS, which would disagree with the theme toggle. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
