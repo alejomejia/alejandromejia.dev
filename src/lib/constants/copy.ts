@@ -102,6 +102,7 @@ export const COPY = {
     article: 'Article',
     craft: 'Craft',
     experiment: 'Experiment',
+    snippet: 'Snippet',
   },
   commandMenu: {
     label: 'Menu',

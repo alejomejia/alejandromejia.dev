@@ -1,6 +1,7 @@
 export { wait, waitForNextFrame, waitForPageVisible, waitForWindowLoad, waitForImage, waitForVideo, waitUntil, preloadImage } from './async'
 export { contrastRatio } from './color'
 export { formatDate, formatMessage, formatMonth, formatMonthDay, formatYears, monthSpan, slugify, unitSuffix } from './format'
+export { escapeXML } from './markup'
 export { clamp, frameLerp } from './math'
 export { deepMerge, groupBy, mapStrings } from './objects'
 export { blockWheelUntilIdle, edgeProgress, sectionEdges, type EdgeFade } from './scroll'

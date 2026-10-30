@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { COPY } from '@/lib/constants/copy'
+import { SITE_ROUTES } from '@/lib/constants/routes'
 import { getServerSideURL } from '@/lib/utils'
 import type { Media, Writing } from '@/payload-types'
 
@@ -11,6 +12,10 @@ import { absoluteURL, isIndexable } from './seo.utils'
 type ShareImage = { url: string; width?: number; height?: number; alt?: string }
 
 const defaultImage: ShareImage = { ...SITE.ogImage, alt: SITE.name }
+
+// The RSS feed, announced on every page so feed readers find it from any URL.
+// Next replaces `alternates` as a whole per route, so each builder repeats it.
+const feedTypes = { 'application/rss+xml': [{ url: SITE_ROUTES.rss, title: SITE.name }] }
 
 /**
  * The generated share image of a case study, chapter, writing entry or Craft
@@ -35,6 +40,7 @@ export function siteMetadata(): Metadata {
     title: { default: SITE.name, template: `%s | ${SITE.name}` },
     description,
     applicationName: SITE.name,
+    alternates: { types: feedTypes },
     openGraph: {
       type: 'website',
       siteName: SITE.name,
@@ -91,7 +97,7 @@ export function buildMetadata({ title, description, path, image, article, profil
   return {
     title: title ?? { absolute: SITE.name },
     description: desc,
-    alternates: { canonical: path },
+    alternates: { canonical: path, types: feedTypes },
     openGraph: {
       siteName: SITE.name,
       locale: SITE.locale,
