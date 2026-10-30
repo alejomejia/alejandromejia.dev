@@ -9,14 +9,14 @@ export type CommandItem = {
   label: string
   /** Muted text after the label (a writing format, a chapter's case study). */
   detail?: string
-  /** Extra words it is found by (`dark`, `mode` for a theme item). */
+  /** Extra words it is found by (`mail`, `contact` for the email). */
   keywords?: string[]
   href?: string
   /** Opens `href` in a new tab (other websites). */
   newTab?: boolean
   /** Runs instead of navigating. Return `'keep-open'` to show the result before closing. */
   run?: () => void | 'keep-open' | Promise<void | 'keep-open'>
-  /** Marks the current choice (the active theme, the current page). */
+  /** Marks the current state (the current page, inspect mode on). */
   current?: boolean
 }
 

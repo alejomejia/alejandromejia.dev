@@ -9,9 +9,9 @@ On phones it is the navigation (the header's trigger reads "Menu").
 - **⌘K / Ctrl+K** opens and closes it anywhere; `CommandMenuTrigger` opens it
   from a button (⌘K or Ctrl K from `sm` up, "Menu" below).
 - **Rows:** Pages (Home, the Header global's links, CV), Actions
-  (copy the email, copy this page's link, Theme: Light / Dark / System) and
+  (copy the email, copy this page's link, inspect mode) and
   Links (email, the Site settings profiles, RSS, the source code). Rows without data, like a
-  missing email, are left out. The current page and theme have a check.
+  missing email, are left out. The current page and inspect mode, when on, have a check.
 - **Search** ranks label prefix, then word prefix, then substring and
   keywords, then the letters in order (`wrt` finds Writing).
 - **Content search:** typing also finds every published page, case study,
@@ -72,9 +72,10 @@ collection, add it to `src/lib/cms/search.server.ts`.
 ## Dependencies
 
 - `lenis/react` (`useLenis`), `lucide-react` (`ArrowUpRight`, `Check`).
-- `@/lib/cms/site-settings-provider` (email and profiles), `@/lib/styles/theme-preference` and
-  `useThemePreference` (`@/lib/hooks`), `@/lib/constants/copy` (`COPY.commandMenu`,
-  plus `header`, `footer`, `theme`), `SITE_ROUTES`.
+- `@/lib/cms/site-settings-provider` (email and profiles),
+  `@/components/effects/inspect-mode` (`useInspectEnabled`, `setInspectEnabled`),
+  `@/lib/constants/copy` (`COPY.commandMenu`, plus `header`, `footer`,
+  `inspect`), `SITE_ROUTES`.
 - `@/lib/cms/search` (`SEARCH_INDEX_PATH`, `SearchEntry`) and the
   `/search.json` route.
 

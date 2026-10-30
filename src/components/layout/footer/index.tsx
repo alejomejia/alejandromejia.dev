@@ -1,7 +1,6 @@
 import { InspectModeToggle } from '@/components/effects/inspect-mode'
 import { CommandMenuTrigger } from '@/components/layout/command-menu'
 import { TextLink } from '@/components/ui/text-link'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { queryFooter } from '@/lib/cms/footer.server'
 import type { NavLink } from '@/lib/cms/links'
 import { SITE_ROUTES } from '@/lib/constants/routes'
@@ -14,7 +13,7 @@ const LIST = 'flex flex-wrap gap-x-4 gap-y-1'
 /**
  * The bottom of the sidebar (see `Sidebar`), in three quiet rows of
  * `text-caption`: the links out (email and profiles from Site settings, RSS);
- * the controls (the ⌘K trigger, inspect mode, theme); then the copyright
+ * the controls (the ⌘K trigger, inspect mode); then the copyright
  * with the link to the site's source code and the Footer global's links.
  * On phones it closes the page (under the intro, see `Sidebar`), and the ⌘K
  * trigger lives in the header instead. Empty values hide their part.
@@ -52,7 +51,6 @@ export async function Footer({ className }: { className?: string }) {
         <div className="-ml-2 flex items-center">
           <CommandMenuTrigger className="mr-2 ml-2 max-lg:hidden" />
           <InspectModeToggle />
-          <ThemeToggle />
         </div>
       </div>
 

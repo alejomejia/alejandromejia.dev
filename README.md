@@ -25,7 +25,7 @@ personal site, not a template, and its content sits in a private database.
 
 - **Next.js 16** (App Router), **React 19** and **TypeScript**
 - **Payload CMS 3** on **PostgreSQL**, running inside the Next.js app
-- **Tailwind CSS 4** on an 8px grid, with system dark mode
+- **Tailwind CSS 4** on an 8px grid, dark only
 - **GSAP**, **Lenis** and **Tempus** for motion
 - **Docker**, self-hosted with **Dokploy**
 

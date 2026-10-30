@@ -92,7 +92,6 @@ export const CRAFT: CraftEntry[] = [
         items: [
           'Paused off screen and in background tabs.',
           'One still frame under reduced motion.',
-          'Redrawn in the new ink when the theme changes.',
         ],
       },
     ],
@@ -128,39 +127,6 @@ export const CRAFT: CraftEntry[] = [
       {
         type: 'paragraph',
         text: 'The control is a native range input stretched invisibly over the frame. Touch, mouse and keyboard work without a line of gesture code, and screen readers announce it as a slider.',
-      },
-    ],
-  },
-  {
-    kind: 'experiment',
-    slug: 'sun-to-moon-toggle',
-    title: 'Sun to moon toggle',
-    description: 'One circle that turns into a crescent: a second circle in its mask slides in while the rays fade.',
-    publishedAt: '2026-08-30',
-    topics: ['Motion'],
-    demo: 'theme-toggle',
-    files: [
-      {
-        filename: 'theme-toggle.tsx',
-        language: 'tsx',
-        highlight: '4-6',
-        code: `<svg viewBox="0 0 24 24" className="dark:-rotate-90">
-  <mask id={maskId}>
-    <rect width="24" height="24" fill="white" />
-    <circle cx="16" cy="8" r="9" fill="black"
-      className="translate-x-2.5 -translate-y-2 dark:translate-0"
-    />
-  </mask>
-  <circle cx="12" cy="12" r="9" fill="currentColor" mask={\`url(#\${maskId})\`}
-    className="scale-55 dark:scale-100"
-  />
-</svg>`,
-      },
-    ],
-    content: [
-      {
-        type: 'paragraph',
-        text: 'The icon reads the theme from CSS, not from React state. The server can’t know the visitor’s theme, so CSS paints the right icon before hydration with nothing to flash.',
       },
     ],
   },

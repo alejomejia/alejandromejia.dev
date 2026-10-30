@@ -77,12 +77,6 @@ export const COPY = {
     rss: 'RSS',
     source: 'Source',
   },
-  theme: {
-    toggle: 'Switch theme',
-    light: 'Light',
-    dark: 'Dark',
-    system: 'System',
-  },
   inspect: {
     title: 'Inspect mode',
     exit: 'Exit',
@@ -119,7 +113,6 @@ export const COPY = {
     copyEmail: 'Copy email address',
     copyLink: 'Copy link to this page',
     copied: 'Copied',
-    theme: 'Theme: {theme}',
     current: 'Current',
     hintMove: 'to move',
     hintSelect: 'to open',
@@ -164,7 +157,6 @@ export const COPY = {
       cardText: 'Every gap here sits on the 8px grid.',
       cardAction: 'Action',
     },
-    themeHint: 'Click the icon to switch themes.',
   },
   cv: {
     title: 'CV',

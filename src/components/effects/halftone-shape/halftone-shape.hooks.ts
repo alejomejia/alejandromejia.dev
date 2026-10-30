@@ -27,8 +27,7 @@ type UseHalftoneShapeProps = {
  * Runs the shape on the shared Tempus loop: it spins and animates at `speed`,
  * tilts up to `tilt` radians toward the cursor (fine pointers only), and
  * redraws the canvas every frame while it is in view. The scene is rebuilt
- * when the canvas resizes or the theme changes, so dots always use the
- * current `color`.
+ * when the canvas resizes.
  *
  * Paused off screen and in background tabs ({@link useInViewport}). Under
  * reduced motion it draws one still frame and never starts the loop.
@@ -62,16 +61,9 @@ export function useHalftoneShape({ cell, speed, tilt, dotScale }: UseHalftoneSha
     // Runs on observe, then on every resize.
     const resizeObserver = new ResizeObserver(rebuild)
     resizeObserver.observe(canvas)
-    // The dot color is the canvas' `color`, which changes with the theme.
-    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    darkQuery.addEventListener('change', rebuild)
-    const themeObserver = new MutationObserver(rebuild)
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] })
 
     return () => {
       resizeObserver.disconnect()
-      darkQuery.removeEventListener('change', rebuild)
-      themeObserver.disconnect()
       scene.current = null
     }
   }, [canvasRef, cell, reducedMotion])

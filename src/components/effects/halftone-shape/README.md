@@ -15,8 +15,8 @@ loop that is quiet enough for a minimal page and alive enough to show craft.
 - Draws a faint dot at every grid point behind it, so the shape seems to
   surface out of the page's grid.
 - Tilts toward the cursor (fine pointers only), eased.
-- Draws in the canvas' `color` (`text-foreground` by default) and rebuilds on
-  theme changes (`prefers-color-scheme`, `data-theme` / `class` on `<html>`).
+- Draws in the canvas' `color` (`text-foreground` by default), read when
+  the scene is built: on mount and on every resize.
 - Paused off screen and in background tabs; under reduced motion it draws one
   still frame and never starts the loop.
 
@@ -79,6 +79,8 @@ torus, stacked plates and this morph were compared before picking the morph.
    IntersectionObserver + `document.visibilityState` gate.
 3. Without Tempus, replace `useTempus` with a `requestAnimationFrame` loop
    that passes the frame's `deltaTime` in ms.
+4. On a site that switches color schemes, rebuild the scene when the scheme
+   changes (or remount the component): the color is read only on rebuild.
 
 ## Performance and gotchas
 

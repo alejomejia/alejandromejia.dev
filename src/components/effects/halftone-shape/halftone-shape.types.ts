@@ -18,7 +18,7 @@ export type HalftoneShapeAngles = { x: number; y: number; z: number }
 /** Signed distance from a point in object space to the shape's surface (negative inside). */
 export type DistanceFunction = (x: number, y: number, z: number) => number
 
-/** Everything the renderer needs for one canvas size, rebuilt on resize and theme change. */
+/** Everything the renderer needs for one canvas size, rebuilt on resize. */
 export type HalftoneShapeScene = {
   ctx: CanvasRenderingContext2D
   /** Canvas size in CSS px. */

@@ -19,7 +19,7 @@ export const SITE = {
   lang: 'en',
   locale: 'en_US',
   /** Browser UI color (address bar, manifest). Match `--background`. */
-  themeColor: '#fcfcfc',
+  themeColor: '#0f0f0f',
   /** Fallback share image in `public/` (1200×630). */
   ogImage: { url: '/og-image.png', width: 1200, height: 630 },
   /** The name without diacritics, as people often type it (`Person.alternateName`). */

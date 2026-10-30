@@ -8,7 +8,7 @@ import type { MediaSource } from '@/lib/cms/media'
  * when Craft moves to the CMS (the collection stores them in a select, so
  * that change ships with a migration).
  */
-export type CraftDemoKey = 'inspect-mode' | 'halftone-shape' | 'before-after' | 'theme-toggle'
+export type CraftDemoKey = 'inspect-mode' | 'halftone-shape' | 'before-after'
 
 type CraftBase = {
   slug: string

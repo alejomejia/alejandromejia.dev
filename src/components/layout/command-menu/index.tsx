@@ -24,7 +24,7 @@ const CONFIRM_MS = 700
 
 /**
  * The ⌘K menu: a search box over the site's pages, a few actions (copy the
- * email or this page's link, pick a theme) and the links out. Typing also
+ * email or this page's link, inspect mode) and the links out. Typing also
  * searches every published page, case study, chapter and writing entry,
  * loaded once per visit from `/search.json` when the menu first opens. ⌘K / Ctrl+K
  * toggles it anywhere; `CommandMenuTrigger` opens it from a button (the

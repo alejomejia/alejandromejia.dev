@@ -141,12 +141,6 @@ const CRAFT = [
     description: 'Two versions of a screen behind one divider, dragged with a pointer, a finger or the arrow keys.',
     publishedAt: '2026-09-15',
   },
-  {
-    slug: 'sun-to-moon-toggle',
-    title: 'Sun to moon toggle',
-    description: 'One circle that turns into a crescent: a second circle in its mask slides in while the rays fade.',
-    publishedAt: '2026-08-30',
-  },
 ]
 
 /**

@@ -1,25 +1,25 @@
 /* ---------------------------------------------------------------------------
  * Design tokens
  *
- * The brand is monochrome (see the `alejandromejia-brand` skill): two page
- * colors drive everything, grays are the foreground at an opacity, and dark
- * mode swaps the pair. Type sizes are CSS variables, so phones swap the scale
+ * The brand is monochrome and dark (see the `alejandromejia-brand` skill):
+ * two page colors drive everything, and grays are the foreground at an
+ * opacity. Type sizes are CSS variables, so phones swap the scale
  * in one media query. The root font-size is a fixed 16px: this is a reading
  * site, so text should not grow with the viewport.
  * ------------------------------------------------------------------------- */
 :root {
   /* Page colors. Components read only these two (plus opacity, e.g.
    * `text-foreground/60`), so swapping them restyles everything at once.
-   * Dark mode overrides them below; keep `THEME_COLORS`
-   * (`src/lib/styles/theme-preference.ts`) in step. */
-  --background: #fcfcfc;
-  --foreground: #111111;
+   * Keep `SITE.themeColor` (`src/lib/seo/seo.const.ts`) equal to the
+   * background. */
+  --background: #0f0f0f;
+  --foreground: #ededed;
   /* No brand color: the accent (buttons, the button wipe, focus) is the ink. */
   --accent: var(--foreground);
   --accent-foreground: var(--background);
   /* The one color outside the ink: the "open to work" dot. A status signal,
    * never decoration (see the brand skill). */
-  --positive: #16a34a;
+  --positive: #4ade80;
 
   /* The shell: on large screens, a fixed sidebar (identity, menu, links)
    * beside the content column, the pair centered. Below `lg` they stack and
@@ -38,27 +38,10 @@
   --fs-display-xl: 4.5rem; /* 72px */
 }
 
-/* Dark mode follows the system, unless the theme toggle stored a choice,
- * which `THEME_SCRIPT` (`src/lib/styles/theme-preference.ts`) puts on <html> as `data-theme`.
- * Keep `THEME_COLORS.dark` in step. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --background: #0f0f0f;
-    --foreground: #ededed;
-    --positive: #4ade80;
-  }
-}
-
-:root[data-theme='dark'] {
-  --background: #0f0f0f;
-  --foreground: #ededed;
-  --positive: #4ade80;
-}
-
-/* Paper is light whatever the theme: dark ink on a dark page would print as
- * light gray on white. Tripled `:root` outranks both dark-mode rules. */
+/* Paper is light: light ink on a dark page would print as light gray on
+ * white. */
 @media print {
-  :root:root:root {
+  :root {
     --background: #fcfcfc;
     --foreground: #111111;
     --positive: #16a34a;

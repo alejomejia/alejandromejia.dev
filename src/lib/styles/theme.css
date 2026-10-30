@@ -70,18 +70,3 @@
     }
   }
 }
-
-/* `dark:` matches what tokens.css shows: a stored `data-theme="dark"`, or the
- * OS in dark mode when no light theme is stored. Tailwind's default only
- * reads the OS, which would disagree with the theme toggle. */
-@custom-variant dark {
-  &:where([data-theme='dark'], [data-theme='dark'] *) {
-    @slot;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
-      @slot;
-    }
-  }
-}

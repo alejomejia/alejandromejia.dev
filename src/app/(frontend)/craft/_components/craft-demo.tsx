@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import { HalftoneShape } from '@/components/effects/halftone-shape'
 import { BeforeAfter } from '@/components/story/before-after'
 import { MediaFrame } from '@/components/story/media-frame'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { COPY } from '@/lib/constants/copy'
 
 import { CraftDemoInspect } from './craft-demo-inspect'
@@ -28,15 +27,6 @@ const CRAFT_DEMOS: Record<CraftDemoKey, () => ReactNode> = {
       after={{}}
       labels={{ before: COPY.story.before, after: COPY.story.after, compare: COPY.story.compare }}
     />
-  ),
-  'theme-toggle': () => (
-    <figure className="flex flex-col gap-pad-xs">
-      <CraftStage>
-        {/* Scaled up as a whole: it is drawn for a 32px footer button. */}
-        <ThemeToggle className="scale-300" />
-      </CraftStage>
-      <figcaption className="text-caption text-foreground/60">{COPY.craft.themeHint}</figcaption>
-    </figure>
   ),
 }
 

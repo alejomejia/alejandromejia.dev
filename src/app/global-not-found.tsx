@@ -2,7 +2,7 @@
  * `global-not-found.tsx` bypasses the router and renders its own document;
  * `next/link` fails to instantiate here, so plain anchors (full navigation)
  * are both required and correct. */
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { Logo } from '@/components/ui/logo'
 import { textLinkClassName, textLinkLabelClassName } from '@/components/ui/text-link'
@@ -16,6 +16,12 @@ import '@/lib/styles/globals.css'
 
 export const metadata: Metadata = {
   title: `${COPY.notFound.title} | ${SITE.name}`,
+}
+
+// Same as the frontend layout's, which doesn't apply here.
+export const viewport: Viewport = {
+  themeColor: SITE.themeColor,
+  colorScheme: 'dark',
 }
 
 /**

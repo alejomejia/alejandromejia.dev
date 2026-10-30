@@ -14,18 +14,16 @@ import { querySiteSettings } from '@/lib/cms/site-settings.server'
 import { UmamiAnalytics } from '@/lib/integrations/umami/umami-analytics'
 import { getUmamiConfig } from '@/lib/integrations/umami/umami.server'
 import { siteJsonLd } from '@/lib/seo/json-ld'
+import { SITE } from '@/lib/seo/seo.const'
 import { siteMetadata } from '@/lib/seo/metadata'
 import { fontVariables } from '@/lib/styles/fonts'
-import { THEME_COLORS, THEME_SCRIPT } from '@/lib/styles/theme-preference'
 
 export const metadata: Metadata = siteMetadata()
 
-// One color per scheme; the theme toggle overrides both when it stores a choice.
+// The site is dark only: the browser chrome and native UI match the page.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: THEME_COLORS.light },
-    { media: '(prefers-color-scheme: dark)', color: THEME_COLORS.dark },
-  ],
+  themeColor: SITE.themeColor,
+  colorScheme: 'dark',
 }
 
 /**
@@ -45,13 +43,7 @@ export default async function FrontendLayout({ children }: LayoutProps<'/'>) {
       // `<html>` names it in its style attribute. The root snapshot carries the
       // background through page transitions (see `PageTransition`).
       style={{ viewTransitionName: 'root' }}
-      // `THEME_SCRIPT` sets `data-theme` before hydration when a theme is stored.
-      suppressHydrationWarning
     >
-      <head>
-        {/* Before the first paint, so a stored theme never flashes the other one. */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-      </head>
       {/* `<body>`, not `<html>`, takes the viewport height: Lenis re-measures the
           page when `<html>` resizes, which never happens while it is pinned. */}
       <body className="min-h-svh">

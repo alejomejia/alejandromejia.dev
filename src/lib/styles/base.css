@@ -1,15 +1,13 @@
 /* Document-level defaults. */
 html {
-  /* Native controls and scrollbars follow the page's light/dark tokens. */
-  color-scheme: light dark;
-}
-
-:root[data-theme='light'] {
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
+  /* Native controls and scrollbars match the dark page. */
   color-scheme: dark;
+}
+
+@media print {
+  html {
+    color-scheme: light;
+  }
 }
 
 body {

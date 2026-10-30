@@ -7,10 +7,8 @@ import { setInspectEnabled, useInspectEnabled } from '@/components/effects/inspe
 import type { NavLink } from '@/lib/cms/links'
 import { useSiteSettings } from '@/lib/cms/site-settings-provider'
 import { SITE_ROUTES } from '@/lib/constants/routes'
-import { useThemePreference } from '@/lib/hooks'
 import { COPY } from '@/lib/constants/copy'
 import { SITE } from '@/lib/seo/seo.const'
-import { setThemePreference, type ThemePreference } from '@/lib/styles/theme-preference'
 import { isCurrentPath } from '@/lib/utils'
 
 import {
@@ -21,8 +19,6 @@ import {
   subscribeSearchEntries,
 } from './command-menu.store'
 import type { CommandItem } from './command-menu.types'
-
-const THEMES: ThemePreference[] = ['light', 'dark', 'system']
 
 function noSubscription() {
   return () => {}
@@ -63,14 +59,13 @@ async function copy(text: string): Promise<'keep-open' | void> {
 
 /**
  * Every row of the menu: the pages (Home, the header's links, CV),
- * the actions (copy the email or this page's link, inspect mode, pick a theme) and the
+ * the actions (copy the email or this page's link, inspect mode) and the
  * links out (email, the Site settings profiles, RSS, the source code). Rows without data
  * (no email set) are left out.
  */
 export function useCommandItems(navItems: NavLink[]): CommandItem[] {
-  const { commandMenu: copyText, header, footer, theme, inspect } = COPY
+  const { commandMenu: copyText, header, footer, inspect } = COPY
   const { contact, socialLinks } = useSiteSettings()
-  const preference = useThemePreference()
   const inspecting = useInspectEnabled()
   const pathname = usePathname()
 
@@ -108,14 +103,6 @@ export function useCommandItems(navItems: NavLink[]): CommandItem[] {
       current: inspecting,
       run: () => setInspectEnabled(!inspecting),
     },
-    ...THEMES.map((value) => ({
-      id: `theme-${value}`,
-      group: 'actions' as const,
-      label: copyText.theme.replace('{theme}', theme[value]),
-      keywords: ['mode', 'appearance', 'color'],
-      current: preference === value,
-      run: () => setThemePreference(value),
-    })),
 
     ...(contact.email
       ? [{ id: 'email', group: 'links' as const, label: footer.email, keywords: ['contact'], href: `mailto:${contact.email}` }]
