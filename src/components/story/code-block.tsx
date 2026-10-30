@@ -15,32 +15,38 @@ function parseLines(highlight?: string): Set<number> {
 }
 
 /**
- * Code on a surface: the file name and language above, the code in mono
- * below (scrolls sideways, never wraps), highlighted lines on a darker band.
- * Plain monochrome for now; syntax colors (Shiki, server rendered) come
- * with the Writing phase.
+ * The code itself, in mono: scrolls sideways (never wraps), highlighted
+ * lines on a darker band. Plain monochrome for now; syntax colors (Shiki,
+ * server rendered) come later. Shared by `CodeBlock` and `CodeGroup`.
  */
-export function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
+export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'highlight'>) {
   const highlighted = parseLines(highlight)
 
+  return (
+    <pre className="overflow-x-auto py-3 font-mono text-micro leading-relaxed">
+      <code className="block min-w-max">
+        {code.split('\n').map((line, index) => (
+          <span
+            key={index}
+            className={cn('block px-4', highlighted.has(index + 1) ? 'bg-foreground/5' : 'text-foreground/70')}
+          >
+            {line || ' '}
+          </span>
+        ))}
+      </code>
+    </pre>
+  )
+}
+
+/** Code on a surface: the file name and language above, the code below. */
+export function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
   return (
     <figure className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
       <figcaption className="flex justify-between gap-4 border-b border-foreground/10 px-4 py-2 font-mono text-micro text-foreground/40">
         <span>{filename}</span>
         <span>{CODE_LANGUAGES[language]}</span>
       </figcaption>
-      <pre className="overflow-x-auto py-3 font-mono text-micro leading-relaxed">
-        <code className="block min-w-max">
-          {code.split('\n').map((line, index) => (
-            <span
-              key={index}
-              className={cn('block px-4', highlighted.has(index + 1) ? 'bg-foreground/5' : 'text-foreground/70')}
-            >
-              {line || ' '}
-            </span>
-          ))}
-        </code>
-      </pre>
+      <CodeLines code={code} highlight={highlight} />
     </figure>
   )
 }

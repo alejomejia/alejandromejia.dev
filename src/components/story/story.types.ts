@@ -49,6 +49,16 @@ export type CodeBlockProps = {
   highlight?: string
 }
 
+/** One file of a `CodeGroup`: a file name is required, since it labels the tab. */
+export type CodeFile = Omit<CodeBlockProps, 'filename'> & { filename: string }
+
+export type CodeGroupProps = {
+  /** One or more files; with several, tabs switch between them. */
+  files: CodeFile[]
+  /** UI copy: the tab list's accessible name and the copy button's states. */
+  labels: { files: string; copy: string; copied: string }
+}
+
 export type CalloutData = { kind: 'note' | 'lesson' | 'tradeoff'; text: string }
 
 export type StepsProps = { items: Array<{ title: string; text?: string }> }

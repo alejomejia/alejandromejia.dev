@@ -58,6 +58,11 @@ export const COPY = {
     callout: { note: 'Note', lesson: 'Lesson', tradeoff: 'Trade-off' },
     anchor: 'Link to the section “{section}”',
   },
+  code: {
+    files: 'Files',
+    copy: 'Copy',
+    copied: 'Copied',
+  },
   header: {
     nav: 'Main',
     home: 'Home',
