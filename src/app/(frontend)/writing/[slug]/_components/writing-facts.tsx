@@ -2,6 +2,7 @@ import { storyReadingMinutes } from '@/components/story/story.utils'
 import type { Copy } from '@/lib/constants/copy'
 import { formatDate, formatMessage } from '@/lib/utils'
 
+import { type PageFact, PageFacts } from '@/app/(frontend)/_components/page-facts'
 import type { WritingEntry } from '@/app/(frontend)/writing/_components/writing.types'
 
 type WritingFactsProps = {
@@ -18,7 +19,7 @@ export function WritingFacts({ entry, copy }: WritingFactsProps) {
   const published = formatDate(entry.publishedAt)
   const updated = entry.updatedAt && formatDate(entry.updatedAt)
 
-  const facts = [
+  const facts: PageFact[] = [
     { label: copy.published, value: <time dateTime={entry.publishedAt}>{published}</time> },
     // A visible "updated" date backs up JSON-LD `dateModified`; search and AI
     // engines favor content that is demonstrably fresh.
@@ -28,16 +29,7 @@ export function WritingFacts({ entry, copy }: WritingFactsProps) {
     },
     { label: copy.readingTime, value: formatMessage(copy.minutes, { minutes: storyReadingMinutes(entry.content) }) },
     { label: copy.topics, value: entry.topics.join(', ') },
-  ].filter((fact) => fact.value)
+  ]
 
-  return (
-    <dl className="grid grid-cols-2 gap-x-4 gap-y-pad-s border-t border-foreground/10 pt-pad-s sm:grid-cols-4">
-      {facts.map((fact) => (
-        <div key={fact.label} className="flex flex-col gap-1">
-          <dt className="font-mono text-micro text-foreground/40">{fact.label}</dt>
-          <dd className="text-caption text-pretty">{fact.value}</dd>
-        </div>
-      ))}
-    </dl>
-  )
+  return <PageFacts facts={facts} />
 }

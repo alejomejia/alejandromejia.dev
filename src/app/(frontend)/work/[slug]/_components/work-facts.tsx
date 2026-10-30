@@ -4,6 +4,7 @@ import { TextLink } from '@/components/ui/text-link'
 import type { Copy } from '@/lib/constants/copy'
 import { formatMonth } from '@/lib/utils'
 
+import { type PageFact, PageFacts } from '@/app/(frontend)/_components/page-facts'
 import type { WorkEntry } from '@/app/(frontend)/work/_components/work.types'
 
 type WorkFactsProps = {
@@ -18,7 +19,7 @@ type WorkFactsProps = {
  */
 export function WorkFacts({ work, copy }: WorkFactsProps) {
   const timeline = `${formatMonth(work.startDate)} – ${work.endDate ? formatMonth(work.endDate) : copy.present}`
-  const facts = [
+  const facts: PageFact[] = [
     { label: copy.role, value: work.role },
     { label: copy.client, value: work.confidential ? undefined : work.client },
     { label: copy.timeline, value: timeline },
@@ -33,16 +34,7 @@ export function WorkFacts({ work, copy }: WorkFactsProps) {
         </TextLink>
       ),
     },
-  ].filter((fact) => fact.value)
+  ]
 
-  return (
-    <dl className="grid grid-cols-2 gap-x-4 gap-y-pad-s border-t border-foreground/10 pt-pad-s sm:grid-cols-4">
-      {facts.map((fact) => (
-        <div key={fact.label} className="flex flex-col gap-1">
-          <dt className="font-mono text-micro text-foreground/40">{fact.label}</dt>
-          <dd className="text-caption text-pretty">{fact.value}</dd>
-        </div>
-      ))}
-    </dl>
-  )
+  return <PageFacts facts={facts} />
 }
