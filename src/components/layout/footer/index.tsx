@@ -10,14 +10,14 @@ import { SITE } from '@/lib/seo/seo.const'
 import { cn } from '@/lib/utils'
 
 const LIST = 'flex flex-wrap gap-x-4 gap-y-1'
-// Color and underline together: a lone `transition-colors` would replace the underline's transition.
+
 /**
  * The bottom of the sidebar (see `Sidebar`), in three quiet rows of
  * `text-caption`: the links out (email and profiles from Site settings, RSS);
  * the controls (the ⌘K trigger, inspect mode, theme); then the copyright
- * with the link to the site's source code and the Footer global's links. On phones it closes the
- * page, below a hairline, and the ⌘K trigger lives in the header instead.
- * Empty values hide their part.
+ * with the link to the site's source code and the Footer global's links.
+ * On phones it closes the page (under the intro, see `Sidebar`), and the ⌘K
+ * trigger lives in the header instead. Empty values hide their part.
  */
 export async function Footer({ className }: { className?: string }) {
   const footer = await queryFooter()
@@ -33,7 +33,6 @@ export async function Footer({ className }: { className?: string }) {
     <footer
       className={cn(
         'flex flex-col gap-pad-s text-caption text-foreground/60',
-        'max-lg:mt-pad-3xl max-lg:border-t max-lg:border-foreground/10 max-lg:pt-pad-m',
         className,
       )}
     >

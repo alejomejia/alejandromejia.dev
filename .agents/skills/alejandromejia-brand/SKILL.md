@@ -210,13 +210,18 @@ Filled as the site grows.
   to all of them on the profile, so visitors can check they are real.
 - **Inspect mode** (`src/components/effects/inspect-mode/`): on site-wide,
   toggled with `I`. Its Figma blue and red appear only while it is on.
-  - **Header** (top of the sidebar): the wordmark and headline, the intro,
-    the availability line and the live clock, then the menu (Home, the
-    Header global's links, CV): a column from `lg`, a row on phones, where
-    the ⌘K trigger ("Menu") sits beside the wordmark.
+  - **Header** (top of the sidebar): the wordmark and headline, the status
+    as one mono byline ("● Open to work · Navarra · 22:15 CET"; the full
+    availability sentence is its tooltip), then the menu right after (Home,
+    the Header global's links, CV): a column from `lg`, a row on phones,
+    where the ⌘K trigger ("Menu") sits beside the wordmark. Who and where to
+    go stay together; chosen 2026-10-30 over four other layouts.
+  - **Intro** (bottom of the sidebar, above the footer): the one-line intro
+    in `text-caption` at `/60`.
   - **Footer** (bottom of the sidebar): three rows in `text-caption`: the
     links out; ⌘K, inspect and theme; then ©, Source (the repository) and
-    any links from the Footer global.
+    any links from the Footer global. On phones the intro and footer close
+    the page below a hairline.
 - **Links:** every link turns ink (`text-foreground`) on hover, fading in
   250ms. Which underline it gets depends on its kind; pick by where it sits:
 
