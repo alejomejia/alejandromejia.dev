@@ -1,0 +1,46 @@
+import { CODE_LANGUAGES } from '@/lib/constants/code-languages'
+import { cn } from '@/lib/utils'
+
+import type { CodeBlockProps } from './story.types'
+
+/** "1,4-6" → {1, 4, 5, 6}. Anything that isn't a number or a range is ignored. */
+function parseLines(highlight?: string): Set<number> {
+  const lines = new Set<number>()
+  for (const part of highlight?.split(',') ?? []) {
+    const [start, end = start] = part.trim().split('-').map(Number)
+    if (!Number.isInteger(start) || !Number.isInteger(end)) continue
+    for (let line = start; line <= end; line++) lines.add(line)
+  }
+  return lines
+}
+
+/**
+ * Code on a surface: the file name and language above, the code in mono
+ * below (scrolls sideways, never wraps), highlighted lines on a darker band.
+ * Plain monochrome for now; syntax colors (Shiki, server rendered) come
+ * with the Writing phase.
+ */
+export function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
+  const highlighted = parseLines(highlight)
+
+  return (
+    <figure className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
+      <figcaption className="flex justify-between gap-4 border-b border-foreground/10 px-4 py-2 font-mono text-micro text-foreground/40">
+        <span>{filename}</span>
+        <span>{CODE_LANGUAGES[language]}</span>
+      </figcaption>
+      <pre className="overflow-x-auto py-3 font-mono text-micro leading-relaxed">
+        <code className="block min-w-max">
+          {code.split('\n').map((line, index) => (
+            <span
+              key={index}
+              className={cn('block px-4', highlighted.has(index + 1) ? 'bg-foreground/5' : 'text-foreground/70')}
+            >
+              {line || ' '}
+            </span>
+          ))}
+        </code>
+      </pre>
+    </figure>
+  )
+}
