@@ -24,9 +24,12 @@ export function HeaderIdentity({ profile, className }: { profile: ProfileIntro; 
 }
 
 /**
- * The status as one mono line: the dot and "Open to work" (while it is on),
- * the town (the first part of the location) and the time there. The full
- * availability sentence is its tooltip, the clock's says whose time it is.
+ * The status in mono: one line with the dot and "Open to work" (while it is
+ * on), the town (the first part of the location) and the time there; then
+ * the Profile's availability lines under it, lined up with the text after
+ * the dot: one role per line, written in full ("Design Engineer", so it never
+ * reads as a design job), then where on the last. The clock's tooltip says
+ * whose time it is.
  */
 export function HeaderByline({ profile, className }: { profile: ProfileIntro; className?: string }) {
   const copy = COPY.header
@@ -39,24 +42,32 @@ export function HeaderByline({ profile, className }: { profile: ProfileIntro; cl
       </span>
     ),
   ].filter(Boolean)
+  const lines = profile.available ? (profile.availability ?? '').split('\n').map((line) => line.trim()).filter(Boolean) : []
 
   return (
-    <p
-      title={(profile.available && profile.availability) || undefined}
-      className={cn('flex items-center gap-x-2 font-mono text-micro whitespace-nowrap text-foreground/40', className)}
-    >
-      {profile.available && (
-        <>
-          <AvailabilityDot />
-          <span className="text-foreground/60">{copy.available}</span>
-        </>
+    <div className={cn('flex flex-col gap-pad-xs font-mono text-micro text-foreground/40', className)}>
+      <p className="flex items-center gap-x-2 whitespace-nowrap">
+        {profile.available && (
+          <>
+            <AvailabilityDot />
+            <span className="text-foreground/60">{copy.available}</span>
+          </>
+        )}
+        {parts.map((part, index) => (
+          <span key={index} className="flex items-center gap-x-2">
+            {(profile.available || index > 0) && <span aria-hidden>·</span>}
+            {part}
+          </span>
+        ))}
+      </p>
+      {lines.length > 0 && (
+        // Indented past the dot and its gap, under "Open to work".
+        <p className="flex flex-col pl-4 text-foreground/60">
+          {lines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </p>
       )}
-      {parts.map((part, index) => (
-        <span key={index} className="flex items-center gap-x-2">
-          {(profile.available || index > 0) && <span aria-hidden>·</span>}
-          {part}
-        </span>
-      ))}
-    </p>
+    </div>
   )
 }

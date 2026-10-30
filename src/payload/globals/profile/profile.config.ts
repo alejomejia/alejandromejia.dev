@@ -50,10 +50,11 @@ export const Profile: GlobalConfig = {
             },
             {
               name: 'availability',
-              type: 'text',
+              type: 'textarea',
               admin: {
+                rows: 4,
                 description:
-                  'The status line next to the green dot, e.g. "Open to senior design engineer roles, remote". Shown while "Open to work" is on.',
+                  'Under "Open to work" in the sidebar: one role per row, written in full ("Design Engineer", not "Design"), then where on the last row, e.g. "Remote in the EU, UK or US". Shown while "Open to work" is on.',
               },
             },
             {

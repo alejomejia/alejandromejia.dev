@@ -26,7 +26,7 @@ const PROFILE: Omit<Profile, 'id' | 'updatedAt' | 'createdAt'> = {
   headline: 'Senior Design Engineer',
   intro: 'I build design systems and the interfaces that use them: components, motion, accessibility and performance.',
   available: true,
-  availability: 'Open to Design Engineer, UX Engineer and Frontend roles, remote (EU/UK/US)',
+  availability: ['Design Engineer', 'UX Engineer', 'Frontend Engineer', 'Remote in the EU, UK or US'].join('\n'),
   location: 'Navarra, Spain',
   timezone: 'Europe/Madrid',
   summary: [

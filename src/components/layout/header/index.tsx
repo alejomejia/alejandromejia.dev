@@ -12,8 +12,8 @@ import { HeaderByline, HeaderIdentity } from './header-parts'
 /**
  * The top of the sidebar (see `Sidebar`): who Alejandro is and the menu,
  * always in view and close together. The wordmark and headline, the status
- * as one mono byline (open to work, the town and the time there), then the
- * menu: Home, the Header global's links and CV. The intro sits at the
+ * in mono (open to work, the town and the time there, then the roles and
+ * where), then the menu: Home, the Header global's links and CV. The intro sits at the
  * bottom of the sidebar (`SidebarIntro`). On phones it stacks above the page
  * with the menu as a row, and the command menu's trigger ("Menu") sits
  * beside the wordmark. Mounts the command menu once for the whole site.
@@ -28,7 +28,7 @@ export async function Header({ className }: { className?: string }) {
   ]
 
   return (
-    <header className={cn('flex flex-col gap-pad-m', className)}>
+    <header className={cn('flex flex-col gap-pad-l', className)}>
       <div className="flex flex-col gap-pad-xs">
         <HeaderIdentity profile={profile} />
         <HeaderByline profile={profile} />

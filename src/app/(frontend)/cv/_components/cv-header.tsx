@@ -64,7 +64,8 @@ export function CvHeader({ name, headline, available, availability, location, em
           {available && availability && (
             <p className="flex items-center gap-2 text-caption text-foreground/60">
               <AvailabilityDot />
-              {availability}
+              {/* The sidebar's lines (the roles, then where), as one line on paper. */}
+              {availability.split('\n').filter(Boolean).join(' · ')}
             </p>
           )}
         </div>
