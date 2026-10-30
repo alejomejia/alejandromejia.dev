@@ -217,10 +217,24 @@ Filled as the site grows.
   - **Footer** (bottom of the sidebar): three rows in `text-caption`: the
     links out; ⌘K, inspect and theme; then ©, Source (the repository) and
     any links from the Footer global.
-- **Links in chrome:** `text-foreground/60`, ink on hover and on the current
-  section, underline drawn on hover. Transition `color` and
-  `background-size` together, never `transition-colors` alone (it would
-  replace the underline's transition).
+- **Links:** every link turns ink (`text-foreground`) on hover, fading in
+  250ms. Which underline it gets depends on its kind; pick by where it sits:
+
+  | Kind | Underline | Examples |
+  | --- | --- | --- |
+  | **Inline** (inside a sentence or a value, or beside a section label) | At rest, retracts on hover: `TextLink variant="underline"` | Closing lines ("…are in Writing."), email, company names, "See all on LinkedIn", live site, source, "All work" |
+  | **Standalone** (menus, back links) | Drawn on hover: `TextLink` (default `underline-reveal`) | Header menu, footer, the CV's section menu, back links, "Read the case study" |
+  | **Block** (a whole row or tile) | None; the surface fills and gray text turns ink | List rows (`LIST_ROW_CLASSNAME`), tiles, contents, chapters, onward and related links |
+
+  An inline link's color matches the text around it, so only the line marks
+  it as a link (also an accessibility rule). A section label's link ("All
+  work") counts as inline: it shares the label's mono gray, so nothing else
+  sets it apart. A standalone link is marked by its place in a menu, so a
+  resting line would be noise. No underline, by
+  design: buttons (boxed), the heading `#` anchor (a glyph shown on hover)
+  and the wordmark. Icons go in `TextLink`'s `icon` prop: the underline
+  skips them and they nudge toward where they lead. Rich text
+  (`.rich-text a`) follows the inline rule.
 - **Command menu:** a hairline-bordered 12px box, `bg-background`, over a
   `background/80` backdrop. Group labels are mono micro text at `/40`, and
   the highlighted row is `bg-foreground/3`.
