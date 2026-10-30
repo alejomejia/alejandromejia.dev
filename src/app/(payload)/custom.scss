@@ -1,0 +1,70 @@
+/* Custom Payload admin styles. Add admin-panel overrides here. */
+
+/* The SEO tab's search-result preview (SeoPreview), styled like the plugin's own. */
+.seo-preview {
+  margin-bottom: 1.25rem; /* 20px */
+
+  &__description {
+    margin-bottom: 0.3125rem; /* 5px */
+    color: #9a9a9a;
+  }
+
+  &__card {
+    width: 100%;
+    max-width: 37.5rem; /* 600px */
+    padding: 1.25rem; /* 20px */
+    background: var(--theme-elevation-50);
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1); /* 10px */
+    pointer-events: none;
+
+    a {
+      text-decoration: none;
+    }
+
+    h4,
+    p {
+      margin: 0;
+    }
+  }
+}
+
+/* Media sidebar: where the file is used (MediaUsageField). */
+.media-usage {
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      padding: calc(var(--base) * 0.25) 0;
+    }
+  }
+
+  &__meta,
+  &__empty {
+    margin: 0;
+    color: var(--theme-elevation-500);
+    font-size: 0.75rem;
+  }
+}
+
+/* Above the Media list: unused files and the filter link (UnusedMediaBanner). */
+.unused-media {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--base) * 0.5);
+  margin-bottom: var(--base);
+  padding: calc(var(--base) * 0.5) calc(var(--base) * 0.75);
+  border-radius: var(--style-radius-s);
+  background: var(--theme-elevation-50);
+  color: var(--theme-elevation-800);
+
+  &__link {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
