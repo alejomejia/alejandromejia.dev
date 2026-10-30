@@ -1191,11 +1191,27 @@ export interface Profile {
          * Optional.
          */
         companyUrl?: string | null;
+        /**
+         * Optional. City and country, or just the country, e.g. "Sweden".
+         */
+        companyLocation?: string | null;
+        /**
+         * Optional. The agency or contractor, e.g. "Kodly".
+         */
+        via?: string | null;
         role: string;
         /**
-         * E.g. "Remote" or "Barcelona, Spain".
+         * Where you were, e.g. "Medellín, Colombia".
          */
         location?: string | null;
+        /**
+         * Contract shows a "Contract" tag: it explains a short, project-based stay.
+         */
+        employment?: ('full-time' | 'contract') | null;
+        /**
+         * Shows a "Remote" tag and counts toward the remote total at the top of the CV.
+         */
+        remote?: boolean | null;
         startDate: string;
         /**
          * Empty reads as "Present".
@@ -1215,6 +1231,39 @@ export interface Profile {
         stack?: string[] | null;
         /**
          * Optional. Linked from this role.
+         */
+        work?: (number | null) | Work;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Your own projects, after the roles.
+   */
+  projects?:
+    | {
+        name: string;
+        /**
+         * Optional.
+         */
+        url?: string | null;
+        /**
+         * Optional. A short line beside the name, e.g. "Independent · private code".
+         */
+        note?: string | null;
+        /**
+         * Optional. One sentence on what it is.
+         */
+        summary?: string | null;
+        /**
+         * What it does or proves, one per line.
+         */
+        highlights?: string | null;
+        /**
+         * Optional. Press Enter after each.
+         */
+        stack?: string[] | null;
+        /**
+         * Optional. Linked from this project.
          */
         work?: (number | null) | Work;
         id?: string | null;
@@ -1411,10 +1460,26 @@ export interface ProfileSelect<T extends boolean = true> {
     | {
         company?: T;
         companyUrl?: T;
+        companyLocation?: T;
+        via?: T;
         role?: T;
         location?: T;
+        employment?: T;
+        remote?: T;
         startDate?: T;
         endDate?: T;
+        summary?: T;
+        highlights?: T;
+        stack?: T;
+        work?: T;
+        id?: T;
+      };
+  projects?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        note?: T;
         summary?: T;
         highlights?: T;
         stack?: T;

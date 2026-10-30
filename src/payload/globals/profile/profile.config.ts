@@ -125,11 +125,51 @@ export const Profile: GlobalConfig = {
                 {
                   type: 'row',
                   fields: [
+                    {
+                      name: 'companyLocation',
+                      type: 'text',
+                      label: 'Company based in',
+                      admin: { width: '50%', description: 'Optional. City and country, or just the country, e.g. "Sweden".' },
+                    },
+                    {
+                      name: 'via',
+                      type: 'text',
+                      label: 'Hired through',
+                      admin: { width: '50%', description: 'Optional. The agency or contractor, e.g. "Kodly".' },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
                     { name: 'role', type: 'text', required: true, admin: { width: '50%' } },
                     {
                       name: 'location',
                       type: 'text',
-                      admin: { width: '50%', description: 'E.g. "Remote" or "Barcelona, Spain".' },
+                      label: 'Worked from',
+                      admin: { width: '50%', description: 'Where you were, e.g. "Medellín, Colombia".' },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'employment',
+                      type: 'select',
+                      defaultValue: 'full-time',
+                      options: [
+                        { label: 'Full-time', value: 'full-time' },
+                        { label: 'Contract', value: 'contract' },
+                      ],
+                      admin: { width: '50%', description: 'Contract shows a "Contract" tag: it explains a short, project-based stay.' },
+                    },
+                    {
+                      name: 'remote',
+                      type: 'checkbox',
+                      defaultValue: false,
+                      label: 'Remote',
+                      admin: { width: '50%', description: 'Shows a "Remote" tag and counts toward the remote total at the top of the CV.' },
                     },
                   ],
                 },
@@ -167,6 +207,53 @@ export const Profile: GlobalConfig = {
                   relationTo: 'work',
                   label: 'Case study',
                   admin: { description: 'Optional. Linked from this role.' },
+                },
+              ],
+            },
+            {
+              name: 'projects',
+              type: 'array',
+              labels: { singular: 'Project', plural: 'Side projects' },
+              admin: {
+                initCollapsed: true,
+                description: 'Your own projects, after the roles.',
+                components: { RowLabel: textRowLabel('name', 'Project') },
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
+                    { name: 'url', type: 'text', label: 'Link', admin: { width: '50%', description: 'Optional.' } },
+                  ],
+                },
+                {
+                  name: 'note',
+                  type: 'text',
+                  admin: { description: 'Optional. A short line beside the name, e.g. "Independent · private code".' },
+                },
+                {
+                  name: 'summary',
+                  type: 'textarea',
+                  admin: { rows: 2, description: 'Optional. One sentence on what it is.' },
+                },
+                {
+                  name: 'highlights',
+                  type: 'textarea',
+                  admin: { rows: 4, description: 'What it does or proves, one per line.' },
+                },
+                {
+                  name: 'stack',
+                  type: 'text',
+                  hasMany: true,
+                  admin: { description: 'Optional. Press Enter after each.' },
+                },
+                {
+                  name: 'work',
+                  type: 'relationship',
+                  relationTo: 'work',
+                  label: 'Case study',
+                  admin: { description: 'Optional. Linked from this project.' },
                 },
               ],
             },
@@ -213,8 +300,9 @@ export const Profile: GlobalConfig = {
             {
               name: 'certifications',
               type: 'array',
-              labels: { singular: 'Certification', plural: 'Certifications' },
-              admin: { initCollapsed: true, components: { RowLabel: textRowLabel('name', 'Certification') } },
+              // Shown as "Courses" (the CV's wording); the field name stays stable.
+              labels: { singular: 'Course', plural: 'Courses' },
+              admin: { initCollapsed: true, components: { RowLabel: textRowLabel('name', 'Course') } },
               fields: [
                 {
                   type: 'row',
