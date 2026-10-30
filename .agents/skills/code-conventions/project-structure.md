@@ -63,17 +63,18 @@ app/(frontend)/
   page.tsx                          imports './_components/home-work', ...
   _components/                      home page: home-work.tsx, home-writing.tsx, home-craft.tsx, ...
   writing/
-    page.tsx                        imports './_components/writing-archive'
-    page/[pageNumber]/page.tsx      imports '@/app/(frontend)/writing/_components/writing-archive'
-    _components/                    writing-archive.tsx, ...
+    page.tsx                        imports './_components/writing-list'
+    [slug]/page.tsx                 imports '@/app/(frontend)/writing/_components/writing.mock'
+    _components/                    writing-list.tsx, writing.mock.ts, ...
 ```
 
 - **Where:** in the `_components/` of the closest route segment that contains
   every route using it (`writing/_components/` serves `/writing` and
-  `/writing/page/[n]`).
+  `/writing/[slug]`; `(frontend)/_components/` holds what Work and Writing
+  share, like `onward-link.tsx`).
 - **Names:** same rules as `src/components/` (see
   [file-naming.md](./file-naming.md)). Keep the page prefix (`home-hero`,
-  `writing-archive`) so `Cmd-P` finds them. Don't add a folder named after the
+  `writing-list`) so `Cmd-P` finds them. Don't add a folder named after the
   page (`_components/home/`): the route already says which page it is. Files
   sit directly in `_components/`, with an optional `index.tsx` as the page
   root.
