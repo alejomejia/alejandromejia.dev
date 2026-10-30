@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { TextLink } from '@/components/ui/text-link'
 import { COPY } from '@/lib/constants/copy'
-import { cn, enter } from '@/lib/utils'
+import { enter } from '@/lib/utils'
 
 import { CvDownload } from './cv-download'
 
@@ -56,7 +56,7 @@ export function CvIndex({ sections, pdfUrl, enterStep }: CvIndexProps) {
               <TextLink
                 href={`#${id}`}
                 aria-current={current === id ? 'location' : undefined}
-                className={cn('hover:text-foreground', current === id ? 'text-foreground' : 'text-foreground/60')}
+                className={current === id ? 'text-foreground' : 'text-foreground/60'}
               >
                 {label}
               </TextLink>

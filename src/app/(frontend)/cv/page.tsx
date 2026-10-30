@@ -182,7 +182,9 @@ export default async function CvPage() {
         )}
 
         <p className="text-caption text-foreground/60 print:hidden">
-          {copy.closing} <TextLink href={SITE_ROUTES.work}>{copy.work}</TextLink>.
+          {copy.closing} <TextLink href={SITE_ROUTES.work} variant="underline">
+            {copy.work}
+          </TextLink>.
         </p>
       </div>
     </div>

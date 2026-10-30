@@ -54,7 +54,9 @@ export default async function WritingPage() {
       )}
 
       <p {...enter(WRITING_LAST_ENTER_STEP, 'text-caption text-foreground/60')}>
-        {copy.closing} <TextLink href={SITE_ROUTES.craft}>{copy.craft}</TextLink>.
+        {copy.closing} <TextLink href={SITE_ROUTES.craft} variant="underline">
+          {copy.craft}
+        </TextLink>.
       </p>
     </div>
   )

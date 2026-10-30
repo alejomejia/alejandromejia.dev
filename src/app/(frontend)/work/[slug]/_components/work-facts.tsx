@@ -28,9 +28,8 @@ export function WorkFacts({ work, copy }: WorkFactsProps) {
     {
       label: copy.live,
       value: work.liveUrl && (
-        <TextLink href={work.liveUrl} newTab className="inline-flex items-center gap-1">
+        <TextLink href={work.liveUrl} newTab variant="underline" icon={<ArrowUpRight strokeWidth={1.5} />}>
           {new URL(work.liveUrl).hostname}
-          <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5" />
         </TextLink>
       ),
     },

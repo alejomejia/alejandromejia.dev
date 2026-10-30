@@ -22,13 +22,8 @@ export async function RecommendationsSource({ className }: RecommendationsSource
   return (
     <p className={cn('text-caption text-foreground/60', className)}>
       {copy.note}{' '}
-      <TextLink
-        href={LINKEDIN_RECOMMENDATIONS_URL}
-        newTab
-        className="inline-flex items-center gap-1 transition-[color,background-size] duration-250 hover:text-foreground"
-      >
+      <TextLink href={LINKEDIN_RECOMMENDATIONS_URL} newTab variant="underline" icon={<ArrowUpRight strokeWidth={1.5} />}>
         {copy.link}
-        <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5" />
       </TextLink>
     </p>
   )

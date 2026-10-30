@@ -28,7 +28,7 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         <div className="flex flex-wrap items-baseline justify-between gap-x-4">
           <h3 className="font-medium text-balance">
             {titleHref ? (
-              <TextLink href={titleHref} newTab>
+              <TextLink href={titleHref} newTab variant="underline">
                 {title}
               </TextLink>
             ) : (
@@ -44,7 +44,7 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         {organization && (
           <p className="text-pretty text-foreground/60">
             {organization.href ? (
-              <TextLink href={organization.href} newTab>
+              <TextLink href={organization.href} newTab variant="underline">
                 {organization.name}
               </TextLink>
             ) : (
@@ -85,9 +85,8 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         </ul>
       )}
       {caseStudy && (
-        <TextLink href={caseStudy} className="inline-flex w-fit items-center gap-1 text-caption print:hidden">
+        <TextLink href={caseStudy} icon={<ArrowUpRight strokeWidth={1.5} />} className="text-caption text-foreground/60 print:hidden">
           {copy.caseStudy}
-          <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5" />
         </TextLink>
       )}
     </CvTraceItem>

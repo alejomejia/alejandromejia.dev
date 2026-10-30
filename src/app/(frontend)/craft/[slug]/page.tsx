@@ -74,9 +74,8 @@ export default async function CraftEntryPage({ params }: Args) {
     {
       label: copy.source,
       value: entry.kind === 'snippet' && entry.sourceUrl && (
-        <TextLink href={entry.sourceUrl} newTab className="inline-flex items-center gap-1">
+        <TextLink href={entry.sourceUrl} newTab variant="underline" icon={<ArrowUpRight strokeWidth={1.5} />}>
           {new URL(entry.sourceUrl).hostname}
-          <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-3.5" />
         </TextLink>
       ),
     },

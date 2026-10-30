@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
  * uppercase-tracked), with an optional count or link at the end of the row.
  *
  * @example
- * <SectionLabel aside={<Link href="/writing">All writing</Link>}>Writing</SectionLabel>
+ * <SectionLabel aside={<TextLink href="/writing">All writing</TextLink>}>Writing</SectionLabel>
  */
 export function SectionLabel({ children, aside, className }: { children: ReactNode; aside?: ReactNode; className?: string }) {
   return (

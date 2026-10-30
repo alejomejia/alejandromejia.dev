@@ -34,7 +34,7 @@ export function CvHeader({ name, headline, available, availability, location, em
     {
       label: copy.email,
       value: email && (
-        <TextLink href={`mailto:${email}`} className="wrap-anywhere">
+        <TextLink href={`mailto:${email}`} variant="underline" className="wrap-anywhere">
           {email}
         </TextLink>
       ),
@@ -44,7 +44,7 @@ export function CvHeader({ name, headline, available, availability, location, em
       value: links.length > 0 && (
         <span className="flex flex-wrap gap-x-2 print:flex-col">
           {links.map(({ label, href }) => (
-            <TextLink key={href} href={href} newTab>
+            <TextLink key={href} href={href} newTab variant="underline">
               <span className="print:hidden">{label}</span>
               <span className="hidden print:inline">{displayURL(href)}</span>
             </TextLink>

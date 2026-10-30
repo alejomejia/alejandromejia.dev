@@ -1,5 +1,8 @@
+import { ArrowUpRight } from 'lucide-react'
+
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
+import { TextLink } from '@/components/ui/text-link'
 import type { HomeWriting as HomeWritingEntry } from '@/lib/cms/home.server'
 import { SITE_ROUTES } from '@/lib/constants/routes'
 import type { Copy } from '@/lib/constants/copy'
@@ -7,7 +10,7 @@ import { writingPath } from '@/lib/seo/seo.utils'
 import { formatMonth } from '@/lib/utils'
 
 import { DraftTag } from './draft-tag'
-import { LIST_LABEL_LINK_CLASSNAME, LIST_ROW_CLASSNAME } from './list.const'
+import { LIST_ROW_CLASSNAME } from './list.const'
 
 /** The latest writing, any format: the month, the title, the format. */
 export function HomeWriting({
@@ -23,9 +26,9 @@ export function HomeWriting({
     <section>
       <SectionLabel
         aside={
-          <Link href={SITE_ROUTES.writing} className={LIST_LABEL_LINK_CLASSNAME}>
+          <TextLink href={SITE_ROUTES.writing} variant="underline">
             {copy.allWriting}
-          </Link>
+          </TextLink>
         }
       >
         {copy.writing}
@@ -37,7 +40,14 @@ export function HomeWriting({
               <span className="w-16 shrink-0 font-mono text-micro text-foreground/40">
                 {post.publishedAt ? formatMonth(post.publishedAt) : <DraftTag status={post._status} label={copy.draft} />}
               </span>
-              <span className="flex-1 truncate">{post.title}</span>
+              <span className="flex min-w-0 flex-1 items-center gap-2">
+                <span className="truncate">{post.title}</span>
+                <ArrowUpRight
+                  aria-hidden
+                  strokeWidth={1.5}
+                  className="size-4 shrink-0 text-foreground/40 opacity-0 transition-opacity duration-250 group-hover:opacity-100"
+                />
+              </span>
               <span className="hidden font-mono text-micro text-foreground/40 sm:inline">{copy.formats[post.format]}</span>
             </Link>
           </li>

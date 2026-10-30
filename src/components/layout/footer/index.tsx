@@ -11,8 +11,6 @@ import { cn } from '@/lib/utils'
 
 const LIST = 'flex flex-wrap gap-x-4 gap-y-1'
 // Color and underline together: a lone `transition-colors` would replace the underline's transition.
-const LINK = 'transition-[color,background-size] duration-250 hover:text-foreground'
-
 /**
  * The bottom of the sidebar (see `Sidebar`), in three quiet rows of
  * `text-caption`: the links out (email and profiles from Site settings, RSS);
@@ -43,7 +41,7 @@ export async function Footer({ className }: { className?: string }) {
         <ul className={LIST}>
           {links.map(({ label, href, newTab }) => (
             <li key={href}>
-              <TextLink href={href} newTab={newTab} prefetch="none" className={LINK}>
+              <TextLink href={href} newTab={newTab} prefetch="none">
                 {label}
               </TextLink>
             </li>
@@ -68,7 +66,7 @@ export async function Footer({ className }: { className?: string }) {
           <ul className={LIST}>
             {fineprint.map(({ label, href, newTab }) => (
               <li key={href}>
-                <TextLink href={href} newTab={newTab} prefetch="none" className={LINK}>
+                <TextLink href={href} newTab={newTab} prefetch="none">
                   {label}
                 </TextLink>
               </li>

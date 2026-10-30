@@ -2,6 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
+import { TextLink } from '@/components/ui/text-link'
 import { SITE_ROUTES } from '@/lib/constants/routes'
 import type { HomeWork as HomeWorkEntry } from '@/lib/cms/home.server'
 import type { Copy } from '@/lib/constants/copy'
@@ -9,7 +10,7 @@ import { workPath } from '@/lib/seo/seo.utils'
 import { cn, enter, formatYears } from '@/lib/utils'
 
 import { DraftTag } from './draft-tag'
-import { LIST_LABEL_LINK_CLASSNAME, LIST_ROW_CLASSNAME } from './list.const'
+import { LIST_ROW_CLASSNAME } from './list.const'
 
 /**
  * The featured case studies: title and summary, the years on the right, an
@@ -22,9 +23,9 @@ export function HomeWork({ entries, copy }: { entries: HomeWorkEntry[]; copy: Co
     <section>
       <SectionLabel
         aside={
-          <Link href={SITE_ROUTES.work} className={LIST_LABEL_LINK_CLASSNAME}>
+          <TextLink href={SITE_ROUTES.work} variant="underline">
             {copy.allWork}
-          </Link>
+          </TextLink>
         }
       >
         {copy.work}

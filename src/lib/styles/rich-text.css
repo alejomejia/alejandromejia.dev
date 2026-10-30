@@ -20,9 +20,16 @@
 .rich-text h3 {
   font-size: 1.25rem; /* 20px */
 }
+/* Links in prose follow `TextLink`'s inline rule: underlined at rest (their
+ * color matches the text around them), ink on hover. */
 .rich-text a {
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 0.0625rem; /* 1px */
+  text-underline-offset: 0.125rem; /* 2px */
+  transition: color 250ms ease;
+}
+.rich-text a:hover {
+  color: var(--foreground);
 }
 .rich-text ul,
 .rich-text ol {
