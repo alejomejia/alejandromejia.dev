@@ -58,3 +58,9 @@ next-env.d.ts
 
 # local setup notes, not published
 /docs/development.md
+
+# private planning docs, kept local (referenced from CLAUDE.md)
+/PROJECT-PLAN.md
+/CONTENT-MODEL.md
+/CONTENT-IDEAS.md
+/BENCHMARK.md
