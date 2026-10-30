@@ -105,3 +105,11 @@ export function toSitePath(href: string): string {
     return href
   }
 }
+
+/**
+ * A URL as people write it: no protocol, no `www.`, no trailing slash.
+ * @example displayURL('https://www.linkedin.com/in/someone/') // 'linkedin.com/in/someone'
+ */
+export function displayURL(url: string): string {
+  return url.replace(/^[a-z]+:\/\//i, '').replace(/^www\./, '').replace(/\/$/, '')
+}

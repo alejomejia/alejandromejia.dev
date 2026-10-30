@@ -177,3 +177,46 @@ export function collectionPageJsonLd({ name, description, path, items }: Collect
     },
   }
 }
+
+type ProfilePageArgs = {
+  path: string
+  name: string
+  description: string
+  /** The CV's roles, most recent first; the first open-ended one is the current employer. */
+  roles: Array<{ company: string; companyUrl?: string | null; endDate?: string | null }>
+  schools: string[]
+  languages: string[]
+}
+
+/**
+ * `ProfilePage` for the CV: about the site's `Person`, extended with what a
+ * CV adds (the current employer, past employers, schools), so search engines
+ * and AI answers can read the career, not just the name.
+ */
+export function profilePageJsonLd({ path, name, description, roles, schools, languages }: ProfilePageArgs): JsonLdNode {
+  const url = absoluteURL(path)
+  const organization = ({ company, companyUrl }: ProfilePageArgs['roles'][number]) => ({
+    '@type': 'Organization',
+    name: company,
+    ...(companyUrl && { url: companyUrl }),
+  })
+  const current = roles.filter((role) => !role.endDate)
+  const past = roles.filter((role) => role.endDate)
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': url,
+    url,
+    name,
+    description,
+    isPartOf: { '@id': websiteId() },
+    inLanguage: SITE.lang,
+    mainEntity: {
+      ...personRef(),
+      ...(current.length > 0 && { worksFor: current.map(organization) }),
+      ...(past.length > 0 && { alumniOf: [...past.map(organization), ...schools.map((school) => ({ '@type': 'EducationalOrganization', name: school }))] }),
+      ...(languages.length > 0 && { knowsLanguage: languages }),
+    },
+  }
+}

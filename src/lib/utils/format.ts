@@ -41,6 +41,17 @@ export function formatYears(start: string, end?: string | null): string {
 }
 
 /**
+ * Whole months from one month to another, counting both, the way LinkedIn
+ * and CVs count a role. Without an end, it runs to `now`.
+ * @example monthSpan('2024-04-01', '2025-09-01') // 18
+ */
+export function monthSpan(start: string, end?: string | null, now: Date = new Date()): number {
+  const from = new Date(start)
+  const to = end ? new Date(end) : now
+  return (to.getUTCFullYear() - from.getUTCFullYear()) * 12 + (to.getUTCMonth() - from.getUTCMonth()) + 1
+}
+
+/**
  * Turns a heading into a URL fragment: lowercase ASCII words joined by dashes.
  * @example slugify('Your rights & choices') // 'your-rights-choices'
  */

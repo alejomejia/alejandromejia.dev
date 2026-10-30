@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   )
 
   // Code-defined routes that aren't CMS documents. Add new static routes here.
-  const staticRoutes: SitemapRoute[] = [{ path: '/writing', lastModified: latestWriting }]
+  const staticRoutes: SitemapRoute[] = [{ path: '/writing', lastModified: latestWriting }, { path: '/cv' }]
 
   // `changeFrequency`/`priority` are omitted: Google ignores both, and an
   // accurate `lastModified` is the signal that matters.

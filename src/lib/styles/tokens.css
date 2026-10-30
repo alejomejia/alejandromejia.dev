@@ -55,6 +55,20 @@
   --positive: #4ade80;
 }
 
+/* Paper is light whatever the theme: dark ink on a dark page would print as
+ * light gray on white. Tripled `:root` outranks both dark-mode rules. */
+@media print {
+  :root:root:root {
+    --background: #fcfcfc;
+    --foreground: #111111;
+    --positive: #16a34a;
+  }
+
+  @page {
+    margin: 2rem; /* 32px */
+  }
+}
+
 @media (max-width: 40rem) { /* 640px */
   :root {
     --fs-display-m: 1.75rem; /* 28px */

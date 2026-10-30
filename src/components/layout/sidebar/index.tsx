@@ -15,8 +15,8 @@ import { Header } from '@/components/layout/header'
 export function Sidebar() {
   return (
     <div className="contents lg:sticky lg:top-0 lg:flex lg:h-svh lg:flex-col lg:justify-between lg:gap-pad-xl lg:self-start lg:py-pad-xl lg:[view-transition-name:sidebar]">
-      <Header className="order-1 pt-pad-l max-lg:[view-transition-name:sidebar] lg:pt-0" />
-      <Footer className="order-3 pb-pad-l lg:pb-0" />
+      <Header className="order-1 pt-pad-l max-lg:[view-transition-name:sidebar] lg:pt-0 print:hidden" />
+      <Footer className="order-3 pb-pad-l lg:pb-0 print:hidden" />
     </div>
   )
 }

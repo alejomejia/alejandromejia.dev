@@ -47,3 +47,11 @@ export const queryProfileIntro = cache(async function queryProfileIntro(): Promi
 export const queryProfile = cache(async function queryProfile(): Promise<Profile> {
   return getCachedGlobal('profile')()
 })
+
+/**
+ * Reads the Profile global with its references populated (the CV's PDF and
+ * the case studies its roles link to), for the /cv page.
+ */
+export const queryProfileCv = cache(async function queryProfileCv(): Promise<Profile> {
+  return getCachedGlobal('profile', 1)()
+})
