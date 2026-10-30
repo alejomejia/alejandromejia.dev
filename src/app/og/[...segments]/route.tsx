@@ -1,16 +1,16 @@
 import { notFound } from 'next/navigation'
 
+import { findCraft } from '@/app/(frontend)/craft/_components/craft.mock'
 import { findChapter, findWork } from '@/app/(frontend)/work/_components/work.mock'
 import { findWriting } from '@/app/(frontend)/writing/_components/writing.mock'
-import { getShareCard } from '@/lib/cms/share-card.server'
-import { caseStudyCard, chapterCard, type OgCard, ogCardVersion, writingCard } from '@/lib/seo/og/og-cards'
+import { caseStudyCard, chapterCard, craftCard, type OgCard, ogCardVersion, writingCard } from '@/lib/seo/og/og-cards'
 import { renderOgImage } from '@/lib/seo/og/og-image.server'
 
 // Rendered once, on the first request for each path, then served from Next's
-// cache. The CMS reads it uses carry the `cms` tag, so publishing a change
-// (the revalidate hooks) discards the cached image and the next request
-// draws it again. Nothing renders at build, so the build never needs the
-// database.
+// cache. Every card reads mock data for now; once the content moves to the
+// CMS, its reads carry the `cms` tag, so publishing a change (the revalidate
+// hooks) discards the cached image. Nothing renders at build, so the build
+// never needs the database.
 export const dynamic = 'force-static'
 export const dynamicParams = true
 
@@ -33,12 +33,18 @@ function articleCard(slug: string): OgCard | null {
   return entry ? writingCard(entry) : null
 }
 
+/** Craft experiments and snippets. Read from the mock data until Craft moves to the CMS. */
+function craftEntryCard(slug: string): OgCard | null {
+  const entry = findCraft(slug)
+  return entry ? craftCard(entry) : null
+}
+
 async function findCard([section, slug, chapter, ...rest]: string[]): Promise<OgCard | null> {
   if (!slug || rest.length > 0) return null
   if (section === 'work') return workCard(slug, chapter)
   if (chapter) return null
   if (section === 'writing') return articleCard(slug)
-  if (section === 'craft') return getShareCard(section, slug)
+  if (section === 'craft') return craftEntryCard(slug)
   return null
 }
 
