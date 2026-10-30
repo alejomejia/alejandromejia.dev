@@ -201,16 +201,25 @@ export const COPY = {
     },
   },
   notFound: {
+    label: '404',
     title: 'Page not found',
-    text: "The page you are looking for doesn't exist or may have been moved.",
-    back: 'Back to home',
+    text: "This page doesn't exist, or it has moved.",
+    // "Go back to the home page, or search the site."
+    back: 'Go back to the',
+    home: 'home page',
+    or: 'or',
+    search: 'search the site',
+    sections: 'Or start here',
+    cv: 'Roles, skills and the remote years, with a PDF to keep.',
   },
   error: {
     label: 'Error',
     title: 'Something went wrong',
-    text: 'An unexpected error occurred while loading this page. Try again, or head back home.',
+    text: "This page didn't load. The problem is on my side, not yours.",
+    // "Try again, or go back to the home page."
     retry: 'Try again',
-    back: 'Back to home',
+    or: 'or go back to the',
+    home: 'home page',
   },
 }
 

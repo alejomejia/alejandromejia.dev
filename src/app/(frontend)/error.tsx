@@ -2,8 +2,12 @@
 
 import { useEffect } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { TextLink } from '@/components/ui/text-link'
 import { COPY } from '@/lib/constants/copy'
+import { SITE_ROUTES } from '@/lib/constants/routes'
+import { enter } from '@/lib/utils'
+
+import { SectionLinks } from './_components/section-links'
 
 type ErrorProps = {
   error: Error & { digest?: string }
@@ -12,9 +16,10 @@ type ErrorProps = {
 
 /**
  * Error boundary for the public site. Catches runtime errors thrown while
- * rendering a frontend route and offers a retry. The root layout (Header,
- * Footer) stays mounted; catastrophic layout failures fall through to
- * `global-error.tsx` instead.
+ * rendering a frontend route and offers a retry. The root layout (the
+ * sidebar) stays mounted; catastrophic layout failures fall through to
+ * `global-error.tsx` instead. Laid out like the 404: a mono label, the
+ * `<h1>`, one sentence with the retry and the way home, then the sections.
  */
 export default function FrontendError({ error, reset }: ErrorProps) {
   const copy = COPY.error
@@ -25,18 +30,23 @@ export default function FrontendError({ error, reset }: ErrorProps) {
   }, [error])
 
   return (
-    <section className="flex flex-1 flex-col items-center justify-center gap-6 p-8 text-center">
-      <p className="text-sm font-medium uppercase tracking-widest text-foreground/60">{copy.label}</p>
-      <h1 className="text-3xl font-semibold tracking-tight">{copy.title}</h1>
-      <p className="max-w-md text-base text-foreground/70">
-        {copy.text}
-      </p>
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button variant="solid" onClick={reset}>
-          {copy.retry}
-        </Button>
-        <Button href="/">{copy.back}</Button>
-      </div>
-    </section>
+    <div className="flex flex-col gap-pad-2xl">
+      <header className="flex flex-col gap-pad-xs">
+        <p {...enter(0, 'font-mono text-micro text-foreground/40')}>{copy.label}</p>
+        <h1 {...enter(1, 'text-display-s font-medium tracking-tight text-balance')}>{copy.title}</h1>
+        <p {...enter(2, 'text-pretty text-foreground/60')}>
+          {copy.text}{' '}
+          <TextLink onClick={reset} variant="underline">
+            {copy.retry}
+          </TextLink>
+          , {copy.or}{' '}
+          <TextLink href={SITE_ROUTES.home} variant="underline">
+            {copy.home}
+          </TextLink>
+          .
+        </p>
+      </header>
+      <SectionLinks label={COPY.notFound.sections} enterStep={3} />
+    </div>
   )
 }

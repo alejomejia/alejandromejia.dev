@@ -4,7 +4,9 @@
  * are both required and correct. */
 import type { Metadata } from 'next'
 
-import { buttonClassName } from '@/components/ui/button'
+import { Logo } from '@/components/ui/logo'
+import { textLinkClassName, textLinkLabelClassName } from '@/components/ui/text-link'
+import { COPY } from '@/lib/constants/copy'
 import { SITE } from '@/lib/seo/seo.const'
 import { fontVariables } from '@/lib/styles/fonts'
 
@@ -13,33 +15,41 @@ import { fontVariables } from '@/lib/styles/fonts'
 import '@/lib/styles/globals.css'
 
 export const metadata: Metadata = {
-  title: `Page not found | ${SITE.name}`,
+  title: `${COPY.notFound.title} | ${SITE.name}`,
 }
 
 /**
  * App-wide 404 for URLs that match no route at all. Required because the app
  * has multiple root layouts ((frontend) + (payload)), so Next can't compose a
  * global 404 from a single layout. It renders its own `<html>`/`<body>` and
- * therefore has no site Header/Footer; `notFound()` within a route segment
- * still uses the chrome'd `(frontend)/not-found.tsx` instead. Uses plain
- * anchors (not `next/link`): this page bypasses the router, so a full
- * navigation is both correct and required for it to render.
+ * therefore has no sidebar; `notFound()` within a route segment still uses
+ * the framed `(frontend)/not-found.tsx` instead. Same look as that page, in
+ * the content column's width: the wordmark, a mono "404", the `<h1>` and the
+ * way home. Uses plain anchors (not `next/link`): this page bypasses the
+ * router, so a full navigation is both correct and required for it to render.
  */
 export default function GlobalNotFound() {
+  const copy = COPY.notFound
+
   return (
     <html lang={SITE.lang} className={`${fontVariables} antialiased`}>
-      <body className="flex min-h-svh flex-col items-center justify-center gap-6 p-8 text-center">
-        <a href="/" className="text-lg font-semibold tracking-tight">
-          {SITE.name}
-        </a>
-        <p className="text-sm font-medium uppercase tracking-widest text-foreground/60">404</p>
-        <h1 className="text-3xl font-semibold tracking-tight">Page not found</h1>
-        <p className="max-w-md text-base text-foreground/70">
-          The page you are looking for doesn&apos;t exist or may have been moved.
-        </p>
-        <a href="/" className={buttonClassName({ variant: 'solid' })}>
-          Back to home
-        </a>
+      <body className="min-h-svh">
+        <main className="mx-auto flex min-h-svh w-full max-w-(--shell-width) flex-col justify-center gap-pad-2xl px-6 py-pad-3xl">
+          <a href="/" className="w-fit">
+            <Logo />
+          </a>
+          <div className="flex flex-col gap-pad-xs">
+            <p className="font-mono text-micro text-foreground/40">{copy.label}</p>
+            <h1 className="text-display-s font-medium tracking-tight text-balance">{copy.title}</h1>
+            <p className="text-pretty text-foreground/60">
+              {copy.text} {copy.back}{' '}
+              <a href="/" className={textLinkClassName({ variant: 'underline' })}>
+                <span className={textLinkLabelClassName({ variant: 'underline' })}>{copy.home}</span>
+              </a>
+              .
+            </p>
+          </div>
+        </main>
       </body>
     </html>
   )

@@ -263,5 +263,6 @@ function CommandMenuHints() {
   )
 }
 
+export { CommandMenuLink } from './command-menu-link'
 export { CommandMenuTrigger } from './command-menu-trigger'
 export type { CommandItem, CommandMenuProps } from './command-menu.types'
