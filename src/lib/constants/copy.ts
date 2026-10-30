@@ -56,6 +56,7 @@ export const COPY = {
     compare: 'Drag to compare before and after',
     private: 'Private project, shown as a recording',
     callout: { note: 'Note', lesson: 'Lesson', tradeoff: 'Trade-off' },
+    anchor: 'Link to the section “{section}”',
   },
   header: {
     nav: 'Main',

@@ -1,5 +1,5 @@
 import { COPY } from '@/lib/constants/copy'
-import { cn } from '@/lib/utils'
+import { cn, formatMessage } from '@/lib/utils'
 
 import { BeforeAfter } from './before-after'
 import { Callout } from './callout'
@@ -8,6 +8,7 @@ import { CodeBlock } from './code-block'
 import { Metrics } from './metrics'
 import { Steps } from './steps'
 import type { StoryNode } from './story.types'
+import { storyHeadingId } from './story.utils'
 
 export type { StoryNode } from './story.types'
 
@@ -28,12 +29,27 @@ export async function StoryContent({ nodes, className }: { nodes: StoryNode[]; c
     <div className={cn('flex flex-col gap-pad-s', className)}>
       {nodes.map((node, index) => {
         switch (node.type) {
-          case 'heading':
+          case 'heading': {
+            const id = storyHeadingId(node.text)
             return (
-              <h2 key={index} className="mt-pad-m text-lead font-medium tracking-tight text-balance first:mt-0">
+              // `scroll-mt` keeps a linked heading clear of the viewport's top edge.
+              <h2
+                key={index}
+                id={id}
+                className="group relative mt-pad-m scroll-mt-pad-l text-lead font-medium tracking-tight text-balance first:mt-0"
+              >
                 {node.text}
+                {/* A link to the section, shown on hover in the left margin (inline on phones, where there is none). */}
+                <a
+                  href={`#${id}`}
+                  aria-label={formatMessage(copy.anchor, { section: node.text })}
+                  className="ml-2 font-mono text-foreground/40 opacity-0 transition-[color,opacity] duration-250 group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100 lg:absolute lg:top-0 lg:-left-6 lg:ml-0"
+                >
+                  #
+                </a>
               </h2>
             )
+          }
           case 'paragraph':
             return (
               <p key={index} className="text-pretty text-foreground/80">
