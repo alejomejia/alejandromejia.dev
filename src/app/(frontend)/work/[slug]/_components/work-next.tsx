@@ -5,7 +5,7 @@ import { formatYears } from '@/lib/utils'
 import { nextWork } from '@/app/(frontend)/work/_components/work.mock'
 import type { WorkEntry } from '@/app/(frontend)/work/_components/work.types'
 import { chapterNumber, chapterPages } from '@/app/(frontend)/work/_components/work.utils'
-import { WorkNextLink } from './work-next-link'
+import { OnwardLink } from '@/app/(frontend)/_components/onward-link'
 
 /**
  * The end of a case study page: the next chapter while there is one, then
@@ -18,7 +18,7 @@ export function WorkNext({ work, current, copy }: { work: WorkEntry; current: st
 
   if (nextChapter) {
     return (
-      <WorkNextLink
+      <OnwardLink
         label={copy.nextChapter}
         href={nextChapter.href}
         title={nextChapter.title}
@@ -30,7 +30,7 @@ export function WorkNext({ work, current, copy }: { work: WorkEntry; current: st
 
   const next = nextWork(work.slug)
   return (
-    <WorkNextLink
+    <OnwardLink
       label={copy.next}
       href={workPath(next.slug)}
       title={next.title}

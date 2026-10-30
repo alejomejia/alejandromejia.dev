@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
 
 import { JsonLd } from '@/components/seo/json-ld'
 import { StoryContent } from '@/components/story'
 import { Metrics } from '@/components/story/metrics'
-import { Link } from '@/components/ui/link'
 import { SITE_ROUTES } from '@/lib/constants/routes'
 import { COPY } from '@/lib/constants/copy'
 import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
@@ -14,6 +12,7 @@ import { caseStudyCard } from '@/lib/seo/og/og-cards'
 import { workPath } from '@/lib/seo/seo.utils'
 import { enter } from '@/lib/utils'
 
+import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { findWork } from '@/app/(frontend)/work/_components/work.mock'
 import { WorkCover } from '@/app/(frontend)/work/_components/work-cover'
 import { WorkChapters } from './_components/work-chapters'
@@ -75,13 +74,7 @@ export default async function WorkEntryPage({ params }: Args) {
 
       <header className="flex flex-col gap-pad-l">
         <div className="flex flex-col gap-pad-xs">
-          <Link
-            href={SITE_ROUTES.work}
-            {...enter(0, 'group flex w-fit items-center gap-1 text-caption text-foreground/40 transition-colors duration-250 hover:text-foreground')}
-          >
-            <ArrowLeft aria-hidden strokeWidth={1.5} className="size-3.5 transition-transform duration-250 group-hover:-translate-x-0.5" />
-            {copy.back}
-          </Link>
+          <BackLink href={SITE_ROUTES.work}>{copy.back}</BackLink>
           <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{work.title}</h1>
           <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{work.summary}</p>
         </div>

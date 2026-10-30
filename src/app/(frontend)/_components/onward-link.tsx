@@ -4,20 +4,20 @@ import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { cn } from '@/lib/utils'
 
-import { LIST_ROW_CLASSNAME } from '@/app/(frontend)/_components/list.const'
+import { LIST_ROW_CLASSNAME } from './list.const'
 
-type WorkNextLinkProps = {
-  /** What comes next: "Next chapter", "Next case study". */
+type OnwardLinkProps = {
+  /** What comes next: "Next chapter", "Next case study", "Next article". */
   label: string
   href: string
   title: string
   summary: string
-  /** Mono meta on the right: the chapter number, the years. */
+  /** Mono meta on the right: the chapter number, the years, the month. */
   meta: string
 }
 
-/** The way on at the end of a page: one list row below a hairline, so a case study never dead-ends. */
-export function WorkNextLink({ label, href, title, summary, meta }: WorkNextLinkProps) {
+/** The way on at the end of a page: one list row below a hairline, so a case study or article never dead-ends. */
+export function OnwardLink({ label, href, title, summary, meta }: OnwardLinkProps) {
   return (
     <nav aria-label={label} className="border-t border-foreground/10 pt-pad-s">
       <SectionLabel>{label}</SectionLabel>
