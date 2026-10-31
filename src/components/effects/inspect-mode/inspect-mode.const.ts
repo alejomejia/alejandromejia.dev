@@ -1,12 +1,13 @@
 /**
- * The overlay's own colors, Figma's: selection blue and redline red, with
- * white labels. The only hues on the site besides the availability dot; they
+ * The overlay's own colors, Figma's: selection blue and redline red. Labels
+ * are near-black, not Figma's white, to clear WCAG AA on both (6.4:1 and
+ * 4.7:1; white gives 3:1 and 4:1). The only hues on the site besides the availability dot; they
  * exist only while inspect mode is on.
  */
 export const INSPECT_COLORS = {
   'inspect-box': '#0d99ff',
   'inspect-distance': '#f24822',
-  'inspect-label': '#ffffff',
+  'inspect-label': '#0f0f0f',
 }
 
 /** The key that toggles inspect mode (no modifiers, outside text fields). */

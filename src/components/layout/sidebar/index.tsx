@@ -19,10 +19,9 @@ export function Sidebar() {
   return (
     <div className="contents lg:sticky lg:top-0 lg:flex lg:h-svh lg:flex-col lg:justify-between lg:gap-pad-xl lg:self-start lg:py-pad-xl lg:[view-transition-name:sidebar]">
       <Header className="order-1 pt-pad-l max-lg:[view-transition-name:sidebar] lg:pt-0 print:hidden" />
-      <div className="order-3 flex flex-col gap-pad-l pb-pad-l max-lg:mt-pad-3xl max-lg:border-t max-lg:border-foreground/10 max-lg:pt-pad-m lg:pb-0 print:hidden">
+      <Footer className="order-3 pb-pad-l max-lg:mt-pad-3xl max-lg:border-t max-lg:border-foreground/10 max-lg:pt-pad-m lg:pb-0 print:hidden">
         <SidebarIntro />
-        <Footer />
-      </div>
+      </Footer>
     </div>
   )
 }

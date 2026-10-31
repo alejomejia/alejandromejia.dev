@@ -100,7 +100,7 @@ export const COPY = {
   },
   commandMenu: {
     label: 'Menu',
-    open: 'Open menu',
+    open: 'Open menu, {shortcut}',
     menu: 'Menu',
     search: 'Search pages, work, writing and actions',
     placeholder: 'Type to search…',

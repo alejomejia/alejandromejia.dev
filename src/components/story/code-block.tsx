@@ -18,12 +18,14 @@ function parseLines(highlight?: string): Set<number> {
  * The code itself, in mono: scrolls sideways (never wraps), highlighted
  * lines on a darker band. Plain monochrome for now; syntax colors (Shiki,
  * server rendered) come later. Shared by `CodeBlock` and `CodeGroup`.
+ * Focusable, so keyboard users can scroll it; the focus ring is drawn inside,
+ * where the frame's `overflow-hidden` can't clip it.
  */
 export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'highlight'>) {
   const highlighted = parseLines(highlight)
 
   return (
-    <pre className="overflow-x-auto py-3 font-mono text-micro leading-relaxed">
+    <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-micro leading-relaxed focus-visible:-outline-offset-4">
       <code className="block min-w-max">
         {code.split('\n').map((line, index) => (
           <span
