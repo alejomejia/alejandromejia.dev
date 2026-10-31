@@ -29,8 +29,8 @@ import { FileSizeCell as FileSizeCell_6c0e33c2bda6979cd6accb03c30fb9c9 } from '@
 import { UnusedMediaBanner as UnusedMediaBanner_c866179f5a2d7e71aef12644cdd2763d } from '@/payload/components/unused-media-banner'
 import { FolderTypeField as FolderTypeField_2b8867833a34864a02ddf429b0728a40 } from '@payloadcms/next/client'
 import { LinkRowLabel as LinkRowLabel_c45363328a1b51cf3274e9f266549847 } from '@/payload/components/link-row-label'
-import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
+import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
@@ -65,6 +65,6 @@ export const importMap = {
   "@/payload/components/unused-media-banner#UnusedMediaBanner": UnusedMediaBanner_c866179f5a2d7e71aef12644cdd2763d,
   "@payloadcms/next/client#FolderTypeField": FolderTypeField_2b8867833a34864a02ddf429b0728a40,
   "@/payload/components/link-row-label#LinkRowLabel": LinkRowLabel_c45363328a1b51cf3274e9f266549847,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
-  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
 }
