@@ -1,3 +1,11 @@
 allowBuilds:
   esbuild: false
   unrs-resolver: false
+
+# Security fixes for transitive packages Payload hasn't bumped yet. Each one
+# only lifts versions below the patched release; drop it once upstream ships it.
+overrides:
+  'dompurify@<3.4.17': ^3.4.17
+  'fast-uri@<3.1.9': ^3.1.9
+  'happy-dom@<21.0.4': ^21.0.4
+  'source-map-js@<1.2.2': ^1.2.2
