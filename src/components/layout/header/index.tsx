@@ -29,7 +29,7 @@ export async function Header({ className }: { className?: string }) {
 
   return (
     <header className={cn('flex flex-col gap-pad-l', className)}>
-      <div className="flex flex-col gap-pad-xs">
+      <div className="flex flex-col gap-pad-m">
         <HeaderIdentity profile={profile} />
         <HeaderByline profile={profile} />
       </div>
