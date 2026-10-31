@@ -54,7 +54,7 @@ export function CvSkill({ name, traceKey }: { name: string; traceKey?: string })
   const trace = use(TraceContext)
 
   if (!traceKey || !trace) {
-    return <span className={cn(TAG_CLASSNAME, 'border-foreground/10 text-foreground/60')}>{name}</span>
+    return <span className={cn(TAG_CLASSNAME, 'border-foreground/10 text-muted')}>{name}</span>
   }
 
   const active = trace.active === traceKey
@@ -70,7 +70,7 @@ export function CvSkill({ name, traceKey }: { name: string; traceKey?: string })
       className={cn(
         TAG_CLASSNAME,
         'cursor-pointer transition-colors duration-250',
-        active ? 'border-foreground bg-foreground text-background' : 'border-foreground/10 text-foreground/60 hover:text-foreground',
+        active ? 'border-foreground bg-foreground text-background' : 'border-foreground/10 text-muted hover:text-foreground',
       )}
     >
       {name}

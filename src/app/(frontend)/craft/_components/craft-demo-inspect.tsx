@@ -19,13 +19,13 @@ export function CraftDemoInspect({ copy }: { copy: Copy['craft']['inspect'] }) {
             border would push every distance off the grid (25 instead of 24). */}
         <div className="flex w-64 flex-col gap-pad-xs rounded-xl bg-background p-pad-m">
           <p className="font-medium">{copy.cardTitle}</p>
-          <p className="text-caption text-pretty text-foreground/60">{copy.cardText}</p>
+          <p className="text-caption text-pretty text-muted">{copy.cardText}</p>
           <span className="mt-pad-xs inline-flex h-8 w-fit items-center rounded-lg border border-foreground/10 px-3 text-caption">
             {copy.cardAction}
           </span>
         </div>
       </CraftStage>
-      <figcaption className="flex flex-col gap-pad-xs text-caption text-foreground/60 sm:flex-row sm:items-center sm:gap-pad-s">
+      <figcaption className="flex flex-col gap-pad-xs text-caption text-muted sm:flex-row sm:items-center sm:gap-pad-s">
         <button
           type="button"
           onClick={() => setInspectEnabled(!enabled)}

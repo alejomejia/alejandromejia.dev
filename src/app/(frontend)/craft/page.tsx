@@ -50,11 +50,11 @@ export default async function CraftPage() {
 
       <PageHeader title={copy.title} description={copy.description} />
 
-      {CRAFT.length === 0 && <p {...enter(2, 'text-caption text-foreground/60')}>{copy.empty}</p>}
+      {CRAFT.length === 0 && <p {...enter(2, 'text-caption text-muted')}>{copy.empty}</p>}
       <CraftExperiments entries={experiments} label={copy.experiments} enterFrom={2} />
       <CraftSnippets entries={snippets} label={copy.snippets} enterFrom={2 + experiments.length} />
 
-      <p {...enter(CRAFT_LAST_ENTER_STEP, 'text-caption text-foreground/60')}>
+      <p {...enter(CRAFT_LAST_ENTER_STEP, 'text-caption text-muted')}>
         {copy.closing} <TextLink href={SITE_ROUTES.writing} variant="underline">
           {copy.writing}
         </TextLink>.

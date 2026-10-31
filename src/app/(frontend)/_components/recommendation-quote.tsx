@@ -39,14 +39,14 @@ export function RecommendationQuote({
       <figcaption className="flex gap-4 text-caption">
         <span className="flex min-w-0 flex-col">
           <span>{recommendation.name}</span>
-          <span className="text-foreground/60">
+          <span className="text-muted">
             {recommendation.role}
             {recommendation.company && `, ${recommendation.company}`}
           </span>
         </span>
-        <span className="ml-auto self-start font-mono text-micro whitespace-nowrap text-foreground/40 max-sm:hidden">{meta}</span>
+        <span className="ml-auto self-start font-mono text-micro whitespace-nowrap text-subtle max-sm:hidden">{meta}</span>
       </figcaption>
-      <p className="font-mono text-micro text-foreground/40 sm:hidden">{meta}</p>
+      <p className="font-mono text-micro text-subtle sm:hidden">{meta}</p>
     </figure>
   )
 }

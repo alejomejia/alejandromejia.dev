@@ -8,12 +8,19 @@
  * site, so text should not grow with the viewport.
  * ------------------------------------------------------------------------- */
 :root {
-  /* Page colors. Components read only these two (plus opacity, e.g.
-   * `text-foreground/60`), so swapping them restyles everything at once.
+  /* Page colors. Components read only these two (plus the grays below and
+   * opacity, e.g. `border-foreground/10`), so swapping them restyles
+   * everything at once.
    * Keep `SITE.themeColor` (`src/lib/seo/seo.const.ts`) equal to the
    * background. */
   --background: #0f0f0f;
   --foreground: #ededed;
+  /* Text grays, by role: secondary (descriptions, meta) and tertiary
+   * (dates, labels, captions). The foreground at an opacity, so they hold on
+   * any surface; both clear WCAG AA (4.5:1) on the page and on the
+   * `foreground/3` and `/5` surfaces (worst case: subtle at 4.75:1). */
+  --muted: color-mix(in srgb, var(--foreground) 60%, transparent); /* 6.3:1 */
+  --subtle: color-mix(in srgb, var(--foreground) 52%, transparent); /* 5.0:1 */
   /* No brand color: the accent (buttons, the button wipe, focus) is the ink. */
   --accent: var(--foreground);
   --accent-foreground: var(--background);
@@ -45,6 +52,9 @@
     --background: #fcfcfc;
     --foreground: #111111;
     --positive: #16a34a;
+    /* Dark ink on white loses contrast faster at the same opacity. */
+    --muted: color-mix(in srgb, var(--foreground) 70%, transparent);
+    --subtle: color-mix(in srgb, var(--foreground) 60%, transparent);
   }
 
   @page {

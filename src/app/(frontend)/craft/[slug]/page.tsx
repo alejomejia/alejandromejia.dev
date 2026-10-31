@@ -94,7 +94,7 @@ export default async function CraftEntryPage({ params }: Args) {
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.craft}>{copy.back}</BackLink>
           <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{entry.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{entry.description}</p>
+          <p {...enter(2, 'text-lead text-pretty text-muted')}>{entry.description}</p>
         </div>
         <div {...enter(3)}>
           <PageFacts facts={facts} />

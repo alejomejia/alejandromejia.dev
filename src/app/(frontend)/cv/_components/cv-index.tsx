@@ -56,7 +56,7 @@ export function CvIndex({ sections, pdfUrl, enterStep }: CvIndexProps) {
               <TextLink
                 href={`#${id}`}
                 aria-current={current === id ? 'location' : undefined}
-                className={current === id ? 'text-foreground' : 'text-foreground/60'}
+                className={current === id ? 'text-foreground' : 'text-muted'}
               >
                 {label}
               </TextLink>

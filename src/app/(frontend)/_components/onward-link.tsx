@@ -28,12 +28,12 @@ export function OnwardLink({ label, href, title, summary, meta }: OnwardLinkProp
             <ArrowRight
               aria-hidden
               strokeWidth={1.5}
-              className="size-4 -translate-x-1 text-foreground/40 opacity-0 transition-[opacity,translate] duration-250 group-hover:translate-x-0 group-hover:opacity-100"
+              className="size-4 -translate-x-1 text-subtle opacity-0 transition-[opacity,translate] duration-250 group-hover:translate-x-0 group-hover:opacity-100"
             />
           </span>
-          <span className="block text-caption text-pretty text-foreground/60">{summary}</span>
+          <span className="block text-caption text-pretty text-muted">{summary}</span>
         </span>
-        <span className="font-mono text-micro text-foreground/40">{meta}</span>
+        <span className="font-mono text-micro text-subtle">{meta}</span>
       </Link>
     </nav>
   )

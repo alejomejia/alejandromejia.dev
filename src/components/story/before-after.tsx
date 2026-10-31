@@ -9,7 +9,7 @@ import { DOT_TEXTURE_CLASSNAME } from './media-frame'
 import type { BeforeAfterProps, BeforeAfterSide } from './story.types'
 
 const SIZES = '(min-width: 64rem) 40rem, 100vw'
-const LABEL_CLASSNAME = 'absolute top-3 rounded-full bg-background/80 px-2 py-0.5 font-mono text-micro text-foreground/60'
+const LABEL_CLASSNAME = 'absolute top-3 rounded-full bg-background/80 px-2 py-0.5 font-mono text-micro text-muted'
 
 /** One side's media, or a dot texture: coarse and faint before, the house grid after. */
 function Side({ side, placeholder }: { side: BeforeAfterSide; placeholder: 'before' | 'after' }) {
@@ -78,7 +78,7 @@ export function BeforeAfter({ before, after, mode = 'slider', caption, labels }:
       </div>
 
       {(caption || mode === 'toggle') && (
-        <figcaption className="flex flex-wrap items-baseline justify-between gap-x-4 text-caption text-foreground/60">
+        <figcaption className="flex flex-wrap items-baseline justify-between gap-x-4 text-caption text-muted">
           {caption && <span className="text-pretty">{caption}</span>}
           {mode === 'toggle' && (
             <span className="flex gap-3 font-mono text-micro">
@@ -91,7 +91,7 @@ export function BeforeAfter({ before, after, mode = 'slider', caption, labels }:
                   type="button"
                   aria-pressed={showAfter === option.after}
                   onClick={() => setShowAfter(option.after)}
-                  className="text-foreground/40 transition-colors duration-250 hover:text-foreground aria-pressed:text-foreground"
+                  className="text-subtle transition-colors duration-250 hover:text-foreground aria-pressed:text-foreground"
                 >
                   {option.label}
                 </button>

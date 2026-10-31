@@ -89,7 +89,7 @@ export default async function WritingEntryPage({ params }: Args) {
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.writing}>{copy.back}</BackLink>
           <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{entry.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{entry.excerpt}</p>
+          <p {...enter(2, 'text-lead text-pretty text-muted')}>{entry.excerpt}</p>
         </div>
         <div {...enter(3)}>
           <WritingFacts entry={entry} copy={copy} />

@@ -31,7 +31,7 @@ export async function Footer({ className }: { className?: string }) {
   return (
     <footer
       className={cn(
-        'flex flex-col gap-pad-s text-caption text-foreground/60',
+        'flex flex-col gap-pad-s text-caption text-muted',
         className,
       )}
     >
@@ -54,7 +54,7 @@ export async function Footer({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div className={cn(LIST, 'text-foreground/40')}>
+      <div className={cn(LIST, 'text-subtle')}>
         <p>
           © {new Date().getFullYear()}
           {footer.copyright && ` ${footer.copyright}`}

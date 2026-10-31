@@ -76,7 +76,7 @@ export default async function WorkEntryPage({ params }: Args) {
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.work}>{copy.back}</BackLink>
           <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{work.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{work.summary}</p>
+          <p {...enter(2, 'text-lead text-pretty text-muted')}>{work.summary}</p>
         </div>
         <div {...enter(3)}>
           <WorkFacts work={work} copy={copy} />
@@ -94,13 +94,13 @@ export default async function WorkEntryPage({ params }: Args) {
 
       <figure {...enter(6, 'flex flex-col gap-pad-xs')}>
         <WorkCover cover={work.cover} />
-        {work.confidential && <figcaption className="font-mono text-micro text-foreground/40">{copy.confidential}</figcaption>}
+        {work.confidential && <figcaption className="font-mono text-micro text-subtle">{copy.confidential}</figcaption>}
       </figure>
 
       {work.content ? (
         <StoryContent nodes={work.content} />
       ) : (
-        <p className="text-caption text-foreground/60">{copy.inProgress}</p>
+        <p className="text-caption text-muted">{copy.inProgress}</p>
       )}
 
       {!work.chapters?.length && <WorkClosing work={work} copy={copy} />}

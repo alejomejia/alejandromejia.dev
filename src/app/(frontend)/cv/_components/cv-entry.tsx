@@ -36,13 +36,13 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
             )}
           </h3>
           {period && (
-            <p className="font-mono text-micro whitespace-nowrap text-foreground/40">
+            <p className="font-mono text-micro whitespace-nowrap text-subtle">
               {period.label} · {period.duration}
             </p>
           )}
         </div>
         {organization && (
-          <p className="text-pretty text-foreground/60">
+          <p className="text-pretty text-muted">
             {organization.href ? (
               <TextLink href={organization.href} newTab variant="underline">
                 {organization.name}
@@ -51,11 +51,11 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
               organization.name
             )}
             {organization.location && `, ${organization.location}`}
-            {organization.via && <span className="text-foreground/40"> · {formatMessage(copy.via, { agency: organization.via })}</span>}
+            {organization.via && <span className="text-subtle"> · {formatMessage(copy.via, { agency: organization.via })}</span>}
           </p>
         )}
         {(contract || remote || note) && (
-          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-caption text-foreground/40">
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-caption text-subtle">
             {contract && <span className={LABEL_CLASSNAME}>{copy.contract}</span>}
             {remote && <span className={LABEL_CLASSNAME}>{copy.remote}</span>}
             {note && (remote ? formatMessage(copy.remoteFrom, { place: note }) : note)}
@@ -67,7 +67,7 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         <ul className="flex flex-col gap-1 text-pretty text-foreground/80">
           {highlights.map((highlight) => (
             <li key={highlight} className="flex gap-2">
-              <span aria-hidden className="text-foreground/40">
+              <span aria-hidden className="text-subtle">
                 –
               </span>
               {highlight}
@@ -85,7 +85,7 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         </ul>
       )}
       {caseStudy && (
-        <TextLink href={caseStudy} icon={<ArrowUpRight strokeWidth={1.5} />} className="text-caption text-foreground/60 print:hidden">
+        <TextLink href={caseStudy} icon={<ArrowUpRight strokeWidth={1.5} />} className="text-caption text-muted print:hidden">
           {copy.caseStudy}
         </TextLink>
       )}

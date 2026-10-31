@@ -182,11 +182,11 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
         onKeyDown={handleKeyDown}
         autoComplete="off"
         spellCheck={false}
-        className="h-12 w-full border-b border-foreground/10 bg-transparent px-4 text-body outline-none placeholder:text-foreground/40"
+        className="h-12 w-full border-b border-foreground/10 bg-transparent px-4 text-body outline-none placeholder:text-subtle"
       />
 
       <div id={listId} role="listbox" aria-label={copy.label} className="max-h-80 overflow-y-auto overscroll-contain p-2">
-        {results.length === 0 && <p className="px-2 py-4 text-foreground/40">{copy.empty}</p>}
+        {results.length === 0 && <p className="px-2 py-4 text-subtle">{copy.empty}</p>}
 
         {COMMAND_GROUPS.map((group) => {
           const groupItems = results.filter((item) => item.group === group)
@@ -195,7 +195,7 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
 
           return (
             <div key={group} role="group" aria-labelledby={headingId} className="not-first:mt-2">
-              <div id={headingId} role="presentation" className="px-2 pt-2 pb-1 font-mono text-micro text-foreground/40">
+              <div id={headingId} role="presentation" className="px-2 pt-2 pb-1 font-mono text-micro text-subtle">
                 {copy[group]}
               </div>
               {groupItems.map((item) => {
@@ -213,13 +213,13 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
                     onPointerMove={() => rowIndex !== active && setActiveIndex(rowIndex)}
                     onClick={() => void select(item)}
                     className={cn(
-                      'flex h-10 cursor-pointer items-center justify-between gap-4 rounded-lg px-2 text-foreground/60',
+                      'flex h-10 cursor-pointer items-center justify-between gap-4 rounded-lg px-2 text-muted',
                       isActive && 'bg-foreground/3 text-foreground',
                     )}
                   >
                     <span className="flex min-w-0 items-baseline gap-2">
                       <span className="truncate">{item.label}</span>
-                      {item.detail && <span className="truncate text-foreground/40">{item.detail}</span>}
+                      {item.detail && <span className="truncate text-subtle">{item.detail}</span>}
                     </span>
                     <CommandItemHint item={item} confirmed={confirmedId === item.id} copiedLabel={copy.copied} />
                   </div>
@@ -237,9 +237,9 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
 
 /** What sits at the end of a row: "Copied" after a copy, a check on the current choice, an arrow for a new tab. */
 function CommandItemHint({ item, confirmed, copiedLabel }: { item: CommandItem; confirmed: boolean; copiedLabel: string }) {
-  if (confirmed) return <span className="font-mono text-micro text-foreground/60">{copiedLabel}</span>
+  if (confirmed) return <span className="font-mono text-micro text-muted">{copiedLabel}</span>
   if (item.current) return <Check aria-hidden className="size-4 shrink-0" strokeWidth={1.5} />
-  if (item.newTab) return <ArrowUpRight aria-hidden className="size-4 shrink-0 text-foreground/40" strokeWidth={1.5} />
+  if (item.newTab) return <ArrowUpRight aria-hidden className="size-4 shrink-0 text-subtle" strokeWidth={1.5} />
   return null
 }
 
@@ -253,10 +253,10 @@ function CommandMenuHints() {
   ]
 
   return (
-    <div aria-hidden className="flex gap-4 border-t border-foreground/10 px-4 py-2 font-mono text-micro text-foreground/40 pointer-coarse:hidden">
+    <div aria-hidden className="flex gap-4 border-t border-foreground/10 px-4 py-2 font-mono text-micro text-subtle pointer-coarse:hidden">
       {hints.map(([key, label]) => (
         <span key={key}>
-          <kbd className="text-foreground/60">{key}</kbd> {label}
+          <kbd className="text-muted">{key}</kbd> {label}
         </span>
       ))}
     </div>

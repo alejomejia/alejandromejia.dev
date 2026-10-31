@@ -10,7 +10,7 @@ link or as a `<button>` depending on `href`. Every one turns ink on hover.
   (`type="button"` by default). TypeScript only accepts the props that fit
   the element.
 - Ink (`text-foreground`) on hover, fading in 250ms, on every variant. Pass
-  the resting color in `className` (e.g. `text-foreground/60`).
+  the resting color in `className` (e.g. `text-muted`).
 - `underline`: a 1px underline at rest that retracts to the right on hover and
   redraws from the left on leave. For links inside a sentence or a value,
   whose color matches the text around them.
@@ -43,7 +43,7 @@ No other setup.
 import { TextLink, textLinkClassName } from '@/components/ui/text-link'
 
 // Standalone (a menu): the line draws on hover.
-<TextLink href="/work" className="text-foreground/60">Work</TextLink>
+<TextLink href="/work" className="text-muted">Work</TextLink>
 // Inline, inside a sentence: underlined at rest.
 <p>Longer write-ups are in <TextLink href="/writing" variant="underline">Writing</TextLink>.</p>
 // With an icon, outside the underline.

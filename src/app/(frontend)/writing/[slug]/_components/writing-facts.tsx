@@ -13,7 +13,7 @@ type WritingFactsProps = {
 /**
  * The article's facts under a hairline, laid out like a case study's:
  * published, updated (once it falls on a different day), reading time and
- * topics. Labels in mono at `/40`, values in caption text.
+ * topics. Labels in mono at `text-subtle`, values in caption text.
  */
 export function WritingFacts({ entry, copy }: WritingFactsProps) {
   const published = formatDate(entry.publishedAt)

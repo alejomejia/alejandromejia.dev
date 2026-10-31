@@ -77,7 +77,7 @@ export default async function WorkChapterPage({ params }: Args) {
       <header className="flex flex-col gap-pad-xs">
         <BackLink href={workPath(work.slug)}>{work.title}</BackLink>
         <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{chapter.title}</h1>
-        <p {...enter(2, 'text-lead text-pretty text-foreground/60')}>{chapter.summary}</p>
+        <p {...enter(2, 'text-lead text-pretty text-muted')}>{chapter.summary}</p>
       </header>
 
       <div {...enter(3)}>

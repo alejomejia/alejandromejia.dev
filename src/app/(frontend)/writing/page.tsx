@@ -50,10 +50,10 @@ export default async function WritingPage() {
       {WRITING.length > 0 ? (
         <WritingList entries={WRITING} enterFrom={2} />
       ) : (
-        <p {...enter(2, 'text-caption text-foreground/60')}>{copy.empty}</p>
+        <p {...enter(2, 'text-caption text-muted')}>{copy.empty}</p>
       )}
 
-      <p {...enter(WRITING_LAST_ENTER_STEP, 'text-caption text-foreground/60')}>
+      <p {...enter(WRITING_LAST_ENTER_STEP, 'text-caption text-muted')}>
         {copy.closing} <TextLink href={SITE_ROUTES.craft} variant="underline">
           {copy.craft}
         </TextLink>.

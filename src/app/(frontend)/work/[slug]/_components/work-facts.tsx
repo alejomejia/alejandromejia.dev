@@ -15,7 +15,7 @@ type WorkFactsProps = {
 /**
  * The case study's facts under a hairline: role, client (left out when the
  * project is confidential), timeline and stack, then team and the live link
- * when there are any. Labels in mono at `/40`, values in caption text.
+ * when there are any. Labels in mono at `text-subtle`, values in caption text.
  */
 export function WorkFacts({ work, copy }: WorkFactsProps) {
   const timeline = `${formatMonth(work.startDate)} – ${work.endDate ? formatMonth(work.endDate) : copy.present}`

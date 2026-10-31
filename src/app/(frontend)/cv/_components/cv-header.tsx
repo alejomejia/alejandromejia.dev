@@ -60,9 +60,9 @@ export function CvHeader({ name, headline, available, availability, location, em
         {/* On screen the sidebar already says this; paper has no sidebar. */}
         <div className="hidden flex-col gap-1 print:flex">
           <p className="text-display-s font-medium tracking-tight">{name}</p>
-          <p className="text-foreground/60">{headline}</p>
+          <p className="text-muted">{headline}</p>
           {available && availability && (
-            <p className="flex items-center gap-2 text-caption text-foreground/60">
+            <p className="flex items-center gap-2 text-caption text-muted">
               <AvailabilityDot />
               {/* The sidebar's lines (the roles, then where), as one line on paper. */}
               {availability.split('\n').filter(Boolean).join(' · ')}
@@ -70,7 +70,7 @@ export function CvHeader({ name, headline, available, availability, location, em
           )}
         </div>
         <h1 {...enter(0, 'text-display-s font-medium tracking-tight print:hidden')}>{copy.title}</h1>
-        <div {...enter(1, 'flex flex-col gap-pad-xs text-pretty text-foreground/60')}>
+        <div {...enter(1, 'flex flex-col gap-pad-xs text-pretty text-muted')}>
           {summary.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

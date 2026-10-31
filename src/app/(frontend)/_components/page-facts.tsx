@@ -19,7 +19,7 @@ type PageFactsProps = {
 
 /**
  * The facts under a page's title, below a hairline (a case study's role and
- * stack, an article's dates): labels in mono at `/40`, values in caption
+ * stack, an article's dates): labels in mono at `text-subtle`, values in caption
  * text, two columns on phones and four (or three) from `sm`.
  */
 export function PageFacts({ facts, columns = 4 }: PageFactsProps) {
@@ -29,7 +29,7 @@ export function PageFacts({ facts, columns = 4 }: PageFactsProps) {
         .filter((fact) => fact.value)
         .map((fact) => (
           <div key={fact.label} className="flex flex-col gap-1">
-            <dt className="font-mono text-micro text-foreground/40">{fact.label}</dt>
+            <dt className="font-mono text-micro text-subtle">{fact.label}</dt>
             <dd className="text-caption text-pretty">{fact.value}</dd>
           </div>
         ))}

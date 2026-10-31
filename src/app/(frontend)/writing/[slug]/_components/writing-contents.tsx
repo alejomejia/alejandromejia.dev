@@ -30,9 +30,9 @@ export function WritingContents({ nodes, label, enterStep }: WritingContentsProp
           <li key={heading.id}>
             <Link
               href={`#${heading.id}`}
-              className="group -mx-2 flex items-baseline gap-4 rounded-lg px-2 py-1 text-foreground/60 transition-colors duration-250 hover:bg-foreground/3 hover:text-foreground"
+              className="group -mx-2 flex items-baseline gap-4 rounded-lg px-2 py-1 text-muted transition-colors duration-250 hover:bg-foreground/3 hover:text-foreground"
             >
-              <span className="font-mono text-micro text-foreground/40">{String(index + 1).padStart(2, '0')}</span>
+              <span className="font-mono text-micro text-subtle">{String(index + 1).padStart(2, '0')}</span>
               {heading.text}
             </Link>
           </li>

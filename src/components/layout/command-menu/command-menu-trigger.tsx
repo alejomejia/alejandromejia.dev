@@ -28,7 +28,7 @@ export function CommandMenuTrigger({ className }: { className?: string }) {
       aria-keyshortcuts={apple ? 'Meta+K' : 'Control+K'}
       aria-label={copy.open}
       className={cn(
-        'inline-flex h-8 cursor-pointer items-center text-foreground/60 transition-colors duration-250 hover:text-foreground',
+        'inline-flex h-8 cursor-pointer items-center text-muted transition-colors duration-250 hover:text-foreground',
         className,
       )}
     >

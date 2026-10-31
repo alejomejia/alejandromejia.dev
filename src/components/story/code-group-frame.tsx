@@ -65,7 +65,7 @@ export function CodeGroupFrame({ files, panels, labels }: CodeGroupFrameProps) {
 
   return (
     <figure className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
-      <div className="flex items-center justify-between gap-4 border-b border-foreground/10 pr-4 font-mono text-micro text-foreground/40">
+      <div className="flex items-center justify-between gap-4 border-b border-foreground/10 pr-4 font-mono text-micro text-subtle">
         {files.length > 1 ? (
           <div role="tablist" aria-label={labels.files} onKeyDown={handleKeyDown} className="flex min-w-0 overflow-x-auto pl-2">
             {files.map((file, index) => (

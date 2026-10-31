@@ -7,9 +7,9 @@ export function Clip({ media, frame = 'none', private: isPrivate, caption, priva
     <figure className="flex flex-col gap-pad-xs">
       <MediaFrame media={media} chrome={frame === 'browser'} />
       {(caption || isPrivate) && (
-        <figcaption className="flex flex-wrap justify-between gap-x-4 text-caption text-foreground/60">
+        <figcaption className="flex flex-wrap justify-between gap-x-4 text-caption text-muted">
           {caption && <span className="text-pretty">{caption}</span>}
-          {isPrivate && <span className="font-mono text-micro text-foreground/40">{privateLabel}</span>}
+          {isPrivate && <span className="font-mono text-micro text-subtle">{privateLabel}</span>}
         </figcaption>
       )}
     </figure>

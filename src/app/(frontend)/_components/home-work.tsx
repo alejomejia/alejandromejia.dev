@@ -40,13 +40,13 @@ export function HomeWork({ entries, copy }: { entries: HomeWorkEntry[]; copy: Co
                   <ArrowUpRight
                     aria-hidden
                     strokeWidth={1.5}
-                    className="size-4 text-foreground/40 opacity-0 transition-opacity duration-250 group-hover:opacity-100"
+                    className="size-4 text-subtle opacity-0 transition-opacity duration-250 group-hover:opacity-100"
                   />
                   <DraftTag status={work._status} label={copy.draft} />
                 </span>
-                <span className="block text-caption text-pretty text-foreground/60">{work.summary}</span>
+                <span className="block text-caption text-pretty text-muted">{work.summary}</span>
               </span>
-              <span className="font-mono text-micro text-foreground/40">{formatYears(work.startDate, work.endDate)}</span>
+              <span className="font-mono text-micro text-subtle">{formatYears(work.startDate, work.endDate)}</span>
             </Link>
           </li>
         ))}

@@ -40,10 +40,10 @@ export function CraftExperiments({ entries, label, enterFrom }: CraftExperiments
                   <ArrowUpRight
                     aria-hidden
                     strokeWidth={1.5}
-                    className="size-4 shrink-0 text-foreground/40 opacity-0 transition-opacity duration-250 group-hover:opacity-100"
+                    className="size-4 shrink-0 text-subtle opacity-0 transition-opacity duration-250 group-hover:opacity-100"
                   />
                 </span>
-                <span className="block text-caption text-pretty text-foreground/60">{piece.description}</span>
+                <span className="block text-caption text-pretty text-muted">{piece.description}</span>
               </span>
             </Link>
           </li>

@@ -34,12 +34,12 @@ export function CraftSnippets({ entries, label, enterFrom }: CraftSnippetsProps)
                   <ArrowUpRight
                     aria-hidden
                     strokeWidth={1.5}
-                    className="size-4 shrink-0 text-foreground/40 opacity-0 transition-opacity duration-250 group-hover:opacity-100"
+                    className="size-4 shrink-0 text-subtle opacity-0 transition-opacity duration-250 group-hover:opacity-100"
                   />
                 </span>
-                <span className="block text-caption text-pretty text-foreground/60">{snippet.description}</span>
+                <span className="block text-caption text-pretty text-muted">{snippet.description}</span>
               </span>
-              <span className="font-mono text-micro whitespace-nowrap text-foreground/40">{snippetLanguages(snippet)}</span>
+              <span className="font-mono text-micro whitespace-nowrap text-subtle">{snippetLanguages(snippet)}</span>
             </Link>
           </li>
         ))}

@@ -42,7 +42,7 @@ export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'hi
 export function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
   return (
     <figure className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
-      <figcaption className="flex justify-between gap-4 border-b border-foreground/10 px-4 py-2 font-mono text-micro text-foreground/40">
+      <figcaption className="flex justify-between gap-4 border-b border-foreground/10 px-4 py-2 font-mono text-micro text-subtle">
         <span>{filename}</span>
         <span>{CODE_LANGUAGES[language]}</span>
       </figcaption>

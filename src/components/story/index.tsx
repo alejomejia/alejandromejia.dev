@@ -43,7 +43,7 @@ export async function StoryContent({ nodes, className }: { nodes: StoryNode[]; c
                 <a
                   href={`#${id}`}
                   aria-label={formatMessage(copy.anchor, { section: node.text })}
-                  className="ml-2 font-mono text-foreground/40 opacity-0 transition-[color,opacity] duration-250 group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100 lg:absolute lg:top-0 lg:-left-6 lg:ml-0"
+                  className="ml-2 font-mono text-subtle opacity-0 transition-[color,opacity] duration-250 group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100 lg:absolute lg:top-0 lg:-left-6 lg:ml-0"
                 >
                   #
                 </a>
@@ -58,7 +58,7 @@ export async function StoryContent({ nodes, className }: { nodes: StoryNode[]; c
             )
           case 'list':
             return (
-              <ul key={index} className="flex list-disc flex-col gap-1 pl-5 text-foreground/80 marker:text-foreground/40">
+              <ul key={index} className="flex list-disc flex-col gap-1 pl-5 text-foreground/80 marker:text-subtle">
                 {node.items.map((item) => (
                   <li key={item} className="text-pretty">
                     {item}

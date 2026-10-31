@@ -2,7 +2,7 @@ import { cn, enter } from '@/lib/utils'
 
 type PageHeaderProps = {
   title: string
-  /** One or two sentences under the title, at `/60`. */
+  /** One or two sentences under the title, at `text-muted`. */
   description?: string
   className?: string
 }
@@ -18,7 +18,7 @@ export function PageHeader({ title, description, className }: PageHeaderProps) {
   return (
     <header className={cn('flex flex-col gap-pad-xs', className)}>
       <h1 {...enter(0, 'text-display-s font-medium tracking-tight text-balance')}>{title}</h1>
-      {description && <p {...enter(1, 'text-pretty text-foreground/60')}>{description}</p>}
+      {description && <p {...enter(1, 'text-pretty text-muted')}>{description}</p>}
     </header>
   )
 }

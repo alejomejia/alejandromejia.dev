@@ -37,7 +37,7 @@ export function HomeWriting({
         {entries.map((post) => (
           <li key={post.id}>
             <Link href={writingPath(post.slug ?? '')} className={LIST_ROW_CLASSNAME}>
-              <span className="w-16 shrink-0 font-mono text-micro text-foreground/40">
+              <span className="w-16 shrink-0 font-mono text-micro text-subtle">
                 {post.publishedAt ? formatMonth(post.publishedAt) : <DraftTag status={post._status} label={copy.draft} />}
               </span>
               <span className="flex min-w-0 flex-1 items-center gap-2">
@@ -45,10 +45,10 @@ export function HomeWriting({
                 <ArrowUpRight
                   aria-hidden
                   strokeWidth={1.5}
-                  className="size-4 shrink-0 text-foreground/40 opacity-0 transition-opacity duration-250 group-hover:opacity-100"
+                  className="size-4 shrink-0 text-subtle opacity-0 transition-opacity duration-250 group-hover:opacity-100"
                 />
               </span>
-              <span className="hidden font-mono text-micro text-foreground/40 sm:inline">{copy.formats[post.format]}</span>
+              <span className="hidden font-mono text-micro text-subtle sm:inline">{copy.formats[post.format]}</span>
             </Link>
           </li>
         ))}

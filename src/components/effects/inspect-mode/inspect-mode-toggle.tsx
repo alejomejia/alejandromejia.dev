@@ -30,7 +30,7 @@ export function InspectModeToggle({ className }: { className?: string }) {
       title={`${copy.title} (I)`}
       {...{ [INSPECT_IGNORE_ATTRIBUTE]: '' }}
       className={cn(
-        'inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-foreground/60 transition-colors duration-250 hover:text-foreground aria-pressed:text-foreground',
+        'inline-flex size-8 cursor-pointer items-center justify-center rounded-lg text-muted transition-colors duration-250 hover:text-foreground aria-pressed:text-foreground',
         className,
       )}
     >

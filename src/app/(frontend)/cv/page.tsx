@@ -141,7 +141,7 @@ export default async function CvPage() {
                     <li key={id}>
                       <CvRow label={years}>
                         <p className="font-medium">{school}</p>
-                        {degree && <p className="text-caption text-pretty text-foreground/60">{degree}</p>}
+                        {degree && <p className="text-caption text-pretty text-muted">{degree}</p>}
                       </CvRow>
                     </li>
                   ))}
@@ -153,7 +153,7 @@ export default async function CvPage() {
                     {cv.courses.map(({ id, name, issuer }) => (
                       <li key={id}>
                         {name}
-                        {issuer && <span className="text-foreground/40"> · {issuer}</span>}
+                        {issuer && <span className="text-subtle"> · {issuer}</span>}
                       </li>
                     ))}
                   </ul>
@@ -165,7 +165,7 @@ export default async function CvPage() {
                     {cv.languages.map(({ id, language, level }) => (
                       <li key={id}>
                         {language}
-                        {level && <span className="text-foreground/40"> · {level}</span>}
+                        {level && <span className="text-subtle"> · {level}</span>}
                       </li>
                     ))}
                   </ul>
@@ -181,7 +181,7 @@ export default async function CvPage() {
           </CvSection>
         )}
 
-        <p className="text-caption text-foreground/60 print:hidden">
+        <p className="text-caption text-muted print:hidden">
           {copy.closing} <TextLink href={SITE_ROUTES.work} variant="underline">
             {copy.work}
           </TextLink>.

@@ -16,7 +16,7 @@ export function HeaderIdentity({ profile, className }: { profile: ProfileIntro; 
         <Link href={SITE_ROUTES.home} prefetch="viewport">
           <Logo />
         </Link>
-        <p className="text-foreground/40">{profile.headline}</p>
+        <p className="text-subtle">{profile.headline}</p>
       </div>
       <CommandMenuTrigger className="lg:hidden" />
     </div>
@@ -45,12 +45,12 @@ export function HeaderByline({ profile, className }: { profile: ProfileIntro; cl
   const lines = profile.available ? (profile.availability ?? '').split('\n').map((line) => line.trim()).filter(Boolean) : []
 
   return (
-    <div className={cn('flex flex-col gap-pad-xs font-mono text-micro text-foreground/40', className)}>
+    <div className={cn('flex flex-col gap-pad-xs font-mono text-micro text-subtle', className)}>
       <p className="flex items-center gap-x-2 whitespace-nowrap">
         {profile.available && (
           <>
             <AvailabilityDot />
-            <span className="text-foreground/60">{copy.available}</span>
+            <span className="text-muted">{copy.available}</span>
           </>
         )}
         {parts.map((part, index) => (
@@ -62,7 +62,7 @@ export function HeaderByline({ profile, className }: { profile: ProfileIntro; cl
       </p>
       {lines.length > 0 && (
         // Indented past the dot and its gap, under "Open to work".
-        <p className="flex flex-col pl-4 text-foreground/60">
+        <p className="flex flex-col pl-4 text-muted">
           {lines.map((line) => (
             <span key={line}>{line}</span>
           ))}

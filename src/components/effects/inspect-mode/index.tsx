@@ -275,7 +275,7 @@ function InspectPanel({
         <button
           type="button"
           onClick={() => setInspectEnabled(false)}
-          className="cursor-pointer text-foreground/40 transition-colors duration-250 hover:text-foreground"
+          className="cursor-pointer text-subtle transition-colors duration-250 hover:text-foreground"
         >
           {copy.exit}
         </button>
@@ -283,20 +283,20 @@ function InspectPanel({
 
       {snapshot.selectedName ? (
         <>
-          <p className="mt-2 truncate text-foreground/60">{snapshot.selectedName}</p>
+          <p className="mt-2 truncate text-muted">{snapshot.selectedName}</p>
           <dl className="mt-2 grid grid-cols-[4rem_1fr] gap-y-1">
             {snapshot.details.map(({ label, value }) => (
               <div key={label} className="contents">
-                <dt className="text-foreground/40">{copy[label]}</dt>
+                <dt className="text-subtle">{copy[label]}</dt>
                 <dd className="truncate text-foreground">{value}</dd>
               </div>
             ))}
           </dl>
         </>
       ) : (
-        <p className="mt-2 text-foreground/60">{copy.hint}</p>
+        <p className="mt-2 text-muted">{copy.hint}</p>
       )}
-      <p className="mt-4 text-foreground/40">{copy.keys}</p>
+      <p className="mt-4 text-subtle">{copy.keys}</p>
     </aside>
   )
 }

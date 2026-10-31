@@ -8,5 +8,5 @@ export async function SidebarIntro() {
   const { intro } = await queryProfileIntro()
   if (!intro) return null
 
-  return <p className="text-caption text-pretty text-foreground/60">{intro}</p>
+  return <p className="text-caption text-pretty text-muted">{intro}</p>
 }

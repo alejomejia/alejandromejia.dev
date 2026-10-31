@@ -45,9 +45,9 @@ export default function GlobalNotFound() {
             <Logo />
           </a>
           <div className="flex flex-col gap-pad-xs">
-            <p className="font-mono text-micro text-foreground/40">{copy.label}</p>
+            <p className="font-mono text-micro text-subtle">{copy.label}</p>
             <h1 className="text-display-s font-medium tracking-tight text-balance">{copy.title}</h1>
-            <p className="text-pretty text-foreground/60">
+            <p className="text-pretty text-muted">
               {copy.text} {copy.back}{' '}
               <a href="/" className={textLinkClassName({ variant: 'underline' })}>
                 <span className={textLinkLabelClassName({ variant: 'underline' })}>{copy.home}</span>

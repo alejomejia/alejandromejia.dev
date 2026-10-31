@@ -6,10 +6,10 @@ export function Steps({ items }: StepsProps) {
     <ol className="flex flex-col">
       {items.map((step, index) => (
         <li key={step.title} className="flex items-baseline gap-4 border-t border-foreground/10 py-pad-s last:border-b">
-          <span className="font-mono text-micro text-foreground/40">{String(index + 1).padStart(2, '0')}</span>
+          <span className="font-mono text-micro text-subtle">{String(index + 1).padStart(2, '0')}</span>
           <span className="flex flex-col gap-1">
             <span>{step.title}</span>
-            {step.text && <span className="text-caption text-pretty text-foreground/60">{step.text}</span>}
+            {step.text && <span className="text-caption text-pretty text-muted">{step.text}</span>}
           </span>
         </li>
       ))}
