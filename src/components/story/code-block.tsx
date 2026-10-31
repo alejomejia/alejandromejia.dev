@@ -25,7 +25,7 @@ export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'hi
   const highlighted = parseLines(highlight)
 
   return (
-    <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-micro leading-relaxed focus-visible:-outline-offset-4">
+    <pre tabIndex={0} className="overflow-x-auto py-3 font-mono text-micro leading-relaxed rounded-lg focus-visible:-outline-offset-2">
       <code className="block min-w-max">
         {code.split('\n').map((line, index) => (
           <span

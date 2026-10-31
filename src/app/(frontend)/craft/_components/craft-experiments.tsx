@@ -30,7 +30,7 @@ export function CraftExperiments({ entries, label, enterFrom }: CraftExperiments
       <ul className="mt-pad-s grid gap-x-pad-s gap-y-pad-m sm:grid-cols-2">
         {entries.map((piece, index) => (
           <li key={piece.slug} {...enter(Math.min(enterFrom + index, CRAFT_LAST_ENTER_STEP))}>
-            <Link href={craftPath(piece.slug)} className="group flex flex-col gap-pad-xs">
+            <Link href={craftPath(piece.slug)} className="group flex flex-col gap-pad-xs rounded-xl">
               <MediaFrame media={piece.fallback} className="aspect-video" sizes="(min-width: 64rem) 20rem, (min-width: 40rem) 50vw, 100vw">
                 <div aria-hidden className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')} />
               </MediaFrame>

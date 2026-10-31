@@ -8,7 +8,8 @@ import { loadSearchEntries, setCommandMenuOpen } from './command-menu.store'
 
 /**
  * Opens the command menu. Reads "Menu" on phones (where the menu is the
- * navigation) and shows the shortcut, ⌘K or Ctrl K, from `sm` up.
+ * navigation) and shows the shortcut, ⌘K or Ctrl K, from `sm` up. From
+ * `sm` the button itself is the key's box, so its focus ring traces it.
  *
  * @example
  * <CommandMenuTrigger />
@@ -31,12 +32,12 @@ export function CommandMenuTrigger({ className }: { className?: string }) {
       // control users can say what they see.
       aria-label={formatMessage(copy.open, { shortcut })}
       className={cn(
-        'inline-flex h-8 cursor-pointer items-center text-muted transition-colors duration-250 hover:text-foreground',
+        'inline-flex h-8 cursor-pointer items-center text-muted transition-colors duration-250 hover:text-foreground sm:h-6 sm:rounded-lg sm:border sm:border-foreground/10 sm:px-2',
         className,
       )}
     >
       <span className="sm:hidden">{copy.menu}</span>
-      <kbd className="hidden rounded-lg border border-foreground/10 px-2 font-mono text-micro leading-6 sm:inline">
+      <kbd className="hidden font-mono text-micro sm:inline">
         {shortcut}
       </kbd>
     </button>

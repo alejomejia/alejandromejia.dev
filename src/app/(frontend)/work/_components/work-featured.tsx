@@ -29,7 +29,7 @@ export function WorkFeatured({ entries, label, enterFrom }: WorkFeaturedProps) {
       <ul className="mt-pad-s flex flex-col gap-pad-xl">
         {entries.map((work, index) => (
           <li key={work.slug} {...enter(enterFrom + index)}>
-            <Link href={workPath(work.slug)} className="group flex flex-col gap-pad-s">
+            <Link href={workPath(work.slug)} className="group flex flex-col gap-pad-s rounded-xl">
               <WorkCover cover={work.cover} />
               <span className="flex flex-col gap-1">
                 <span className="flex items-baseline justify-between gap-4">

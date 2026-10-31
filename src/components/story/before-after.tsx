@@ -40,7 +40,7 @@ export function BeforeAfter({ before, after, mode = 'slider', caption, labels }:
     <figure className="flex flex-col gap-pad-xs">
       <div
         style={toCSSVars({ position: `${position}%` })}
-        className="relative aspect-16/10 overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3 outline-offset-4 outline-foreground has-focus-visible:outline-1"
+        className="relative aspect-16/10 overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3 outline-offset-2 outline-foreground has-focus-visible:outline-1"
       >
         <Side side={before} placeholder="before" />
         <div

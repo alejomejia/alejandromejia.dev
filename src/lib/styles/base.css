@@ -22,11 +22,23 @@ body {
   background: color-mix(in srgb, var(--foreground) 10%, transparent);
 }
 
-/* Keyboard focus: a hairline in the ink, no colored ring (see the brand skill).
- * In the base layer, so utilities (`outline-none` on the menu's input) win. */
+/* Keyboard focus: a 1px ink ring, 2px out (see the brand skill). The ring
+ * follows the element's corners, so anything without a shape of its own
+ * gets a small radius: every ring has soft corners, concentric with what it
+ * traces (rows, buttons and pills keep theirs). In the base layer, so
+ * utilities win: `rounded-*`, an inset offset where a scroll container would
+ * clip the ring, `outline-none` on the menu's input. */
 @layer base {
+  /* Not `:where()`: Tailwind's reset zeroes the radius on `button`. */
+  a,
+  button,
+  summary,
+  [tabindex] {
+    border-radius: 0.25rem; /* 4px */
+  }
+
   :focus-visible {
     outline: 1px solid var(--foreground);
-    outline-offset: 0.25rem; /* 4px */
+    outline-offset: 0.125rem; /* 2px */
   }
 }

@@ -34,7 +34,7 @@ export function HomeCraft({ entries, copy }: { entries: HomeCraftEntry[]; copy: 
       <ul className="mt-pad-s grid gap-x-pad-s gap-y-pad-m sm:grid-cols-2">
         {entries.map((piece) => (
           <li key={piece.id}>
-            <Link href={craftPath(piece.slug ?? '')} className="group flex flex-col gap-pad-xs">
+            <Link href={craftPath(piece.slug ?? '')} className="group flex flex-col gap-pad-xs rounded-xl">
               <MediaFrame className="aspect-video">
                 <div aria-hidden className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')} />
               </MediaFrame>
