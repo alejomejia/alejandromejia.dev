@@ -56,11 +56,17 @@ foreground at an opacity.
 Grays, by role (use these steps only):
 
 - `text-foreground`: titles, body.
-- `text-foreground/60`: secondary text (descriptions, meta).
-- `text-foreground/40`: tertiary (dates, captions, disabled).
+- `text-muted` (the foreground at 60%): secondary text (descriptions, meta).
+- `text-subtle` (52%): tertiary (dates, labels, captions).
 - `border-foreground/10`: hairlines and dividers.
 - `bg-foreground/3`: surfaces (media frames, code blocks, hover rows).
 - Text selection: a `foreground/10` background.
+
+**Text meets WCAG AA (4.5:1), always.** The two text grays are tokens
+(`--muted`, `--subtle` in `tokens.css`) tuned to clear it on the page and
+on the `/3` and `/5` surfaces; never set text below `text-subtle` with an
+opacity (`text-foreground/40` fails at 3.4:1). Fainter steps (`/10`–`/25`)
+are for decoration only (dot textures, hairlines), marked `aria-hidden`.
 
 **The one exception:** `bg-positive` (`#4ade80`), used
 only for the "open to work" dot (`AvailabilityDot`). A status signal, never
@@ -71,7 +77,23 @@ work" is on in the Profile global's sidebar.
 (there is nothing to switch). `color-scheme: dark` keeps native controls and
 scrollbars dark. Print is the one exception: on paper the tokens swap to dark
 ink on white (`@media print` in `tokens.css`). No colored accent: focus rings
-(a 1px foreground outline, 4px offset) and active states use the foreground.
+and active states use the foreground.
+
+**Focus rings** (`base.css`): a 1px ink outline, 2px out, that follows the
+element's corners. Anything without a shape of its own gets a 4px radius, so
+every ring has soft corners, concentric with what it traces: 6px around a
+text link, 10px around an 8px row or button, a pill around a pill. Keep it
+that way:
+
+- The focusable box is the visible box. If a control draws its shape on a
+  child (a `kbd`, an icon frame), move the border and radius onto the
+  control itself, or the ring traces an invisible box.
+- A card link whose top is a media frame gets the frame's radius
+  (`rounded-xl`), so the ring follows the frame.
+- Where a scroll container or `overflow-hidden` frame would clip the ring
+  (code tabs, scrolling code), draw it inside: `focus-visible:-outline-offset-2`
+  on an element with `rounded-lg` (still a 6px ring).
+- Never `outline-none` without a replacement.
 
 Where it lives: `src/lib/styles/tokens.css` and `SITE.themeColor` (kept equal
 to `--background`). Components use the tokens, never raw hex or Tailwind's
@@ -152,7 +174,7 @@ in `code-conventions/performance.md` still applies.
 ## Logo and icons
 
 - **Wordmark:** "Alejandro Mejía" in Geist 500, `text-lead`,
-  `tracking-tight`, foreground color (`Logo`); the `/40` headline under it
+  `tracking-tight`, foreground color (`Logo`); the `text-subtle` headline under it
   makes it stand out. No symbol, no logo mark.
 - **Favicon:** TODO (an "am" monogram in Geist 500, or a single halftone
   dot).
@@ -185,11 +207,11 @@ Filled as the site grows.
 - **Entrance:** `enter(index)` from `@/lib/utils` (`motion-safe:animate-enter`,
   80ms per item).
 - **Section label:** `SectionLabel` (`src/components/ui/section-label/`),
-  mono micro text at `/40` with an optional link at the end.
+  mono micro text in `text-subtle` with an optional link at the end.
 - **Lists (home, Work):** whole-row links with a `bg-foreground/3` hover surface
-  (`LIST_ROW_CLASSNAME`); meta (years, dates, formats) in mono micro `/40`.
+  (`LIST_ROW_CLASSNAME`); meta (years, dates, formats) in mono micro `text-subtle`.
 - **Page header:** `PageHeader` (`src/components/ui/page-header/`): an inner
-  page's `<h1>` (`text-display-s`) and a `/60` description, entering first.
+  page's `<h1>` (`text-display-s`) and a `text-muted` description, entering first.
   Case studies use `text-display-m` with a back link, facts and outcomes.
 - **Media frame:** `MediaFrame` (`src/components/story/media-frame.tsx`):
   the surface, hairline and 12px corners every piece of work sits in,
@@ -216,7 +238,7 @@ Filled as the site grows.
     where the ⌘K trigger ("Menu") sits beside the wordmark. Who and where to
     go stay together; chosen 2026-10-30 over four other layouts.
   - **Intro** (bottom of the sidebar, above the footer): the one-line intro
-    in `text-caption` at `/60`.
+    in `text-caption`, `text-muted`.
   - **Footer** (bottom of the sidebar): three rows in `text-caption`: the
     links out; ⌘K and inspect; then ©, Source (the repository) and
     any links from the Footer global. On phones the intro and footer close
@@ -240,7 +262,7 @@ Filled as the site grows.
   skips them and they nudge toward where they lead. Rich text
   (`.rich-text a`) follows the inline rule.
 - **Command menu:** a hairline-bordered 12px box, `bg-background`, over a
-  `background/80` backdrop. Group labels are mono micro text at `/40`, and
+  `background/80` backdrop. Group labels are mono micro `text-subtle`, and
   the highlighted row is `bg-foreground/3`.
 
 ## TODO
