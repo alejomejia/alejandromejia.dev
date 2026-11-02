@@ -43,7 +43,8 @@ export default async function HomePage() {
       <h1 className="sr-only">
         {profile.name}, {profile.headline}
       </h1>
-      <div {...enter(0, 'aspect-3/2 w-full sm:aspect-5/2')}>
+      {/* `min-h-0`: otherwise Chrome lets the canvas's own size stretch the box. */}
+      <div {...enter(0, 'aspect-3/2 min-h-0 w-full sm:aspect-2/1')}>
         <HalftoneShape speed={0.8} />
       </div>
       <HomeWork entries={work} copy={copy} />

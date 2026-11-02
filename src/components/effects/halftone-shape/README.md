@@ -36,7 +36,10 @@ import { HalftoneShape } from '@/components/effects/halftone-shape'
 <HalftoneShape className="size-64" speed={0.6} dotScale={0.9} tilt={0} />
 ```
 
-The canvas fills its box: give the box a size so nothing shifts on load.
+The canvas fills its box: give the box a size so nothing shifts on load. In
+an aspect-ratio box, add `min-h-0` (or place the canvas `absolute inset-0`):
+Chrome lets the canvas's own size raise the box's minimum height, so it
+renders taller there than in Firefox and Safari.
 
 ## Configuration
 
