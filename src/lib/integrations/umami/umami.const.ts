@@ -20,3 +20,6 @@ export const UMAMI_IGNORE_ATTRIBUTE = 'data-track-ignore'
 
 /** The tracker script: the site reports to Umami Cloud. */
 export const UMAMI_SCRIPT_URL = 'https://cloud.umami.is/script.js'
+
+/** Where the Cloud script sends events (its default host), for the CSP. */
+export const UMAMI_API_ORIGIN = 'https://gateway.umami.is'

@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import { withPayload } from '@payloadcms/next/withPayload'
 
+import { UMAMI_API_ORIGIN, UMAMI_SCRIPT_URL } from './src/lib/integrations/umami/umami.const'
+import { securityHeaders } from './src/lib/security/security-headers'
 import { withProtocol } from './src/lib/utils'
 
 // When Media is served from a public R2 domain, allow it through next/image.
@@ -15,6 +17,13 @@ const r2RemotePattern = r2PublicUrl
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  poweredByHeader: false,
+  headers: async () =>
+    securityHeaders({
+      mediaOrigin: r2PublicUrl && new URL(r2PublicUrl).origin,
+      analytics: { scriptOrigin: new URL(UMAMI_SCRIPT_URL).origin, apiOrigin: UMAMI_API_ORIGIN },
+      isDev: process.env.NODE_ENV === 'development',
+    }),
   // Emit a self-contained server bundle for the production Docker image.
   output: 'standalone',
   images: {
