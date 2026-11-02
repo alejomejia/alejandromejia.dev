@@ -26,7 +26,13 @@ type MediaFrameProps = {
  * it shows a dot texture, so a page can be designed before the recordings
  * exist.
  */
-export function MediaFrame({ media, chrome = false, sizes = '(min-width: 64rem) 40rem, 100vw', className, children }: MediaFrameProps) {
+export function MediaFrame({
+  media,
+  chrome = false,
+  sizes = '(min-width: 64rem) 40rem, 100vw',
+  className,
+  children,
+}: MediaFrameProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
       {chrome && (
@@ -37,7 +43,11 @@ export function MediaFrame({ media, chrome = false, sizes = '(min-width: 64rem) 
         </div>
       )}
       <div className={cn('relative aspect-16/10', className)}>
-        {media ? <CoverMedia media={media} sizes={sizes} /> : (children ?? <div aria-hidden className={DOT_TEXTURE_CLASSNAME} />)}
+        {media ? (
+          <CoverMedia media={media} sizes={sizes} />
+        ) : (
+          (children ?? <div aria-hidden className={DOT_TEXTURE_CLASSNAME} />)
+        )}
       </div>
     </div>
   )

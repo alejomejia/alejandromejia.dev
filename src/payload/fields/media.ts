@@ -27,7 +27,12 @@ type ImageOrVideoOptions = {
  * @example
  * { name: 'background', type: 'group', fields: imageOrVideo({ required: true, loadFirst: true }) }
  */
-export function imageOrVideo({ required = false, description, cover = false, loadFirst }: ImageOrVideoOptions = {}): Field[] {
+export function imageOrVideo({
+  required = false,
+  description,
+  cover = false,
+  loadFirst,
+}: ImageOrVideoOptions = {}): Field[] {
   const fields: Field[] = [
     {
       name: 'media',
@@ -51,7 +56,7 @@ export function imageOrVideo({ required = false, description, cover = false, loa
       filterOptions: IMAGE,
       admin: {
         description:
-          "Only used with a video. Every video gets an automatic cover from its first frame; leave this empty to use it, or upload or pick an image to use a different cover here. Shown while the video loads and to visitors who turn off motion.",
+          'Only used with a video. Every video gets an automatic cover from its first frame; leave this empty to use it, or upload or pick an image to use a different cover here. Shown while the video loads and to visitors who turn off motion.',
       },
     })
   }

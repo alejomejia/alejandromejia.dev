@@ -28,7 +28,8 @@ export const Documents: CollectionConfig = {
   },
   admin: {
     group: ADMIN_GROUPS.media,
-    description: 'PDFs, such as the CV. Leave personal details you don’t want public (like a phone number) out of the file.',
+    description:
+      'PDFs, such as the CV. Leave personal details you don’t want public (like a phone number) out of the file.',
   },
   fields: [mediaPrefixField],
   upload: {

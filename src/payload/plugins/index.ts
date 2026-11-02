@@ -60,4 +60,3 @@ export const plugins: Plugin[] = [
   }),
   adminNavOrderPlugin,
 ]
-

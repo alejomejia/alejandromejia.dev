@@ -29,8 +29,6 @@ export const adminNavOrderPlugin: Plugin = function adminNavOrderPlugin(config) 
   return {
     ...config,
     // `sort` is stable, so collections keep their order inside each group.
-    collections: [...(config.collections ?? [])].sort(
-      (a, b) => groupRank(a.admin?.group) - groupRank(b.admin?.group),
-    ),
+    collections: [...(config.collections ?? [])].sort((a, b) => groupRank(a.admin?.group) - groupRank(b.admin?.group)),
   }
 }

@@ -140,9 +140,13 @@ try {
 
   // 5. Replace, atomically.
   step(`Replacing ${target}`)
-  psql(targetUrl, ['DROP SCHEMA IF EXISTS public CASCADE;', 'CREATE SCHEMA public;', '\\i /work/staging.sql'].join('\n'), {
-    mount: tmp,
-  })
+  psql(
+    targetUrl,
+    ['DROP SCHEMA IF EXISTS public CASCADE;', 'CREATE SCHEMA public;', '\\i /work/staging.sql'].join('\n'),
+    {
+      mount: tmp,
+    },
+  )
   console.log(`\nDone. ${target} now matches local. Backup: ${backupFile}`)
 } finally {
   cleanup()
@@ -165,7 +169,9 @@ async function copyMediaObjects(from, to) {
   const keys = []
   let token
   do {
-    const page = await client.send(new ListObjectsV2Command({ Bucket: bucket, Prefix: `${from}/`, ContinuationToken: token }))
+    const page = await client.send(
+      new ListObjectsV2Command({ Bucket: bucket, Prefix: `${from}/`, ContinuationToken: token }),
+    )
     for (const object of page.Contents ?? []) if (object.Key) keys.push(object.Key)
     token = page.NextContinuationToken
   } while (token)
@@ -211,7 +217,15 @@ function dropStaging() {
 
 /** Run SQL via psql (in a single transaction by default), stopping at the first error. */
 function psql(url, sql, { mount = '', quiet = false, transaction = true } = {}) {
-  const flags = ['-X', '-q', '-o', '/dev/null', '-v', 'ON_ERROR_STOP=1', ...(transaction ? ['--single-transaction'] : [])]
+  const flags = [
+    '-X',
+    '-q',
+    '-o',
+    '/dev/null',
+    '-v',
+    'ON_ERROR_STOP=1',
+    ...(transaction ? ['--single-transaction'] : []),
+  ]
   docker(['psql', ...flags, '-d', dockerUrl(url)], {
     input: sql,
     mount,

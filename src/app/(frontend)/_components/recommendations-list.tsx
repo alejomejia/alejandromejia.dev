@@ -12,7 +12,10 @@ export function RecommendationsList({ entries }: { entries: Recommendation[] }) 
     <>
       <ul className="flex flex-col">
         {entries.map((recommendation) => (
-          <li key={recommendation.id} className="border-t border-foreground/10 py-pad-m first:border-t-0 first:pt-0 last:pb-0">
+          <li
+            key={recommendation.id}
+            className="border-t border-foreground/10 py-pad-m first:border-t-0 first:pt-0 last:pb-0"
+          >
             <RecommendationQuote recommendation={recommendation} length="excerpt" />
           </li>
         ))}

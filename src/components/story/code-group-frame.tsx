@@ -90,7 +90,7 @@ export function CodeGroupFrame({ files, panels, labels }: CodeGroupFrameProps) {
                 tabIndex={index === active ? 0 : -1}
                 onClick={() => select(index)}
                 // The active tab sits on a 1px ink line over the header's hairline.
-                className="relative shrink-0 cursor-pointer rounded-lg px-2 py-2 whitespace-nowrap focus-visible:-outline-offset-2 transition-colors duration-250 after:absolute after:inset-x-2 after:-bottom-px after:h-px after:bg-foreground after:opacity-0 after:transition-opacity after:duration-250 hover:text-foreground aria-selected:text-foreground aria-selected:after:opacity-100"
+                className="relative shrink-0 cursor-pointer rounded-lg px-2 py-2 whitespace-nowrap transition-colors duration-250 after:absolute after:inset-x-2 after:-bottom-px after:h-px after:bg-foreground after:opacity-0 after:transition-opacity after:duration-250 hover:text-foreground focus-visible:-outline-offset-2 aria-selected:text-foreground aria-selected:after:opacity-100"
               >
                 {file.filename}
               </button>
@@ -104,7 +104,10 @@ export function CodeGroupFrame({ files, panels, labels }: CodeGroupFrameProps) {
           <button
             type="button"
             onClick={handleCopy}
-            className={cn('cursor-pointer transition-colors duration-250 hover:text-foreground', copied && 'text-foreground')}
+            className={cn(
+              'cursor-pointer transition-colors duration-250 hover:text-foreground',
+              copied && 'text-foreground',
+            )}
           >
             {/* Announced when it changes, so screen readers hear the copy land. */}
             <span aria-live="polite">{copied ? labels.copied : labels.copy}</span>

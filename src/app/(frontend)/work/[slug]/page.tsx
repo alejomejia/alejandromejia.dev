@@ -64,12 +64,10 @@ export default async function WorkEntryPage({ params }: Args) {
   return (
     <article className="flex flex-col gap-pad-2xl">
       <JsonLd
-        data={breadcrumbJsonLd(
-          [
-            { name: copy.title, path: SITE_ROUTES.work },
-            { name: work.title, path: workPath(work.slug) },
-          ],
-        )}
+        data={breadcrumbJsonLd([
+          { name: copy.title, path: SITE_ROUTES.work },
+          { name: work.title, path: workPath(work.slug) },
+        ])}
       />
 
       <header className="flex flex-col gap-pad-l">

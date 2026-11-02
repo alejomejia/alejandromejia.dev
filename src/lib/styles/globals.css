@@ -4,10 +4,10 @@
  * Imported once by every root layout (and the global not-found page).
  * Tailwind must come first; the partials below are inlined in order.
  * ------------------------------------------------------------------------- */
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "./tokens.css";
-@import "./theme.css";
-@import "./base.css";
-@import "./rich-text.css";
-@import "./view-transitions.css";
+@import './tokens.css';
+@import './theme.css';
+@import './base.css';
+@import './rich-text.css';
+@import './view-transitions.css';

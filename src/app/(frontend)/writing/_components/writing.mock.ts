@@ -70,7 +70,8 @@ rg -n '\\[[0-9.]+px\\]' src/`,
   {
     slug: 'showing-nda-work',
     title: 'Muted, looping, private: how I show NDA work',
-    excerpt: 'Most of my work is private. Here is how I show it anyway, with short recordings and before/after comparisons.',
+    excerpt:
+      'Most of my work is private. Here is how I show it anyway, with short recordings and before/after comparisons.',
     publishedAt: '2026-09-02',
     updatedAt: '2026-10-20',
     topics: ['Career'],
@@ -78,7 +79,8 @@ rg -n '\\[[0-9.]+px\\]' src/`,
       {
         slug: 'desigual-design-system',
         title: 'Desigual design system',
-        summary: 'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
+        summary:
+          'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
       },
     ],
     content: [
@@ -187,7 +189,8 @@ export function Loop() {
       {
         slug: 'desigual-design-system',
         title: 'Desigual design system',
-        summary: 'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
+        summary:
+          'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
       },
     ],
     content: [

@@ -9,10 +9,7 @@ import { withProtocol } from '@/lib/utils'
  * clone runs with `pnpm dev` without any storage setup.
  */
 export const isR2Configured = Boolean(
-  process.env.R2_BUCKET &&
-    process.env.R2_ENDPOINT &&
-    process.env.R2_ACCESS_KEY_ID &&
-    process.env.R2_SECRET_ACCESS_KEY,
+  process.env.R2_BUCKET && process.env.R2_ENDPOINT && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY,
 )
 
 // Files live under this key prefix inside the bucket. The bucket is shared, so

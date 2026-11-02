@@ -35,7 +35,9 @@ export function WorkChapters({ work, current, copy }: WorkChaptersProps) {
                 aria-current={isCurrent ? 'page' : undefined}
                 className={cn(
                   'group -mx-2 flex items-baseline gap-4 rounded-lg px-2 py-1 transition-colors duration-250',
-                  isCurrent ? 'pointer-events-none text-foreground' : 'text-muted hover:bg-foreground/3 hover:text-foreground',
+                  isCurrent
+                    ? 'pointer-events-none text-foreground'
+                    : 'text-muted hover:bg-foreground/3 hover:text-foreground',
                 )}
               >
                 <span className={cn('font-mono text-micro', isCurrent ? 'text-foreground' : 'text-subtle')}>

@@ -47,78 +47,94 @@ export async function renderOgImage({ label, title, description }: OgCard): Prom
   const byline = `${SITE.name} · ${new URL(getServerSideURL()).host}`
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        position: 'relative',
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        background: COLORS.background,
+        color: COLORS.foreground,
+        fontFamily: 'Geist',
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain elements, not next/image. */}
+      <img
+        src={`data:image/png;base64,${shape.toString('base64')}`}
+        width={OG_IMAGE_SIZE.width}
+        height={OG_IMAGE_SIZE.height}
+        alt=""
+        style={{ position: 'absolute', inset: 0 }}
+      />
       <div
         style={{
-          position: 'relative',
+          position: 'absolute',
+          left: 80,
+          top: 0,
+          bottom: 0,
+          width: 620,
           display: 'flex',
-          width: '100%',
-          height: '100%',
-          background: COLORS.background,
-          color: COLORS.foreground,
-          fontFamily: 'Geist',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 24,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain elements, not next/image. */}
-        <img
-          src={`data:image/png;base64,${shape.toString('base64')}`}
-          width={OG_IMAGE_SIZE.width}
-          height={OG_IMAGE_SIZE.height}
-          alt=""
-          style={{ position: 'absolute', inset: 0 }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: 80,
-            top: 0,
-            bottom: 0,
-            width: 620,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 24,
-          }}
-        >
-          {/* Every line is clamped, so text the CMS didn't cap (the mock, a long
+        {/* Every line is clamped, so text the CMS didn't cap (the mock, a long
               case study name in a chapter's label) ends in an ellipsis instead
               of running into the shape or the byline. */}
-          <div style={{ display: 'block', lineClamp: 1, fontFamily: 'Geist Mono', fontSize: 20, letterSpacing: 0.4, opacity: 0.55 }}>
-            {label}
-          </div>
-          <div
-            style={{
-              display: 'block',
-              lineClamp: 3,
-              fontSize: size,
-              fontWeight: 500,
-              letterSpacing: -0.03 * size,
-              lineHeight: 1.04,
-            }}
-          >
-            {title}
-          </div>
-          {description && (
-            <div style={{ display: 'block', lineClamp: 3, fontSize: 26, lineHeight: 1.35, letterSpacing: -0.26, opacity: 0.6 }}>
-              {description}
-            </div>
-          )}
-        </div>
         <div
           style={{
-            position: 'absolute',
-            left: 80,
-            bottom: 56,
+            display: 'block',
+            lineClamp: 1,
             fontFamily: 'Geist Mono',
             fontSize: 20,
             letterSpacing: 0.4,
             opacity: 0.55,
           }}
         >
-          {byline}
+          {label}
         </div>
+        <div
+          style={{
+            display: 'block',
+            lineClamp: 3,
+            fontSize: size,
+            fontWeight: 500,
+            letterSpacing: -0.03 * size,
+            lineHeight: 1.04,
+          }}
+        >
+          {title}
+        </div>
+        {description && (
+          <div
+            style={{
+              display: 'block',
+              lineClamp: 3,
+              fontSize: 26,
+              lineHeight: 1.35,
+              letterSpacing: -0.26,
+              opacity: 0.6,
+            }}
+          >
+            {description}
+          </div>
+        )}
       </div>
-    ),
+      <div
+        style={{
+          position: 'absolute',
+          left: 80,
+          bottom: 56,
+          fontFamily: 'Geist Mono',
+          fontSize: 20,
+          letterSpacing: 0.4,
+          opacity: 0.55,
+        }}
+      >
+        {byline}
+      </div>
+    </div>,
     {
       ...OG_IMAGE_SIZE,
       fonts: [

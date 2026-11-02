@@ -36,7 +36,10 @@ export function HomeCraft({ entries, copy }: { entries: HomeCraftEntry[]; copy: 
           <li key={piece.id}>
             <Link href={craftPath(piece.slug ?? '')} className="group flex flex-col gap-pad-xs rounded-xl">
               <MediaFrame className="aspect-video">
-                <div aria-hidden className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')} />
+                <div
+                  aria-hidden
+                  className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')}
+                />
               </MediaFrame>
               <span>
                 <span className="flex items-center gap-2">

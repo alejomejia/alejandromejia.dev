@@ -1,7 +1,5 @@
 /** True when running in a browser (has a usable DOM). */
-const canUseDOM = Boolean(
-  typeof window !== 'undefined' && window.document && window.document.createElement,
-)
+const canUseDOM = Boolean(typeof window !== 'undefined' && window.document && window.document.createElement)
 
 /**
  * `NEXT_PUBLIC_SERVER_URL` as a usable origin, or `''` when unset. The domain
@@ -111,5 +109,8 @@ export function toSitePath(href: string): string {
  * @example displayURL('https://www.linkedin.com/in/someone/') // 'linkedin.com/in/someone'
  */
 export function displayURL(url: string): string {
-  return url.replace(/^[a-z]+:\/\//i, '').replace(/^www\./, '').replace(/\/$/, '')
+  return url
+    .replace(/^[a-z]+:\/\//i, '')
+    .replace(/^www\./, '')
+    .replace(/\/$/, '')
 }

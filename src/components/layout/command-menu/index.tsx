@@ -185,7 +185,12 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
         className="h-12 w-full border-b border-foreground/10 bg-transparent px-4 text-body outline-none placeholder:text-subtle"
       />
 
-      <div id={listId} role="listbox" aria-label={copy.label} className="max-h-80 overflow-y-auto overscroll-contain p-2">
+      <div
+        id={listId}
+        role="listbox"
+        aria-label={copy.label}
+        className="max-h-80 overflow-y-auto overscroll-contain p-2"
+      >
         {results.length === 0 && <p className="px-2 py-4 text-subtle">{copy.empty}</p>}
 
         {COMMAND_GROUPS.map((group) => {
@@ -236,7 +241,15 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
 }
 
 /** What sits at the end of a row: "Copied" after a copy, a check on the current choice, an arrow for a new tab. */
-function CommandItemHint({ item, confirmed, copiedLabel }: { item: CommandItem; confirmed: boolean; copiedLabel: string }) {
+function CommandItemHint({
+  item,
+  confirmed,
+  copiedLabel,
+}: {
+  item: CommandItem
+  confirmed: boolean
+  copiedLabel: string
+}) {
   if (confirmed) return <span className="font-mono text-micro text-muted">{copiedLabel}</span>
   if (item.current) return <Check aria-hidden className="size-4 shrink-0" strokeWidth={1.5} />
   if (item.newTab) return <ArrowUpRight aria-hidden className="size-4 shrink-0 text-subtle" strokeWidth={1.5} />
@@ -253,7 +266,10 @@ function CommandMenuHints() {
   ]
 
   return (
-    <div aria-hidden className="flex gap-4 border-t border-foreground/10 px-4 py-2 font-mono text-micro text-subtle pointer-coarse:hidden">
+    <div
+      aria-hidden
+      className="flex gap-4 border-t border-foreground/10 px-4 py-2 font-mono text-micro text-subtle pointer-coarse:hidden"
+    >
       {hints.map(([key, label]) => (
         <span key={key}>
           <kbd className="text-muted">{key}</kbd> {label}

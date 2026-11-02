@@ -93,7 +93,8 @@ export async function scanMediaUsage(payload: Payload): Promise<MediaUsageIndex>
   const collections = config.collections.filter(
     // Payload's own collections (locked documents, preferences…) reference
     // documents that are open or configured, not shown on the site.
-    (collection) => !collection.slug.startsWith('payload-') && referencesMedia(collection.flattenedFields, blocksBySlug),
+    (collection) =>
+      !collection.slug.startsWith('payload-') && referencesMedia(collection.flattenedFields, blocksBySlug),
   )
   const globals = config.globals.filter((global) => referencesMedia(global.flattenedFields, blocksBySlug))
 
@@ -134,7 +135,9 @@ export async function scanMediaUsage(payload: Payload): Promise<MediaUsageIndex>
       return passes.map(async (draft) => {
         const doc = await payload.findGlobal({ slug: global.slug as GlobalSlug, depth: 0, draft, overrideAccess: true })
         const source: Source = { type: 'Settings', title: type, adminURL: `${adminRoute}/globals/${global.slug}` }
-        walk(global.flattenedFields, doc, (id) => record(id, source, draft && (doc as { _status?: string })._status !== 'published'))
+        walk(global.flattenedFields, doc, (id) =>
+          record(id, source, draft && (doc as { _status?: string })._status !== 'published'),
+        )
       })
     }),
   ])
@@ -187,7 +190,11 @@ function blocksOf(field: FlattenedField & { type: 'blocks' }, blocksBySlug: Map<
 }
 
 /** Whether any field, at any depth, can hold a Media reference. */
-function referencesMedia(fields: FlattenedField[], blocksBySlug: Map<string, FlattenedBlock>, seen = new Set<string>()): boolean {
+function referencesMedia(
+  fields: FlattenedField[],
+  blocksBySlug: Map<string, FlattenedBlock>,
+  seen = new Set<string>(),
+): boolean {
   return fields.some((field) => {
     if (pointsAtMedia(field) || field.type === 'richText') return true
     if (field.type === 'group' || field.type === 'array' || field.type === 'tab') {

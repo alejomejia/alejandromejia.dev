@@ -2,7 +2,6 @@ import 'server-only'
 
 import { cache } from 'react'
 
-
 import { getCachedGlobal } from './globals.server'
 import { cmsNavLink } from './links'
 import type { SiteSettings } from './site-settings-provider'

@@ -13,7 +13,8 @@ const WORK = [
   {
     slug: 'desigual-design-system',
     title: 'Desigual design system',
-    summary: 'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
+    summary:
+      'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
     role: 'Design Engineer',
     client: 'Desigual, via Kodly',
     startDate: month(2026, 3),
@@ -58,7 +59,8 @@ const WORK = [
   {
     slug: 'ai-redesign-pipeline',
     title: 'AI redesign pipeline',
-    summary: 'From a lead to a redesigned homepage and a proposal with PageSpeed before and after, reviewed by a human.',
+    summary:
+      'From a lead to a redesigned homepage and a proposal with PageSpeed before and after, reviewed by a human.',
     role: 'Design Engineer',
     startDate: month(2025, 10),
     stack: ['Next.js', 'Playwright', 'Claude Code'],
@@ -97,7 +99,8 @@ const WRITING = [
   {
     slug: 'showing-nda-work',
     title: 'Muted, looping, private: how I show NDA work',
-    excerpt: 'Most of my work is private. Here is how I show it anyway, with short recordings and before/after comparisons.',
+    excerpt:
+      'Most of my work is private. Here is how I show it anyway, with short recordings and before/after comparisons.',
   },
   {
     slug: 'teaching-ai-agents-my-conventions',
@@ -126,7 +129,8 @@ const CRAFT = [
   {
     slug: 'inspect-mode',
     title: 'Inspect mode',
-    description: 'A Figma-like inspector over any page of this site: sizes, padding and the distance between two elements.',
+    description:
+      'A Figma-like inspector over any page of this site: sizes, padding and the distance between two elements.',
     publishedAt: '2026-10-27',
   },
   {
@@ -176,5 +180,7 @@ export async function seedDrafts(payload: Payload) {
     await payload.create({ collection: 'craft', draft: true, context, data: { ...data, slug, _status: 'draft' } })
   }
 
-  payload.logger.info(`Seed: ${WORK.length} case study drafts, ${WRITING.length} article drafts, ${CRAFT.length} craft drafts`)
+  payload.logger.info(
+    `Seed: ${WORK.length} case study drafts, ${WRITING.length} article drafts, ${CRAFT.length} craft drafts`,
+  )
 }

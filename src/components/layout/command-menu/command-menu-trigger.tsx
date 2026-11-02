@@ -37,9 +37,7 @@ export function CommandMenuTrigger({ className }: { className?: string }) {
       )}
     >
       <span className="sm:hidden">{copy.menu}</span>
-      <kbd className="hidden font-mono text-micro sm:inline">
-        {shortcut}
-      </kbd>
+      <kbd className="hidden font-mono text-micro sm:inline">{shortcut}</kbd>
     </button>
   )
 }

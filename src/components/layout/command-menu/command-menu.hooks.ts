@@ -86,7 +86,15 @@ export function useCommandItems(navItems: NavLink[]): CommandItem[] {
     })),
 
     ...(contact.email
-      ? [{ id: 'copy-email', group: 'actions' as const, label: copyText.copyEmail, keywords: ['mail', 'contact'], run: () => copy(contact.email!) }]
+      ? [
+          {
+            id: 'copy-email',
+            group: 'actions' as const,
+            label: copyText.copyEmail,
+            keywords: ['mail', 'contact'],
+            run: () => copy(contact.email!),
+          },
+        ]
       : []),
     {
       id: 'copy-link',
@@ -105,9 +113,23 @@ export function useCommandItems(navItems: NavLink[]): CommandItem[] {
     },
 
     ...(contact.email
-      ? [{ id: 'email', group: 'links' as const, label: footer.email, keywords: ['contact'], href: `mailto:${contact.email}` }]
+      ? [
+          {
+            id: 'email',
+            group: 'links' as const,
+            label: footer.email,
+            keywords: ['contact'],
+            href: `mailto:${contact.email}`,
+          },
+        ]
       : []),
-    ...socialLinks.map(({ label, href }) => ({ id: `link-${href}`, group: 'links' as const, label, href, newTab: true })),
+    ...socialLinks.map(({ label, href }) => ({
+      id: `link-${href}`,
+      group: 'links' as const,
+      label,
+      href,
+      newTab: true,
+    })),
     { id: 'rss', group: 'links', label: footer.rss, keywords: ['feed', 'subscribe'], href: SITE_ROUTES.rss },
     {
       id: 'source',

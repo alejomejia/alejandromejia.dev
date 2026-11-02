@@ -53,9 +53,7 @@ export const adminsOrSelf: Access = function adminsOrSelf({ req: { user } }) {
  * Returns a query constraint (`_status = published`) for anonymous requests,
  * so it composes with Payload's row-level filtering.
  */
-export const authenticatedOrPublished: Access = function authenticatedOrPublished({
-  req: { user },
-}) {
+export const authenticatedOrPublished: Access = function authenticatedOrPublished({ req: { user } }) {
   if (user) return true
 
   return {

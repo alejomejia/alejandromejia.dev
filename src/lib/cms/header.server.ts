@@ -1,6 +1,5 @@
 import 'server-only'
 
-
 import { getCachedGlobal } from './globals.server'
 import { cmsNavLink, type NavLink } from './links'
 

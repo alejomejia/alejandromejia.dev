@@ -122,7 +122,8 @@ export const Work: CollectionConfig<'work'> = {
                   type: 'text',
                   admin: {
                     width: '50%',
-                    description: 'Company or client, e.g. "Desigual, via Kodly". Hidden when the project is confidential.',
+                    description:
+                      'Company or client, e.g. "Desigual, via Kodly". Hidden when the project is confidential.',
                   },
                 },
               ],
@@ -158,7 +159,9 @@ export const Work: CollectionConfig<'work'> = {
               name: 'stack',
               type: 'text',
               hasMany: true,
-              admin: { description: 'Tools and technologies, e.g. Vue, Storybook, Changesets. Press Enter after each.' },
+              admin: {
+                description: 'Tools and technologies, e.g. Vue, Storybook, Changesets. Press Enter after each.',
+              },
             },
             {
               name: 'metrics',
@@ -175,7 +178,12 @@ export const Work: CollectionConfig<'work'> = {
                 {
                   type: 'row',
                   fields: [
-                    { name: 'value', type: 'text', required: true, admin: { width: '33%', description: 'E.g. "−40%".' } },
+                    {
+                      name: 'value',
+                      type: 'text',
+                      required: true,
+                      admin: { width: '33%', description: 'E.g. "−40%".' },
+                    },
                     {
                       name: 'label',
                       type: 'text',

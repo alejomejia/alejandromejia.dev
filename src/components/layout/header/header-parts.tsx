@@ -42,7 +42,12 @@ export function HeaderByline({ profile, className }: { profile: ProfileIntro; cl
       </span>
     ),
   ].filter(Boolean)
-  const lines = profile.available ? (profile.availability ?? '').split('\n').map((line) => line.trim()).filter(Boolean) : []
+  const lines = profile.available
+    ? (profile.availability ?? '')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+    : []
 
   return (
     <div className={cn('flex flex-col gap-pad-xs font-mono text-micro text-subtle', className)}>

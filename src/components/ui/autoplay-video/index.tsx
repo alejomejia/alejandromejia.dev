@@ -7,10 +7,7 @@ import { cn } from '@/lib/utils'
 
 import { AUTOPLAY_VIDEO_ROOT_MARGIN } from './autoplay-video.const'
 
-type AutoplayVideoProps = Omit<
-  VideoHTMLAttributes<HTMLVideoElement>,
-  'autoPlay' | 'muted' | 'loop' | 'playsInline'
-> & {
+type AutoplayVideoProps = Omit<VideoHTMLAttributes<HTMLVideoElement>, 'autoPlay' | 'muted' | 'loop' | 'playsInline'> & {
   src: string
   /** Still frame shown before playback and for reduced-motion users. */
   poster?: string

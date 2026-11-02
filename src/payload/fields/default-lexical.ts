@@ -25,9 +25,7 @@ export const defaultLexical = lexicalEditor({
     LinkFeature({
       enabledCollections: ROUTABLE_COLLECTIONS,
       fields: ({ defaultFields }) => {
-        const fieldsWithoutUrl = defaultFields.filter(
-          (field) => !('name' in field && field.name === 'url'),
-        )
+        const fieldsWithoutUrl = defaultFields.filter((field) => !('name' in field && field.name === 'url'))
 
         return [
           ...fieldsWithoutUrl,

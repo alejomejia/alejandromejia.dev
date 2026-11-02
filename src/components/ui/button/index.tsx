@@ -14,8 +14,7 @@ type ButtonOwnProps = {
 }
 
 /** Without `href` it renders a `<button>` (`type` defaults to `"button"`). */
-type ButtonAsButtonProps = ButtonOwnProps &
-  Omit<ComponentProps<'button'>, keyof ButtonOwnProps> & { href?: undefined }
+type ButtonAsButtonProps = ButtonOwnProps & Omit<ComponentProps<'button'>, keyof ButtonOwnProps> & { href?: undefined }
 
 /** With `href` it renders the project's `Link`, so every `Link` prop works. */
 type ButtonAsLinkProps = ButtonOwnProps & Omit<LinkProps, keyof ButtonOwnProps>
@@ -27,7 +26,10 @@ export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps
  * link with its own animated icon, like the CV's download) share the exact
  * same look.
  */
-export function buttonClassName({ variant = 'outline', className }: { variant?: ButtonVariant; className?: string } = {}) {
+export function buttonClassName({
+  variant = 'outline',
+  className,
+}: { variant?: ButtonVariant; className?: string } = {}) {
   return cn(
     // `w-fit` keeps it content-sized inside flex columns and grids, which
     // would otherwise stretch it; pass `w-full` to opt into full width.

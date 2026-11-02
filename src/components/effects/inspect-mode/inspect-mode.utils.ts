@@ -66,8 +66,12 @@ export function measureElement(element: Element): InspectMeasure {
 export function measureDistances(from: DOMRect, to: DOMRect): InspectDistance[] {
   const overlapX = from.left < to.right && to.left < from.right
   const overlapY = from.top < to.bottom && to.top < from.bottom
-  const midX = overlapX ? (Math.max(from.left, to.left) + Math.min(from.right, to.right)) / 2 : from.left + from.width / 2
-  const midY = overlapY ? (Math.max(from.top, to.top) + Math.min(from.bottom, to.bottom)) / 2 : from.top + from.height / 2
+  const midX = overlapX
+    ? (Math.max(from.left, to.left) + Math.min(from.right, to.right)) / 2
+    : from.left + from.width / 2
+  const midY = overlapY
+    ? (Math.max(from.top, to.top) + Math.min(from.bottom, to.bottom)) / 2
+    : from.top + from.height / 2
   const lines: InspectDistance[] = []
 
   if (overlapX && overlapY) {
@@ -105,14 +109,17 @@ export function describeElement(element: Element): InspectDetail[] {
   const style = getComputedStyle(element)
   const scale = rootScale()
   const px = (value: string) => (parseFloat(value) || 0) / scale
-  const details: InspectDetail[] = [{ label: 'size', value: `${round(rect.width / scale)} × ${round(rect.height / scale)}` }]
+  const details: InspectDetail[] = [
+    { label: 'size', value: `${round(rect.width / scale)} × ${round(rect.height / scale)}` },
+  ]
 
   const padding = [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(px)
   if (padding.some(Boolean)) details.push({ label: 'padding', value: formatSides(padding) })
 
   if (/flex|grid/.test(style.display)) {
     const [row, column] = [px(style.rowGap), px(style.columnGap)]
-    if (row || column) details.push({ label: 'gap', value: row === column ? round(row) : `${round(row)} ${round(column)}` })
+    if (row || column)
+      details.push({ label: 'gap', value: row === column ? round(row) : `${round(row)} ${round(column)}` })
   }
 
   const radius = px(style.borderTopLeftRadius)
@@ -130,7 +137,8 @@ export function describeElement(element: Element): InspectDetail[] {
 /** Tag and the first words of its text: `h1 "Alejandro Mejía"`. */
 export function nameElement(element: Element): string {
   // `innerText` keeps the breaks between blocks (`textContent` would glue "Mejía" to "Senior").
-  const text = (element instanceof HTMLElement ? element.innerText : element.textContent)?.trim().replace(/\s+/g, ' ') ?? ''
+  const text =
+    (element instanceof HTMLElement ? element.innerText : element.textContent)?.trim().replace(/\s+/g, ' ') ?? ''
   const snippet = text.length > 24 ? `${text.slice(0, 24)}…` : text
   return snippet ? `${element.tagName.toLowerCase()} "${snippet}"` : element.tagName.toLowerCase()
 }

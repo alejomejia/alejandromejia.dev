@@ -93,7 +93,9 @@ function storyBlockToMarkdown(block: StoryBlock): string[] {
     case 'metrics':
       return [block.items.map(({ value, label }) => `- **${value}** ${label}`).join('\n')]
     case 'steps':
-      return [block.items.map(({ title, text }, index) => `${index + 1}. **${title}**${text ? ` ${text}` : ''}`).join('\n')]
+      return [
+        block.items.map(({ title, text }, index) => `${index + 1}. **${title}**${text ? ` ${text}` : ''}`).join('\n'),
+      ]
     case 'quote': {
       const recommendation = typeof block.recommendation === 'object' ? block.recommendation : null
       if (!recommendation) return []

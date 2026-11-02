@@ -10,7 +10,10 @@ import { cn } from '@/lib/utils'
 export function WorkCover({ cover }: { cover?: MediaSource }) {
   return (
     <MediaFrame media={cover}>
-      <div aria-hidden className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')} />
+      <div
+        aria-hidden
+        className={cn(DOT_TEXTURE_CLASSNAME, 'transition-colors duration-250 group-hover:text-foreground/20')}
+      />
     </MediaFrame>
   )
 }

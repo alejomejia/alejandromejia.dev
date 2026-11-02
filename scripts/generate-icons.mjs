@@ -39,8 +39,9 @@ async function render(size, { padding = 0, rgba = false } = {}) {
 
   if (padding > 0) {
     const offset = Math.round((size - inner) / 2)
-    image = sharp({ create: { width: size, height: size, channels: 4, background } })
-      .composite([{ input: await image.png().toBuffer(), top: offset, left: offset }])
+    image = sharp({ create: { width: size, height: size, channels: 4, background } }).composite([
+      { input: await image.png().toBuffer(), top: offset, left: offset },
+    ])
   }
   // Flatten onto the background so the result is always a solid square.
   image = image.flatten({ background })

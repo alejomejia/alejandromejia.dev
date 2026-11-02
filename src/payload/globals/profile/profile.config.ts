@@ -69,7 +69,10 @@ export const Profile: GlobalConfig = {
                   name: 'timezone',
                   type: 'text',
                   defaultValue: 'Europe/Madrid',
-                  admin: { width: '50%', description: 'For the footer’s local time. An IANA name, e.g. "Europe/Madrid".' },
+                  admin: {
+                    width: '50%',
+                    description: 'For the footer’s local time. An IANA name, e.g. "Europe/Madrid".',
+                  },
                   validate: (value: string | null | undefined) => {
                     if (!value) return true
                     try {
@@ -130,7 +133,10 @@ export const Profile: GlobalConfig = {
                       name: 'companyLocation',
                       type: 'text',
                       label: 'Company based in',
-                      admin: { width: '50%', description: 'Optional. City and country, or just the country, e.g. "Sweden".' },
+                      admin: {
+                        width: '50%',
+                        description: 'Optional. City and country, or just the country, e.g. "Sweden".',
+                      },
                     },
                     {
                       name: 'via',
@@ -163,21 +169,33 @@ export const Profile: GlobalConfig = {
                         { label: 'Full-time', value: 'full-time' },
                         { label: 'Contract', value: 'contract' },
                       ],
-                      admin: { width: '50%', description: 'Contract shows a "Contract" tag: it explains a short, project-based stay.' },
+                      admin: {
+                        width: '50%',
+                        description: 'Contract shows a "Contract" tag: it explains a short, project-based stay.',
+                      },
                     },
                     {
                       name: 'remote',
                       type: 'checkbox',
                       defaultValue: false,
                       label: 'Remote',
-                      admin: { width: '50%', description: 'Shows a "Remote" tag and counts toward the remote total at the top of the CV.' },
+                      admin: {
+                        width: '50%',
+                        description: 'Shows a "Remote" tag and counts toward the remote total at the top of the CV.',
+                      },
                     },
                   ],
                 },
                 {
                   type: 'row',
                   fields: [
-                    { name: 'startDate', type: 'date', label: 'Started', required: true, admin: { width: '50%', date: MONTH_PICKER } },
+                    {
+                      name: 'startDate',
+                      type: 'date',
+                      label: 'Started',
+                      required: true,
+                      admin: { width: '50%', date: MONTH_PICKER },
+                    },
                     {
                       name: 'endDate',
                       type: 'date',
@@ -273,7 +291,13 @@ export const Profile: GlobalConfig = {
                   required: true,
                   admin: { description: 'E.g. "Design systems".' },
                 },
-                { name: 'skills', type: 'text', hasMany: true, required: true, admin: { description: 'Press Enter after each.' } },
+                {
+                  name: 'skills',
+                  type: 'text',
+                  hasMany: true,
+                  required: true,
+                  admin: { description: 'Press Enter after each.' },
+                },
               ],
             },
             {
@@ -309,7 +333,11 @@ export const Profile: GlobalConfig = {
                   type: 'row',
                   fields: [
                     { name: 'name', type: 'text', required: true, admin: { width: '50%' } },
-                    { name: 'issuer', type: 'text', admin: { width: '50%', description: 'Optional. E.g. "Anthropic".' } },
+                    {
+                      name: 'issuer',
+                      type: 'text',
+                      admin: { width: '50%', description: 'Optional. E.g. "Anthropic".' },
+                    },
                   ],
                 },
               ],

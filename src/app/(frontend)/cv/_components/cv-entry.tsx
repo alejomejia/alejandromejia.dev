@@ -9,7 +9,8 @@ import { skillKey } from './cv.utils'
 import { CvSkill, CvTraceItem } from './cv-trace'
 
 // The "Contract" and "Remote" labels: filled, so they never read as the stack's (clickable) tags.
-const LABEL_CLASSNAME = 'inline-flex h-5 items-center rounded-full bg-foreground/5 px-2 font-mono text-micro text-foreground'
+const LABEL_CLASSNAME =
+  'inline-flex h-5 items-center rounded-full bg-foreground/5 px-2 font-mono text-micro text-foreground'
 
 /**
  * A role or side project, in one column: the title with the period on the
@@ -19,7 +20,8 @@ const LABEL_CLASSNAME = 'inline-flex h-5 items-center rounded-full bg-foreground
  * achieved, the stack (traceable tags) and the case study when there is one.
  */
 export function CvEntry({ entry }: { entry: CvEntryData }) {
-  const { title, titleHref, organization, period, note, remote, contract, summary, highlights, stack, caseStudy } = entry
+  const { title, titleHref, organization, period, note, remote, contract, summary, highlights, stack, caseStudy } =
+    entry
   const copy = COPY.cv
 
   return (
@@ -51,7 +53,9 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
               organization.name
             )}
             {organization.location && `, ${organization.location}`}
-            {organization.via && <span className="text-subtle"> · {formatMessage(copy.via, { agency: organization.via })}</span>}
+            {organization.via && (
+              <span className="text-subtle"> · {formatMessage(copy.via, { agency: organization.via })}</span>
+            )}
           </p>
         )}
         {(contract || remote || note) && (
@@ -85,7 +89,11 @@ export function CvEntry({ entry }: { entry: CvEntryData }) {
         </ul>
       )}
       {caseStudy && (
-        <TextLink href={caseStudy} icon={<ArrowUpRight strokeWidth={1.5} />} className="text-caption text-muted print:hidden">
+        <TextLink
+          href={caseStudy}
+          icon={<ArrowUpRight strokeWidth={1.5} />}
+          className="text-caption text-muted print:hidden"
+        >
           {copy.caseStudy}
         </TextLink>
       )}

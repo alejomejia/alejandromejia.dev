@@ -30,7 +30,9 @@ export async function UnusedMediaBanner({ payload, searchParams }: BeforeListTab
   // The original plus every generated size: what deleting them frees.
   const bytes = unused.reduce(
     (total, doc) =>
-      total + (doc.filesize ?? 0) + Object.values(doc.sizes ?? {}).reduce((sum, size) => sum + (size?.filesize ?? 0), 0),
+      total +
+      (doc.filesize ?? 0) +
+      Object.values(doc.sizes ?? {}).reduce((sum, size) => sum + (size?.filesize ?? 0), 0),
     0,
   )
 
@@ -49,8 +51,8 @@ export async function UnusedMediaBanner({ payload, searchParams }: BeforeListTab
   return (
     <div className="unused-media">
       <span>
-        {unused.length} {unused.length === 1 ? 'file is' : 'files are'} not used anywhere ({formatFilesize(bytes, 1)} with
-        their sizes).
+        {unused.length} {unused.length === 1 ? 'file is' : 'files are'} not used anywhere ({formatFilesize(bytes, 1)}{' '}
+        with their sizes).
         {filtering && ' Select them all and delete to remove them from storage.'}
       </span>
       <a className="unused-media__link" href={filtering ? listURL : filterURL}>

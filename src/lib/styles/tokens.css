@@ -63,7 +63,8 @@
   }
 }
 
-@media (max-width: 40rem) { /* 640px */
+@media (max-width: 40rem) {
+  /* 640px */
   :root {
     --fs-display-m: 1.75rem; /* 28px */
     --fs-display-l: 2.25rem; /* 36px */

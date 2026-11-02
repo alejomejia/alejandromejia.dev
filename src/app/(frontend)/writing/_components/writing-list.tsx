@@ -34,7 +34,10 @@ export function WritingList({ entries, enterFrom }: WritingListProps) {
           <ul className="mt-pad-xs">
             {posts.map((post) => (
               <li key={post.slug} {...enter(Math.min(step++, WRITING_LAST_ENTER_STEP))}>
-                <Link href={writingPath(post.slug)} className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}>
+                <Link
+                  href={writingPath(post.slug)}
+                  className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}
+                >
                   <span className="flex-1">
                     <span className="flex items-center gap-2">
                       {post.title}

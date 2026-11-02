@@ -59,11 +59,9 @@ export const Writing: CollectionConfig<'writing'> = {
     defaultColumns: ['title', 'format', 'publishedAt', 'updatedAt'],
     description: 'Articles, notes and snippets, listed together at /writing and filterable by format.',
     livePreview: {
-      url: ({ data }) =>
-        generatePreviewPath({ collection: 'writing', slug: data?.slug }) ?? '',
+      url: ({ data }) => generatePreviewPath({ collection: 'writing', slug: data?.slug }) ?? '',
     },
-    preview: (data) =>
-      generatePreviewPath({ collection: 'writing', slug: data?.slug as string }) ?? '',
+    preview: (data) => generatePreviewPath({ collection: 'writing', slug: data?.slug as string }) ?? '',
   },
   fields: [
     {
@@ -98,7 +96,8 @@ export const Writing: CollectionConfig<'writing'> = {
               name: 'cover',
               label: 'Cover',
               condition: isArticle,
-              description: 'Optional. Shown at the top of the article and as its share image. Most articles don’t need one.',
+              description:
+                'Optional. Shown at the top of the article and as its share image. Most articles don’t need one.',
             }),
             {
               name: 'why',
@@ -107,7 +106,8 @@ export const Writing: CollectionConfig<'writing'> = {
               required: true,
               admin: {
                 condition: isSnippet,
-                description: 'One line on what it’s for, shown above the code, e.g. "Pause canvas loops while off screen."',
+                description:
+                  'One line on what it’s for, shown above the code, e.g. "Pause canvas loops while off screen."',
               },
             },
             {
@@ -147,7 +147,9 @@ export const Writing: CollectionConfig<'writing'> = {
               }),
               // Articles and notes need a body; a snippet's code is enough.
               validate: (value: { root?: { children?: unknown[] } } | null | undefined, { data }: { data: unknown }) =>
-                (data as Partial<WritingDoc> | undefined)?.format === 'snippet' || hasContent(value) || 'Write the body.',
+                (data as Partial<WritingDoc> | undefined)?.format === 'snippet' ||
+                hasContent(value) ||
+                'Write the body.',
             },
           ],
         },
@@ -196,7 +198,11 @@ export const Writing: CollectionConfig<'writing'> = {
       type: 'relationship',
       label: 'Live demo',
       relationTo: 'craft',
-      admin: { position: 'sidebar', condition: isSnippet, description: 'Optional. The Craft entry where this code runs.' },
+      admin: {
+        position: 'sidebar',
+        condition: isSnippet,
+        description: 'Optional. The Craft entry where this code runs.',
+      },
     },
   ],
   hooks: {

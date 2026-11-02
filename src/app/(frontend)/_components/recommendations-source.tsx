@@ -22,7 +22,12 @@ export async function RecommendationsSource({ className }: RecommendationsSource
   return (
     <p className={cn('text-caption text-muted', className)}>
       {copy.note}{' '}
-      <TextLink href={LINKEDIN_RECOMMENDATIONS_URL} newTab variant="underline" icon={<ArrowUpRight strokeWidth={1.5} />}>
+      <TextLink
+        href={LINKEDIN_RECOMMENDATIONS_URL}
+        newTab
+        variant="underline"
+        icon={<ArrowUpRight strokeWidth={1.5} />}
+      >
         {copy.link}
       </TextLink>
     </p>

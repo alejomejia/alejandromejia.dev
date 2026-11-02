@@ -48,7 +48,10 @@ export function textLinkClassName({
 }
 
 /** Class names for the label inside, which carries the underline. */
-export function textLinkLabelClassName({ variant = 'underline-reveal', active = false }: { variant?: TextLinkVariant; active?: boolean } = {}) {
+export function textLinkLabelClassName({
+  variant = 'underline-reveal',
+  active = false,
+}: { variant?: TextLinkVariant; active?: boolean } = {}) {
   const { label, activeLabel } = TEXT_LINK_VARIANTS[variant]
   return cn(label, active && activeLabel)
 }
@@ -88,7 +91,11 @@ export function TextLink(props: TextLinkProps) {
 
   const { variant, active, icon, iconPosition, children, className, type = 'button', ...buttonProps } = props
   return (
-    <button type={type} {...buttonProps} className={textLinkClassName({ variant, active, withIcon: Boolean(icon), className })}>
+    <button
+      type={type}
+      {...buttonProps}
+      className={textLinkClassName({ variant, active, withIcon: Boolean(icon), className })}
+    >
       <TextLinkContent variant={variant} active={active} icon={icon} iconPosition={iconPosition}>
         {children}
       </TextLinkContent>

@@ -41,7 +41,9 @@ export const CodeBlock: Block = {
       label: 'Highlighted lines',
       admin: { description: 'Optional. Line numbers to emphasize, e.g. "3, 7-9".' },
       validate: (value: string | null | undefined) =>
-        !value || /^\s*\d+(\s*-\s*\d+)?(\s*,\s*\d+(\s*-\s*\d+)?)*\s*$/.test(value) || 'Use numbers and ranges, e.g. "3, 7-9".',
+        !value ||
+        /^\s*\d+(\s*-\s*\d+)?(\s*,\s*\d+(\s*-\s*\d+)?)*\s*$/.test(value) ||
+        'Use numbers and ranges, e.g. "3, 7-9".',
     },
   ],
 }

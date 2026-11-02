@@ -27,7 +27,10 @@ export function CraftSnippets({ entries, label, enterFrom }: CraftSnippetsProps)
       <ul className="mt-pad-xs">
         {entries.map((snippet, index) => (
           <li key={snippet.slug} {...enter(Math.min(enterFrom + index, CRAFT_LAST_ENTER_STEP))}>
-            <Link href={craftPath(snippet.slug)} className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}>
+            <Link
+              href={craftPath(snippet.slug)}
+              className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}
+            >
               <span className="flex-1">
                 <span className="flex items-center gap-2">
                   {snippet.title}

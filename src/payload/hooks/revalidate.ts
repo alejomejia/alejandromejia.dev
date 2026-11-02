@@ -30,9 +30,7 @@ export function revalidateSite(payload: Payload) {
  * must never hold up an editor.
  */
 function pingIndexNow(paths: Promise<string[]>, payload: Payload) {
-  paths
-    .then(submitToIndexNow)
-    .catch((error) => payload.logger.warn(`IndexNow submit failed: ${error}`))
+  paths.then(submitToIndexNow).catch((error) => payload.logger.warn(`IndexNow submit failed: ${error}`))
 }
 
 type RevalidateOptions<T> = {
@@ -52,7 +50,9 @@ type RevalidateOptions<T> = {
  * Set `req.context.disableRevalidate` to skip (e.g. during seeding).
  * @example buildRevalidateHooks({ pathFor: (slug) => `/${slug}` })
  */
-export function buildRevalidateHooks<T extends RevalidatableDoc>({ pathFor }: RevalidateOptions<T>): {
+export function buildRevalidateHooks<T extends RevalidatableDoc>({
+  pathFor,
+}: RevalidateOptions<T>): {
   afterChange: CollectionAfterChangeHook<T>
   afterDelete: CollectionAfterDeleteHook<T>
 } {
@@ -90,10 +90,7 @@ export function buildRevalidateHooks<T extends RevalidatableDoc>({ pathFor }: Re
     return doc
   }
 
-  const afterDelete: CollectionAfterDeleteHook<T> = function afterDelete({
-    doc,
-    req: { payload, context },
-  }) {
+  const afterDelete: CollectionAfterDeleteHook<T> = function afterDelete({ doc, req: { payload, context } }) {
     if (!context.disableRevalidate && doc?.slug) {
       revalidateSite(payload)
       pingIndexNow(Promise.all([pathFor(doc.slug, doc, payload)]), payload)

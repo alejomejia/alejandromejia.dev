@@ -18,7 +18,11 @@ export function CodeGroup({ files, labels }: CodeGroupProps) {
 
   return (
     <CodeGroupFrame
-      files={files.map((file) => ({ filename: file.filename, language: CODE_LANGUAGES[file.language], code: file.code }))}
+      files={files.map((file) => ({
+        filename: file.filename,
+        language: CODE_LANGUAGES[file.language],
+        code: file.code,
+      }))}
       panels={files.map((file) => (
         <CodeLines key={file.filename} code={file.code} highlight={file.highlight} />
       ))}

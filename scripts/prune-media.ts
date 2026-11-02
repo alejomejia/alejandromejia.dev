@@ -41,7 +41,8 @@ const usage = await scanMediaUsage(payload)
 // Pass 1: unused documents.
 const unused = media.filter((doc) => !usage.isUsed(doc.id))
 const unusedBytes = unused.reduce(
-  (total, doc) => total + (doc.filesize ?? 0) + Object.values(doc.sizes ?? {}).reduce((sum, size) => sum + (size?.filesize ?? 0), 0),
+  (total, doc) =>
+    total + (doc.filesize ?? 0) + Object.values(doc.sizes ?? {}).reduce((sum, size) => sum + (size?.filesize ?? 0), 0),
   0,
 )
 payload.logger.info(`${unused.length} of ${media.length} Media files are unused (${formatFilesize(unusedBytes, 1)})`)
@@ -114,7 +115,10 @@ if (!isR2Configured) {
     for (let start = 0; start < orphans.length; start += 1000) {
       const batch = orphans.slice(start, start + 1000)
       const { Errors = [] } = await client.send(
-        new DeleteObjectsCommand({ Bucket: bucket, Delete: { Objects: batch.map(({ Key }) => ({ Key })), Quiet: true } }),
+        new DeleteObjectsCommand({
+          Bucket: bucket,
+          Delete: { Objects: batch.map(({ Key }) => ({ Key })), Quiet: true },
+        }),
       )
       for (const error of Errors) payload.logger.error(`  could not delete ${error.Key}: ${error.Message}`)
     }

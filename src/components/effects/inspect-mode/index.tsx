@@ -9,7 +9,14 @@ import { INSPECT_COLORS, INSPECT_IGNORE_ATTRIBUTE, INSPECT_ORIGIN_ATTRIBUTE } fr
 import { useInspectEnabled, useInspectShortcut } from './inspect-mode.hooks'
 import { setInspectEnabled } from './inspect-mode.store'
 import type { InspectBox, InspectDistance, InspectMeasure, InspectSnapshot } from './inspect-mode.types'
-import { describeElement, formatLength, measureDistances, measureElement, nameElement, toBox } from './inspect-mode.utils'
+import {
+  describeElement,
+  formatLength,
+  measureDistances,
+  measureElement,
+  nameElement,
+  toBox,
+} from './inspect-mode.utils'
 
 const EMPTY_SNAPSHOT: InspectSnapshot = {
   column: null,
@@ -257,13 +264,7 @@ function DistanceLine({ distance }: { distance: InspectDistance }) {
 }
 
 /** The mode's panel: what is selected and its specs, or how to start; and a way out. */
-function InspectPanel({
-  snapshot,
-  copy,
-}: {
-  snapshot: InspectSnapshot
-  copy: Copy['inspect']
-}) {
+function InspectPanel({ snapshot, copy }: { snapshot: InspectSnapshot; copy: Copy['inspect'] }) {
   return (
     <aside
       {...{ [INSPECT_IGNORE_ATTRIBUTE]: '' }}

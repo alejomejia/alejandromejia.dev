@@ -26,7 +26,10 @@ export function CvDownload({ href, label }: { href: string; label: string }) {
         />
         <ArrowDown
           strokeWidth={1.5}
-          className={cn(ARROW_CLASSNAME, '-translate-y-full group-hover:translate-y-0 group-focus-visible:translate-y-0')}
+          className={cn(
+            ARROW_CLASSNAME,
+            '-translate-y-full group-hover:translate-y-0 group-focus-visible:translate-y-0',
+          )}
         />
         {/* The tray: narrow at rest, full width once the arrow lands. */}
         <span className="absolute inset-x-0.5 bottom-0 h-px origin-center scale-x-50 bg-current transition-transform delay-100 duration-350 ease-out-quint group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none" />

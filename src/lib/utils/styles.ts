@@ -54,7 +54,7 @@ export function toCSSVars(
  */
 export function enter(index: number, className?: string): { className: string; style: CSSProperties } {
   return {
-    className: cn('motion-safe:animate-enter [animation-delay:var(--enter-delay)]', className),
+    className: cn('[animation-delay:var(--enter-delay)] motion-safe:animate-enter', className),
     style: toCSSVars({ 'enter-delay': `${index * 80}ms` }),
   }
 }

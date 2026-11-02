@@ -154,13 +154,24 @@ async function optimizeVideo(file: File, req: PayloadRequest): Promise<File> {
     await runTool(
       'ffmpeg',
       [
-        '-hide_banner', '-loglevel', 'error', '-nostdin', '-y',
-        '-i', input,
+        '-hide_banner',
+        '-loglevel',
+        'error',
+        '-nostdin',
+        '-y',
+        '-i',
+        input,
         // The main video track alone: no sound, subtitles, data tracks or metadata.
-        '-map', '0:V:0', '-map_metadata', '-1', '-map_chapters', '-1',
+        '-map',
+        '0:V:0',
+        '-map_metadata',
+        '-1',
+        '-map_chapters',
+        '-1',
         ...encodeArgs(video, toneMap),
         // Index at the front, so playback starts before the download ends.
-        '-movflags', '+faststart',
+        '-movflags',
+        '+faststart',
         output,
       ],
       req,
@@ -196,14 +207,23 @@ async function createPoster(video: File, data: Record<string, unknown> | undefin
   const frame = tempPath('.png')
   try {
     // PNG, so the WebP conversion is the only lossy step.
-    await runTool('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-nostdin', '-y', '-i', video.tempFilePath!, '-frames:v', '1', frame], req)
+    await runTool(
+      'ffmpeg',
+      ['-hide_banner', '-loglevel', 'error', '-nostdin', '-y', '-i', video.tempFilePath!, '-frames:v', '1', frame],
+      req,
+    )
     const buffer = await fs.readFile(frame)
     // Not `req`: a nested create on the same request would swap out `req.file`,
     // the video being uploaded. It saves in its own transaction instead.
     const poster = await req.payload.create({
       collection: 'media',
       data: { alt: typeof data?.alt === 'string' ? data.alt : '', folder: data?.folder as number | undefined },
-      file: { data: buffer, mimetype: 'image/png', name: `${path.parse(video.name).name}-cover.png`, size: buffer.length },
+      file: {
+        data: buffer,
+        mimetype: 'image/png',
+        name: `${path.parse(video.name).name}-cover.png`,
+        size: buffer.length,
+      },
       context: { disableRevalidate: true },
     })
     return poster.id
@@ -238,8 +258,18 @@ function encodeArgs(video: VideoInfo, toneMap: boolean): string[] {
   }
 
   return [
-    '-vf', filters.join(','),
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', VIDEO_CRF, '-profile:v', 'high', '-pix_fmt', 'yuv420p',
+    '-vf',
+    filters.join(','),
+    '-c:v',
+    'libx264',
+    '-preset',
+    'slow',
+    '-crf',
+    VIDEO_CRF,
+    '-profile:v',
+    'high',
+    '-pix_fmt',
+    'yuv420p',
     ...(toneMap ? ['-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709'] : []),
   ]
 }
@@ -248,11 +278,15 @@ async function probeVideo(input: string, req: PayloadRequest): Promise<VideoInfo
   const { stdout } = await runTool(
     'ffprobe',
     [
-      '-v', 'error',
+      '-v',
+      'error',
       // `V` skips cover art, which ffprobe also lists as a video stream.
-      '-select_streams', 'V:0',
-      '-show_entries', 'stream=codec_name,pix_fmt,width,height,avg_frame_rate,bit_rate,color_transfer:format=duration,bit_rate',
-      '-of', 'json',
+      '-select_streams',
+      'V:0',
+      '-show_entries',
+      'stream=codec_name,pix_fmt,width,height,avg_frame_rate,bit_rate,color_transfer:format=duration,bit_rate',
+      '-of',
+      'json',
       input,
     ],
     req,

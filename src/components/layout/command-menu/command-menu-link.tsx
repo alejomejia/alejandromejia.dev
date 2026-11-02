@@ -14,7 +14,15 @@ import { loadSearchEntries, setCommandMenuOpen } from './command-menu.store'
  * @example
  * <CommandMenuLink variant="underline">search the site</CommandMenuLink>
  */
-export function CommandMenuLink({ children, variant, className }: { children: ReactNode; variant?: TextLinkVariant; className?: string }) {
+export function CommandMenuLink({
+  children,
+  variant,
+  className,
+}: {
+  children: ReactNode
+  variant?: TextLinkVariant
+  className?: string
+}) {
   return (
     <TextLink
       variant={variant}

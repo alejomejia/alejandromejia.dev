@@ -26,7 +26,7 @@ export function WorkRecommendation({ id, label }: WorkRecommendationProps) {
       <SectionLabel>{label}</SectionLabel>
       <RecommendationQuote
         recommendation={recommendation}
-       
+
         size={recommendation.quote.length > LEAD_MAX_LENGTH ? 'body' : 'lead'}
         className="mt-pad-s"
       />

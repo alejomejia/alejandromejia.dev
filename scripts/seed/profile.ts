@@ -44,7 +44,8 @@ const PROFILE: Omit<Profile, 'id' | 'updatedAt' | 'createdAt'> = {
       employment: 'contract',
       remote: true,
       startDate: month(2026, 3),
-      summary: "Desigual's ecommerce team, evolving the global online store with Vue, SCSS, ISML and Salesforce Commerce Cloud, from Figma designs to production UI.",
+      summary:
+        "Desigual's ecommerce team, evolving the global online store with Vue, SCSS, ISML and Salesforce Commerce Cloud, from Figma designs to production UI.",
       highlights: [
         'Build and evolve reusable UI components that keep the visual language consistent across the global store',
         'Co-design marketer-friendly component structures with SFCC developers, so content teams launch campaigns without developer help',
@@ -63,7 +64,8 @@ const PROFILE: Omit<Profile, 'id' | 'updatedAt' | 'createdAt'> = {
       remote: true,
       startDate: month(2024, 4),
       endDate: month(2025, 9),
-      summary: 'The marketing team of a Swedish blockchain company, on the content-driven websites chromia.com and chromaway.com.',
+      summary:
+        'The marketing team of a Swedish blockchain company, on the content-driven websites chromia.com and chromaway.com.',
       highlights: [
         'Built and maintained scalable, CMS-driven marketing websites with React and Next.js',
         'Led the blog migration from Ghost to in-house hosting: full control over content and lower yearly costs',
@@ -173,7 +175,8 @@ const PROFILE: Omit<Profile, 'id' | 'updatedAt' | 'createdAt'> = {
     {
       name: 'Futura77',
       note: 'Independent · private code, walkthrough on request',
-      summary: 'An AI-agent pipeline that takes a site redesign from brief to reviewed pull request, on a motion-rich design system with strict performance budgets.',
+      summary:
+        'An AI-agent pipeline that takes a site redesign from brief to reviewed pull request, on a motion-rich design system with strict performance budgets.',
       highlights: [
         'Claude Code agents write the design brief and build the redesign, gated by cross-browser rendering, validation, copy lint and Lighthouse checks before a human-reviewed pull request',
         'A design system of tokens, layout primitives and motion components, tested in Chromium, WebKit and Firefox, with reduced-motion and no-JS fallbacks',
@@ -187,7 +190,15 @@ const PROFILE: Omit<Profile, 'id' | 'updatedAt' | 'createdAt'> = {
     { label: 'Frontend', skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Vue', 'SCSS', 'Responsive design'] },
     {
       label: 'Design engineering',
-      skills: ['Design systems', 'Design tokens', 'Component architecture', 'Storybook', 'Figma to code', 'Design QA', 'Accessibility (WCAG)'],
+      skills: [
+        'Design systems',
+        'Design tokens',
+        'Component architecture',
+        'Storybook',
+        'Figma to code',
+        'Design QA',
+        'Accessibility (WCAG)',
+      ],
     },
     { label: 'Motion', skills: ['GSAP', 'Framer Motion', 'Lenis', 'Micro-interactions'] },
     { label: 'Quality and performance', skills: ['Core Web Vitals', 'Technical SEO', 'Jest', 'Cypress', 'Playwright'] },
@@ -236,7 +247,10 @@ export async function seedProfile(payload: Payload, { overwrite = false } = {}) 
   const context = { disableRevalidate: true }
 
   for (const title of TOPICS) {
-    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
     const { totalDocs } = await payload.count({ collection: 'topics', where: { slug: { equals: slug } } })
     if (totalDocs === 0) await payload.create({ collection: 'topics', context, data: { title, slug } })
   }
@@ -252,7 +266,9 @@ export async function seedProfile(payload: Payload, { overwrite = false } = {}) 
       slug: 'site-settings',
       context,
       data: {
-        socialLinks: SOCIAL_LINKS.map(({ label, url }) => ({ link: { type: 'custom' as const, url, label, newTab: true } })),
+        socialLinks: SOCIAL_LINKS.map(({ label, url }) => ({
+          link: { type: 'custom' as const, url, label, newTab: true },
+        })),
       },
     })
   }

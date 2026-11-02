@@ -58,7 +58,10 @@ export function BeforeAfter({ before, after, mode = 'slider', caption, labels }:
           <>
             <span className={cn(LABEL_CLASSNAME, 'left-3')}>{beforeLabel}</span>
             <span className={cn(LABEL_CLASSNAME, 'right-3')}>{afterLabel}</span>
-            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-(--position) w-px -translate-x-1/2 bg-foreground/40">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-(--position) w-px -translate-x-1/2 bg-foreground/40"
+            >
               <span className="absolute top-1/2 left-1/2 size-6 -translate-1/2 rounded-full border border-foreground/20 bg-background" />
             </div>
             <input

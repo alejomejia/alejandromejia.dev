@@ -25,12 +25,26 @@ type CvHeaderProps = {
  * long he has worked remotely, and how to reach him. On paper the sidebar is gone, so a print-only block puts the
  * name, headline and availability first, and links print as addresses.
  */
-export function CvHeader({ name, headline, available, availability, location, email, links, summary, remote, className }: CvHeaderProps) {
+export function CvHeader({
+  name,
+  headline,
+  available,
+  availability,
+  location,
+  email,
+  links,
+  summary,
+  remote,
+  className,
+}: CvHeaderProps) {
   const copy = COPY.cv
 
   const facts: PageFact[] = [
     { label: copy.location, value: location },
-    { label: copy.remote, value: remote && formatMessage(copy.remoteTotal, { duration: remote.duration, count: remote.countries }) },
+    {
+      label: copy.remote,
+      value: remote && formatMessage(copy.remoteTotal, { duration: remote.duration, count: remote.countries }),
+    },
     {
       label: copy.email,
       value: email && (

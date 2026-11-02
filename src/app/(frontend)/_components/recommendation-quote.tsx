@@ -27,7 +27,9 @@ export function RecommendationQuote({
 
   return (
     <figure className={cn('flex flex-col gap-pad-s', className)}>
-      <blockquote className={cn('flex flex-col gap-pad-xs text-pretty', size === 'lead' ? 'text-lead' : 'text-foreground/80')}>
+      <blockquote
+        className={cn('flex flex-col gap-pad-xs text-pretty', size === 'lead' ? 'text-lead' : 'text-foreground/80')}
+      >
         {text.split('\n\n').map((paragraph, index, paragraphs) => (
           <p key={index}>
             {index === 0 && '“'}
@@ -44,7 +46,9 @@ export function RecommendationQuote({
             {recommendation.company && `, ${recommendation.company}`}
           </span>
         </span>
-        <span className="ml-auto self-start font-mono text-micro whitespace-nowrap text-subtle max-sm:hidden">{meta}</span>
+        <span className="ml-auto self-start font-mono text-micro whitespace-nowrap text-subtle max-sm:hidden">
+          {meta}
+        </span>
       </figcaption>
       <p className="font-mono text-micro text-subtle sm:hidden">{meta}</p>
     </figure>

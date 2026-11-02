@@ -81,7 +81,10 @@ export const Craft: CollectionConfig<'craft'> = {
               label: 'Demo',
               required: true,
               options: CRAFT_DEMO_OPTIONS,
-              admin: { description: 'The live demo at the top of the page. Demos are built in code; new ones appear here once they ship.' },
+              admin: {
+                description:
+                  'The live demo at the top of the page. Demos are built in code; new ones appear here once they ship.',
+              },
             },
             {
               name: 'fallback',
@@ -96,7 +99,10 @@ export const Craft: CollectionConfig<'craft'> = {
             {
               type: 'collapsible',
               label: 'Key code',
-              admin: { initCollapsed: true, description: 'Optional. The few lines that make it work, shown under the demo.' },
+              admin: {
+                initCollapsed: true,
+                description: 'Optional. The few lines that make it work, shown under the demo.',
+              },
               fields: [
                 {
                   name: 'codeLanguage',

@@ -70,7 +70,9 @@ export function CvSkill({ name, traceKey }: { name: string; traceKey?: string })
       className={cn(
         TAG_CLASSNAME,
         'cursor-pointer transition-colors duration-250',
-        active ? 'border-foreground bg-foreground text-background' : 'border-foreground/10 text-muted hover:text-foreground',
+        active
+          ? 'border-foreground bg-foreground text-background'
+          : 'border-foreground/10 text-muted hover:text-foreground',
       )}
     >
       {name}
@@ -79,7 +81,15 @@ export function CvSkill({ name, traceKey }: { name: string; traceKey?: string })
 }
 
 /** A role or project that fades while a skill it didn't use is traced. */
-export function CvTraceItem({ traceKeys, children, className }: { traceKeys: string[]; children: ReactNode; className?: string }) {
+export function CvTraceItem({
+  traceKeys,
+  children,
+  className,
+}: {
+  traceKeys: string[]
+  children: ReactNode
+  className?: string
+}) {
   const { active } = useTrace()
   const faded = active !== null && !traceKeys.includes(active)
 

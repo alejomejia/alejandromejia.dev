@@ -25,7 +25,11 @@ export function writingCard(doc: {
 
 /** A Craft piece's card. */
 export function craftCard(doc: { title: string; description: string }): OgCard {
-  return { label: `${COPY.shareCard.craft} · ${COPY.shareCard.experiment}`, title: doc.title, description: doc.description }
+  return {
+    label: `${COPY.shareCard.craft} · ${COPY.shareCard.experiment}`,
+    title: doc.title,
+    description: doc.description,
+  }
 }
 
 /** A case study's card. */

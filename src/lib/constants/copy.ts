@@ -137,7 +137,8 @@ export const COPY = {
   },
   craft: {
     title: 'Craft',
-    description: 'Small interface experiments, live on the page, and snippets I reuse, each with the code that makes it work.',
+    description:
+      'Small interface experiments, live on the page, and snippets I reuse, each with the code that makes it work.',
     empty: 'Nothing published yet.',
     experiments: 'Experiments',
     snippets: 'Snippets',

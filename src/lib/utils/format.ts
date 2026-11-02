@@ -7,7 +7,12 @@ const FORMAT_LOCALE = 'en-US'
  * @example formatDate('2026-10-07') // 'October 7, 2026'
  */
 export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString(FORMAT_LOCALE, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+  return new Date(iso).toLocaleDateString(FORMAT_LOCALE, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  })
 }
 
 /**

@@ -33,7 +33,10 @@ export function HomeWork({ entries, copy }: { entries: HomeWorkEntry[]; copy: Co
       <ul className="mt-pad-xs">
         {entries.map((work, index) => (
           <li key={work.id} {...enter(1 + index)}>
-            <Link href={workPath(work.slug ?? '')} className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}>
+            <Link
+              href={workPath(work.slug ?? '')}
+              className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}
+            >
               <span className="flex-1">
                 <span className="flex items-center gap-2">
                   {work.title}

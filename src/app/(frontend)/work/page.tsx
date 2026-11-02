@@ -52,9 +52,11 @@ export default async function WorkPage() {
       <WorkList entries={more} label={copy.more} enterFrom={2 + featured.length} />
 
       <p {...enter(2 + WORK.length, 'text-caption text-muted')}>
-        {copy.closing} <TextLink href={SITE_ROUTES.cv} variant="underline">
+        {copy.closing}{' '}
+        <TextLink href={SITE_ROUTES.cv} variant="underline">
           {copy.cv}
-        </TextLink>.
+        </TextLink>
+        .
       </p>
     </div>
   )

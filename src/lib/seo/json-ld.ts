@@ -114,7 +114,15 @@ type WritingJsonLdArgs = {
 }
 
 /** `BlogPosting` for a Writing article, enabling article rich results. */
-export function writingJsonLd({ path, title, description, image, publishedAt, updatedAt, topics }: WritingJsonLdArgs): JsonLdNode {
+export function writingJsonLd({
+  path,
+  title,
+  description,
+  image,
+  publishedAt,
+  updatedAt,
+  topics,
+}: WritingJsonLdArgs): JsonLdNode {
   const url = absoluteURL(path)
 
   return {
@@ -215,7 +223,12 @@ export function profilePageJsonLd({ path, name, description, roles, schools, lan
     mainEntity: {
       ...personRef(),
       ...(current.length > 0 && { worksFor: current.map(organization) }),
-      ...(past.length > 0 && { alumniOf: [...past.map(organization), ...schools.map((school) => ({ '@type': 'EducationalOrganization', name: school }))] }),
+      ...(past.length > 0 && {
+        alumniOf: [
+          ...past.map(organization),
+          ...schools.map((school) => ({ '@type': 'EducationalOrganization', name: school })),
+        ],
+      }),
       ...(languages.length > 0 && { knowsLanguage: languages }),
     },
   }

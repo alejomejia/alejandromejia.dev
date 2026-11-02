@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 import { UMAMI_API_ORIGIN, UMAMI_SCRIPT_URL } from './src/lib/integrations/umami/umami.const'
@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
     // single layout Next can compose an app-wide 404 from.
     globalNotFound: true,
   },
-};
+}
 
 /**
  * `withPayload` sends `Critical-CH: Sec-CH-Prefers-Color-Scheme` on every

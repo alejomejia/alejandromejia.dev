@@ -93,7 +93,9 @@ export default async function CvPage() {
             <CvSection
               id={CV_SECTION_IDS.experience}
               label={copy.experience}
-              aside={cv.experience.some((role) => role.contract) && <span className="text-right">{copy.contractNote}</span>}
+              aside={
+                cv.experience.some((role) => role.contract) && <span className="text-right">{copy.contractNote}</span>
+              }
               enterStep={4}
             >
               <CvEntries entries={cv.experience} />
@@ -120,7 +122,10 @@ export default async function CvPage() {
                       <ul className="flex flex-wrap gap-1">
                         {group.skills.map((skill) => (
                           <li key={skill}>
-                            <CvSkill name={skill} traceKey={traceable.has(skillKey(skill)) ? skillKey(skill) : undefined} />
+                            <CvSkill
+                              name={skill}
+                              traceKey={traceable.has(skillKey(skill)) ? skillKey(skill) : undefined}
+                            />
                           </li>
                         ))}
                       </ul>
@@ -182,9 +187,11 @@ export default async function CvPage() {
         )}
 
         <p className="text-caption text-muted print:hidden">
-          {copy.closing} <TextLink href={SITE_ROUTES.work} variant="underline">
+          {copy.closing}{' '}
+          <TextLink href={SITE_ROUTES.work} variant="underline">
             {copy.work}
-          </TextLink>.
+          </TextLink>
+          .
         </p>
       </div>
     </div>

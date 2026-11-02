@@ -10,10 +10,7 @@ function isPlainObject(value: unknown): value is UnknownObject {
  * plain objects are merged; arrays and primitives from `source` overwrite.
  * Used to apply `overrides` onto generated Payload field configs.
  */
-export function deepMerge<T extends UnknownObject, S extends UnknownObject>(
-  target: T,
-  source: S,
-): T & S {
+export function deepMerge<T extends UnknownObject, S extends UnknownObject>(target: T, source: S): T & S {
   const output: UnknownObject = { ...target }
 
   if (isPlainObject(target) && isPlainObject(source)) {
@@ -41,7 +38,9 @@ export function mapStrings<T>(value: T, map: (text: string, key: string | undefi
   if (typeof value === 'string') return map(value, key) as T
   if (Array.isArray(value)) return value.map((item) => mapStrings(item, map)) as T
   if (isPlainObject(value)) {
-    return Object.fromEntries(Object.entries(value).map(([entryKey, entry]) => [entryKey, mapStrings(entry, map, entryKey)])) as T
+    return Object.fromEntries(
+      Object.entries(value).map(([entryKey, entry]) => [entryKey, mapStrings(entry, map, entryKey)]),
+    ) as T
   }
   return value
 }

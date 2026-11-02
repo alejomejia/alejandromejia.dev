@@ -23,7 +23,8 @@ export const WORK: WorkEntry[] = [
   {
     slug: 'desigual-design-system',
     title: 'Desigual design system',
-    summary: 'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
+    summary:
+      'A tokens-first component system and Storybook for a global fashion ecommerce, proposed from inside the team.',
     role: 'Design Engineer',
     client: 'Desigual, via Kodly',
     startDate: '2026-03-01',
@@ -175,7 +176,10 @@ export const WORK: WorkEntry[] = [
           {
             type: 'steps',
             items: [
-              { title: 'Describe the change', text: 'Every pull request adds a changeset: what changed, and whether it breaks anything.' },
+              {
+                title: 'Describe the change',
+                text: 'Every pull request adds a changeset: what changed, and whether it breaks anything.',
+              },
               { title: 'Review', text: 'A designer and an engineer approve it in Storybook before it merges.' },
               { title: 'Release', text: 'Changesets bumps the version and writes the changelog.' },
               { title: 'Upgrade', text: 'Each team upgrades when it is ready, reading the changelog first.' },
@@ -241,7 +245,8 @@ export const WORK: WorkEntry[] = [
   {
     slug: 'ai-redesign-pipeline',
     title: 'AI redesign pipeline',
-    summary: 'From a lead to a redesigned homepage and a proposal with PageSpeed before and after, reviewed by a human.',
+    summary:
+      'From a lead to a redesigned homepage and a proposal with PageSpeed before and after, reviewed by a human.',
     role: 'Design Engineer',
     startDate: '2025-10-01',
     stack: ['Next.js', 'Playwright', 'Claude Code'],

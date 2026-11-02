@@ -55,9 +55,11 @@ export default async function CraftPage() {
       <CraftSnippets entries={snippets} label={copy.snippets} enterFrom={2 + experiments.length} />
 
       <p {...enter(CRAFT_LAST_ENTER_STEP, 'text-caption text-muted')}>
-        {copy.closing} <TextLink href={SITE_ROUTES.writing} variant="underline">
+        {copy.closing}{' '}
+        <TextLink href={SITE_ROUTES.writing} variant="underline">
           {copy.writing}
-        </TextLink>.
+        </TextLink>
+        .
       </p>
     </div>
   )

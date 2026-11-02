@@ -38,7 +38,8 @@ export const SiteSettings: GlobalConfig = {
         },
         {
           label: 'Social',
-          description: 'Your public profiles (LinkedIn, GitHub…), in the footer. Search engines also read them as your profiles.',
+          description:
+            'Your public profiles (LinkedIn, GitHub…), in the footer. Search engines also read them as your profiles.',
           fields: [
             {
               name: 'socialLinks',

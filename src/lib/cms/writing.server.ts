@@ -35,9 +35,7 @@ const getCachedPublishedWriting = unstable_cache(findPublishedWriting, ['publish
 })
 
 /** Fetches a single Writing entry by slug, draft-aware: drafts in draft mode, published otherwise. */
-export const queryWritingBySlug = cache(async function queryWritingBySlug(
-  slug: string,
-): Promise<Writing | null> {
+export const queryWritingBySlug = cache(async function queryWritingBySlug(slug: string): Promise<Writing | null> {
   const { isEnabled: draft } = await draftMode()
   return draft ? findWriting(slug, true) : getCachedPublishedWriting(slug)
 })

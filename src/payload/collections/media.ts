@@ -76,11 +76,7 @@ export const Media: CollectionConfig = {
         description: 'Optional. Shown under the image where the design displays captions.',
       },
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => [
-          ...rootFeatures,
-          FixedToolbarFeature(),
-          InlineToolbarFeature(),
-        ],
+        features: ({ rootFeatures }) => [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()],
       }),
     },
     {

@@ -31,7 +31,8 @@ export const CRAFT: CraftEntry[] = [
     kind: 'experiment',
     slug: 'inspect-mode',
     title: 'Inspect mode',
-    description: 'A Figma-like inspector over any page of this site: sizes, padding and the distance between two elements.',
+    description:
+      'A Figma-like inspector over any page of this site: sizes, padding and the distance between two elements.',
     publishedAt: '2026-10-27',
     topics: ['Design systems', 'Tooling'],
     demo: 'inspect-mode',
@@ -89,10 +90,7 @@ export const CRAFT: CraftEntry[] = [
       },
       {
         type: 'list',
-        items: [
-          'Paused off screen and in background tabs.',
-          'One still frame under reduced motion.',
-        ],
+        items: ['Paused off screen and in background tabs.', 'One still frame under reduced motion.'],
       },
     ],
   },

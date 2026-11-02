@@ -32,7 +32,12 @@ type UseHalftoneShapeProps = {
  * Paused off screen and in background tabs ({@link useInViewport}). Under
  * reduced motion it draws one still frame and never starts the loop.
  */
-export function useHalftoneShape({ cell, speed, tilt, dotScale }: UseHalftoneShapeProps): RefObject<HTMLCanvasElement | null> {
+export function useHalftoneShape({
+  cell,
+  speed,
+  tilt,
+  dotScale,
+}: UseHalftoneShapeProps): RefObject<HTMLCanvasElement | null> {
   const reducedMotion = usePrefersReducedMotion()
   const { ref: canvasRef, inView } = useInViewport<HTMLCanvasElement>({
     rootMargin: HALFTONE_SHAPE_ROOT_MARGIN,

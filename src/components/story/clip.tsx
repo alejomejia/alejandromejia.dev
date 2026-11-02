@@ -2,7 +2,13 @@ import { MediaFrame } from './media-frame'
 import type { ClipProps } from './story.types'
 
 /** A muted, looping recording in its frame, with an optional caption and the private-project label. */
-export function Clip({ media, frame = 'none', private: isPrivate, caption, privateLabel }: ClipProps & { privateLabel: string }) {
+export function Clip({
+  media,
+  frame = 'none',
+  private: isPrivate,
+  caption,
+  privateLabel,
+}: ClipProps & { privateLabel: string }) {
   return (
     <figure className="flex flex-col gap-pad-xs">
       <MediaFrame media={media} chrome={frame === 'browser'} />
