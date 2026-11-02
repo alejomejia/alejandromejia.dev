@@ -127,8 +127,10 @@ Type scale (`--fs-*` in `tokens.css`, `text-*` utilities):
 | `text-display-xl` | 72px | 1 | Not used by default |
 
 Headings are `font-medium` with `tracking-tight` from 24px up. Body text
-uses `text-pretty`, headings `text-balance`. The root font-size is a fixed
-16px (no fluid scaling: this is a reading site).
+uses `text-pretty`, headings `text-balance`. The root font-size is left to
+the browser (16px by default), so a visitor's larger font setting scales the
+whole site; never set it, and never scale it with the viewport (this is a
+reading site).
 
 Where it lives: `src/lib/styles/fonts.ts`, `tokens.css`, `theme.css`, and
 the `extendTailwindMerge` list in `src/lib/utils/styles.ts`.

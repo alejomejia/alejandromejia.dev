@@ -4,8 +4,9 @@
  * The brand is monochrome and dark (see the `alejandromejia-brand` skill):
  * two page colors drive everything, and grays are the foreground at an
  * opacity. Type sizes are CSS variables, so phones swap the scale
- * in one media query. The root font-size is a fixed 16px: this is a reading
- * site, so text should not grow with the viewport.
+ * in one media query. The root font-size is left to the browser (16px, or
+ * the size the visitor set): every length is in rem, so the whole site
+ * scales with it. It never grows with the viewport: this is a reading site.
  * ------------------------------------------------------------------------- */
 :root {
   /* Page colors. Components read only these two (plus the grays below and
@@ -68,8 +69,4 @@
     --fs-display-l: 2.25rem; /* 36px */
     --fs-display-xl: 3rem; /* 48px */
   }
-}
-
-html {
-  font-size: 16px;
 }

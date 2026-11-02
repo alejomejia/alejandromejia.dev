@@ -58,8 +58,9 @@ ratios, opacity, scale), since they aren't pixel values.
   scales down. These still use only 1, 2, 4 or 8, never `border-3`. The same
   goes for a px floor that keeps a tiny mark visible:
   `size-[max(0.25rem,4px)]`.
-- **The root font-size is px** (`html { font-size: clamp(10px, …) }`), since
-  it is what defines `rem`.
+- **A root font-size, when a project sets one, is px**
+  (`html { font-size: clamp(10px, …) }`), since it is what defines `rem`.
+  This site sets none: the visitor's browser setting decides.
 - **Font sizes are off the grid, but only through `text-*` tokens.** The type
   scale follows the design (a 10px caption must stay smaller than 12px body
   text). Components use the project's tokens (`text-body`, `text-display-m`,
