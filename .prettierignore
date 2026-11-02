@@ -1,0 +1,11 @@
+# Generated: rewritten by Payload and pnpm, never by hand.
+src/payload-types.ts
+src/payload/migrations/
+src/app/(payload)/admin/importMap.js
+pnpm-lock.yaml
+
+# Prose: wrapped by hand, and tables stay compact.
+*.md
+
+# Vendored Payload reference monorepo.
+payload-3.x/
