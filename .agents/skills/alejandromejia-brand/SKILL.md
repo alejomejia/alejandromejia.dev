@@ -167,8 +167,8 @@ the availability dot's status pulse.
 
 Eases (`theme.css`): `ease-out-quint` for things arriving, `ease-in-quart`
 for things leaving. Under `prefers-reduced-motion`, page transitions are an
-instant cut, entrances are skipped, the loop renders one still frame, and
-the status dot stays still.
+instant cut, entrances are skipped, the loop renders one still frame, the
+status dot stays still, and the wheel scrolls natively (no Lenis smoothing).
 
 Where it lives: `ease-*` tokens in `theme.css`, the page transition in
 `src/lib/styles/view-transitions.css` and `src/components/ui/page-transition.tsx`,

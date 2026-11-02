@@ -6,6 +6,8 @@ import { ReactLenis } from 'lenis/react'
 import { type ReactNode, useRef } from 'react'
 import { useTempus } from 'tempus/react'
 
+import { usePrefersReducedMotion } from '@/lib/hooks'
+
 import { LenisAutoResize } from './lenis-auto-resize'
 import { LenisScrollTriggerSync } from './lenis-scroll-trigger'
 import { shouldPreventScroll } from './lenis.utils'
@@ -34,6 +36,10 @@ interface LenisProps extends Omit<ReactLenisProps, 'ref'> {
  * {@link shouldPreventScroll}). Do not import `lenis/dist/lenis.css` or enable
  * `autoToggle`; both cause scrollbar/overflow glitches with this setup.
  *
+ * Under reduced motion the wheel scrolls natively. Lenis's own
+ * `respectReducedMotion` only shortens the ease (about four frames), and
+ * anchor jumps are already instant with it.
+ *
  * @example
  * ```tsx
  * <Lenis root>
@@ -43,6 +49,7 @@ interface LenisProps extends Omit<ReactLenisProps, 'ref'> {
  */
 export function Lenis({ root, options, children }: LenisProps) {
   const lenisRef = useRef<LenisRef>(null)
+  const reducedMotion = usePrefersReducedMotion()
 
   useTempus(({ time }) => {
     // Lenis.raf expects the current time in ms, which Tempus provides.
@@ -56,6 +63,8 @@ export function Lenis({ root, options, children }: LenisProps) {
       options={{
         ...options,
         lerp: options?.lerp ?? 0.125,
+        // A change rebuilds the instance (ReactLenis keys on its options).
+        smoothWheel: options?.smoothWheel ?? !reducedMotion,
         autoRaf: false,
         anchors: options?.anchors ?? true,
         prevent: options?.prevent ?? shouldPreventScroll,
