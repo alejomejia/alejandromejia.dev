@@ -113,7 +113,7 @@ fix: stuff
 
 1. **Look:** `git status` and `git diff` (plus `git diff --staged`). Know
    every changed file before staging any.
-2. **Check:** if code changed, run `pnpm exec tsc --noEmit` and `pnpm lint`.
+2. **Check:** if code changed, run `pnpm typecheck` and `pnpm lint`.
    If either fails, stop and report; don't commit broken code unless the user
    says so.
 3. **Group:** split the changes into logical commits, one concern each (a
