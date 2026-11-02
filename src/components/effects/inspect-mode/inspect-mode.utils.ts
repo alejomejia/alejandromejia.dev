@@ -6,6 +6,15 @@ function round(value: number): string {
   return String(Math.round(value * 10) / 10)
 }
 
+/**
+ * CSS px per design px. Every length is in rem, so a visitor's larger default
+ * font (20px instead of 16px) scales the page; labels divide by this to keep
+ * reading in the design's px (`24 · pad-m`). Overlay boxes stay in CSS px.
+ */
+function rootScale(): number {
+  return (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16
+}
+
 /** A rect as an overlay box, snapped to whole pixels so hairlines stay crisp. */
 export function toBox(rect: DOMRect): InspectBox {
   return { x: Math.round(rect.left), y: Math.round(rect.top), w: Math.round(rect.width), h: Math.round(rect.height) }
@@ -15,7 +24,8 @@ export function toBox(rect: DOMRect): InspectBox {
  * A length as the redline labels show it: px, then the spacing token when it
  * is exactly one (`24 · pad-m`), else rem (`20 · 1.25rem`).
  */
-export function formatLength(px: number): string {
+export function formatLength(length: number): string {
+  const px = length / rootScale()
   const rounded = Math.round(px)
   const token = Math.abs(px - rounded) < 0.05 ? SPACING_TOKENS[rounded] : undefined
   return token ? `${round(px)} · ${token}` : `${round(px)} · ${round(px / 16)}rem`
@@ -43,7 +53,8 @@ export function measureElement(element: Element): InspectMeasure {
     { x: box.x + box.w - right, y: box.y + top, w: right, h: box.h - top - bottom },
   ].filter(({ w, h }) => w > 0 && h > 0)
 
-  return { box, padding, size: `${round(rect.width)} × ${round(rect.height)}` }
+  const scale = rootScale()
+  return { box, padding, size: `${round(rect.width / scale)} × ${round(rect.height / scale)}` }
 }
 
 /**
@@ -92,8 +103,9 @@ function hasOwnText(element: Element): boolean {
 export function describeElement(element: Element): InspectDetail[] {
   const rect = element.getBoundingClientRect()
   const style = getComputedStyle(element)
-  const px = (value: string) => parseFloat(value) || 0
-  const details: InspectDetail[] = [{ label: 'size', value: `${round(rect.width)} × ${round(rect.height)}` }]
+  const scale = rootScale()
+  const px = (value: string) => (parseFloat(value) || 0) / scale
+  const details: InspectDetail[] = [{ label: 'size', value: `${round(rect.width / scale)} × ${round(rect.height / scale)}` }]
 
   const padding = [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(px)
   if (padding.some(Boolean)) details.push({ label: 'padding', value: formatSides(padding) })
