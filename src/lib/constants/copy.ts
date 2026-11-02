@@ -9,6 +9,7 @@ export const COPY = {
   site: {
     // `SITE` also feeds the manifest and llms.txt.
     description: SITE.description as string,
+    skipToContent: 'Skip to content',
   },
   breadcrumb: { label: 'Breadcrumb', home: 'Home' },
   home: {

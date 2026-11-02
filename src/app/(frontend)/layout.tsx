@@ -11,6 +11,7 @@ import { JsonLd } from '@/components/seo/json-ld'
 import { SiteSettingsProvider } from '@/lib/cms/site-settings-provider'
 import { queryProfile } from '@/lib/cms/profile.server'
 import { querySiteSettings } from '@/lib/cms/site-settings.server'
+import { COPY } from '@/lib/constants/copy'
 import { UmamiAnalytics } from '@/lib/integrations/umami/umami-analytics'
 import { getUmamiConfig } from '@/lib/integrations/umami/umami.server'
 import { siteJsonLd } from '@/lib/seo/json-ld'
@@ -47,6 +48,14 @@ export default async function FrontendLayout({ children }: LayoutProps<'/'>) {
       {/* `<body>`, not `<html>`, takes the viewport height: Lenis re-measures the
           page when `<html>` resizes, which never happens while it is pinned. */}
       <body className="min-h-svh">
+        {/* The first stop for keyboard users: past the sidebar to `<main>`
+            (`PageTransition`). Hidden until focused. */}
+        <a
+          href="#content"
+          className="sr-only rounded-lg border border-foreground/10 bg-background text-caption focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-3 focus:py-2"
+        >
+          {COPY.site.skipToContent}
+        </a>
         <JsonLd data={siteJsonLd(settings, profile)} />
         <HeadHold />
         <SiteSettingsProvider settings={settings}>

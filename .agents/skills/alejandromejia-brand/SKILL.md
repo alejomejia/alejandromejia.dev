@@ -93,7 +93,11 @@ that way:
 - Where a scroll container or `overflow-hidden` frame would clip the ring
   (code tabs, scrolling code), draw it inside: `focus-visible:-outline-offset-2`
   on an element with `rounded-lg` (still a 6px ring).
-- Never `outline-none` without a replacement.
+- Never `outline-none` without a replacement. The one exception is a
+  script-only focus target (`<main>`, the skip link's target), which isn't a
+  control.
+- The skip link (frontend layout) is the first stop on every page: hidden
+  until focused, then a hairline 8px-radius box in the top-left corner.
 
 Where it lives: `src/lib/styles/tokens.css` and `SITE.themeColor` (kept equal
 to `--background`). Components use the tokens, never raw hex or Tailwind's

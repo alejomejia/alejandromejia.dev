@@ -34,8 +34,15 @@ export function PageTransition({ children, className }: { children: ReactNode; c
           also the page's `<main>` landmark, which crawlers and AI readers use
           to separate content from header/footer chrome, so pages must not
           render another. The content column: inspect mode anchors its 8px
-          grid here. */}
-      <main data-page-transition data-inspect-origin className={cn('flex flex-1 flex-col', className)}>
+          grid here. The skip link's target (frontend layout): focusable from
+          script only, with no ring, as it isn't a control. */}
+      <main
+        id="content"
+        tabIndex={-1}
+        data-page-transition
+        data-inspect-origin
+        className={cn('flex flex-1 flex-col outline-none', className)}
+      >
         {children}
       </main>
     </ViewTransition>
