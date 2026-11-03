@@ -14,6 +14,8 @@ import { workPath } from '@/lib/seo/seo.utils'
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { findWork } from '@/app/(frontend)/work/_components/work.mock'
 import { WorkCover } from '@/app/(frontend)/work/_components/work-cover'
+import { chapterPages } from '@/app/(frontend)/work/_components/work.utils'
+import { WorkChapterBar } from './_components/work-chapter-bar'
 import { WorkChapters } from './_components/work-chapters'
 import { WorkClosing } from './_components/work-closing'
 import { WorkFacts } from './_components/work-facts'
@@ -59,6 +61,7 @@ export default async function WorkEntryPage({ params }: Args) {
   const work = findWork(slug)
   if (!work) notFound()
   const copy = COPY.work
+  const pages = chapterPages(work, copy.overview)
 
   return (
     <article className="flex flex-col gap-pad-2xl">
@@ -68,6 +71,10 @@ export default async function WorkEntryPage({ params }: Args) {
           { name: work.title, path: workPath(work.slug) },
         ])}
       />
+
+      {work.chapters?.length ? (
+        <WorkChapterBar pages={pages.map(({ title, href }) => ({ title, href }))} position={1} />
+      ) : null}
 
       <header className="flex flex-col gap-pad-l">
         <div className="flex flex-col gap-pad-xs">

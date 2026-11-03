@@ -13,6 +13,7 @@ import { workChapterPath, workPath } from '@/lib/seo/seo.utils'
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { findChapter, findWork } from '@/app/(frontend)/work/_components/work.mock'
 import { chapterPages } from '@/app/(frontend)/work/_components/work.utils'
+import { WorkChapterBar } from '@/app/(frontend)/work/[slug]/_components/work-chapter-bar'
 import { WorkChapters } from '@/app/(frontend)/work/[slug]/_components/work-chapters'
 import { WorkClosing } from '@/app/(frontend)/work/[slug]/_components/work-closing'
 import { WorkNext } from '@/app/(frontend)/work/[slug]/_components/work-next'
@@ -47,8 +48,9 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 /**
  * One chapter of a long case study: a link back to its overview, the
  * chapter's number, title and summary, the chapter menu, the story, then
- * the next chapter. The last chapter closes the case study (what I'd do
- * differently, a recommendation) and leads to the next one.
+ * the previous and next chapter (the sticky chapter bar and ← / → reach
+ * them anywhere on the page). The last chapter closes the case study (what
+ * I'd do differently, a recommendation) and leads to the next one.
  */
 export default async function WorkChapterPage({ params }: Args) {
   const { slug, chapter: chapterSlug } = await params
@@ -70,6 +72,8 @@ export default async function WorkChapterPage({ params }: Args) {
           { name: chapter.title, path: workChapterPath(work.slug, chapter.slug) },
         ])}
       />
+
+      <WorkChapterBar pages={pages.map(({ title, href }) => ({ title, href }))} position={position} />
 
       <header className="flex flex-col gap-pad-xs">
         <BackLink href={workPath(work.slug)}>{work.title}</BackLink>

@@ -45,6 +45,8 @@ export const COPY = {
     next: 'Next case study',
     overview: 'Overview',
     chapters: 'Chapters',
+    chapterNav: 'Chapter navigation',
+    previousChapter: 'Previous chapter',
     nextChapter: 'Next chapter',
   },
   recommendations: {

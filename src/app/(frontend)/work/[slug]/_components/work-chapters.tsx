@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 
 import type { WorkEntry } from '@/app/(frontend)/work/_components/work.types'
 import { chapterNumber, chapterPages } from '@/app/(frontend)/work/_components/work.utils'
+import { WORK_CHAPTERS_ID } from './work-chapters.const'
 
 type WorkChaptersProps = {
   work: WorkEntry
@@ -15,7 +16,8 @@ type WorkChaptersProps = {
 /**
  * The case study's own menu, on every page of a case study told in
  * chapters: the overview and each chapter, numbered, the current one in
- * ink. Renders nothing for a one-page case study.
+ * ink. Renders nothing for a one-page case study. Once it scrolls away,
+ * `WorkChapterBar` takes over.
  */
 export function WorkChapters({ work, current, copy }: WorkChaptersProps) {
   if (!work.chapters?.length) return null
@@ -23,7 +25,7 @@ export function WorkChapters({ work, current, copy }: WorkChaptersProps) {
   const position = pages.findIndex((page) => page.slug === current) + 1
 
   return (
-    <nav aria-label={copy.chapters}>
+    <nav id={WORK_CHAPTERS_ID} aria-label={copy.chapters}>
       <SectionLabel aside={chapterNumber(position, pages.length)}>{copy.chapters}</SectionLabel>
       <ol className="mt-pad-xs flex flex-col">
         {pages.map((page, index) => {
