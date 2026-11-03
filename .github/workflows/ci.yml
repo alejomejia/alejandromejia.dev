@@ -1,0 +1,129 @@
+# Every push to dev or main, and every pull request: static checks and unit
+# tests in one job, the end-to-end suite in one job per browser engine.
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+
+# A newer push to the same branch makes the running check pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # A throwaway database (the `postgres` service below) and CI-only secrets.
+  DATABASE_URL: postgresql://portfolio:portfolio@localhost:5432/portfolio
+  PAYLOAD_SECRET: ci-only-payload-secret
+  PREVIEW_SECRET: ci-only-preview-secret
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  checks:
+    name: Checks and unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: portfolio
+          POSTGRES_DB: portfolio
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+
+      # Every schema change ships its migration: on a database built from the
+      # migrations alone, Payload must find nothing new to write.
+      - name: Migrations match the schema
+        run: |
+          pnpm migrate
+          pnpm payload migrate:create ci-drift-check --skip-empty
+          if [ -n "$(git status --porcelain src/payload/migrations)" ]; then
+            echo "::error::The Payload schema changed without a migration. Run 'pnpm migrate:create <name>' and commit it."
+            exit 1
+          fi
+
+      - name: Generated files are up to date
+        run: |
+          pnpm generate:types
+          pnpm generate:importmap
+          git diff --exit-code src/payload-types.ts 'src/app/(payload)/admin/importMap.js' ||
+            { echo "::error::Run 'pnpm generate:types' and 'pnpm generate:importmap', then commit the result."; exit 1; }
+
+  e2e:
+    name: End-to-end (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      # One engine failing shouldn't hide what the others found.
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: portfolio
+          POSTGRES_DB: portfolio
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Browsers are ~100 MB each: keep them between runs, per Playwright version.
+      - name: Cache Playwright browsers
+        id: browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ matrix.browser }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - if: steps.browsers.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
+      - if: steps.browsers.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps ${{ matrix.browser }}
+
+      # Turbopack's cache makes the production build that the tests start faster.
+      - uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      # The real site: schema from the migrations, content from the seed.
+      - run: pnpm migrate
+      - run: pnpm seed
+
+      - run: pnpm test:e2e --project=${{ matrix.browser }}
+
+      # The HTML report, with a trace (DOM, network, console) for any retry.
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 7
