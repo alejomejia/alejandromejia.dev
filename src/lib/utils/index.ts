@@ -19,6 +19,7 @@ export {
   slugify,
   unitSuffix,
 } from './format'
+export { isTyping } from './keyboard'
 export { escapeXML } from './markup'
 export { clamp, frameLerp } from './math'
 export { deepMerge, groupBy, mapStrings } from './objects'
