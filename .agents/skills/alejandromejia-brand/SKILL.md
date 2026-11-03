@@ -68,10 +68,16 @@ on the `/3` and `/5` surfaces; never set text below `text-subtle` with an
 opacity (`text-foreground/40` fails at 3.4:1). Fainter steps (`/10`–`/25`)
 are for decoration only (dot textures, hairlines), marked `aria-hidden`.
 
-**The one exception:** `bg-positive` (`#4ade80`), used
-only for the "open to work" dot (`AvailabilityDot`). A status signal, never
-decoration. It pulses slowly (see Motion) and shows only while "Open to
-work" is on in the Profile global's sidebar.
+**Two exceptions:**
+
+- `bg-positive` (`#4ade80`), used only for the "open to work" dot
+  (`AvailabilityDot`). A status signal, never decoration. It pulses slowly
+  (see Motion) and shows only while "Open to work" is on in the Profile
+  global's sidebar.
+- **Syntax colors inside code blocks**, so code is easy to read: Shiki's
+  Dracula on screen (Alejandro's editor theme) and Vitesse light on paper, highlighted on the
+  server (`src/lib/code/highlight.server.ts`). Every token color is nudged
+  to 4.5:1 against the darkest surface it sits on. Nowhere else.
 
 **Dark only:** no light theme, no theme toggle, and no `dark:` variants
 (there is nothing to switch). `color-scheme: dark` keeps native controls and
@@ -227,8 +233,9 @@ Filled as the site grows.
 - **Story blocks** (`src/components/story/`), rendered by `StoryContent`
   from plain `StoryNode` data that mirrors the Payload blocks: h2s in
   `text-lead`, paragraphs at `/80`, then `Clip`, `BeforeAfter` (a drag and
-  keyboard slider, or a toggle), `CodeBlock` (monochrome, highlighted lines
-  on a `foreground/5` band), `Callout`, `Steps` (mono numbers between
+  keyboard slider, or a toggle), `CodeBlock` (syntax colors, highlighted lines
+  on a `foreground/5` band; several files get tab chips, the active one
+  boxed with a hairline), `Callout`, `Steps` (mono numbers between
   hairlines) and `Metrics`.
 - **Recommendations:** `RecommendationQuote` (`app/(frontend)/_components/`): the
   quote word for word (an excerpt on the home page, in full on a case
