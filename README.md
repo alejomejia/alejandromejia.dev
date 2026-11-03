@@ -36,6 +36,12 @@ personal site, not a template, and its content sits in a private database.
   WebGL; it pauses off screen and holds still under reduced motion.
 - [`inspect-mode`](src/components/effects/inspect-mode): press <kbd>I</kbd> on
   the site to measure sizes and spacing, like Figma's inspect panel.
-- [`.agents/skills`](.agents/skills): the code, brand and commit conventions
-  that both I and AI agents follow when working on the site.
-  
+- [`.agents/skills`](.agents/skills): the conventions that both I and AI
+  agents follow when working on the site. Mine are
+  [`code-conventions`](.agents/skills/code-conventions),
+  [`alejandromejia-brand`](.agents/skills/alejandromejia-brand),
+  [`page-building`](.agents/skills/page-building),
+  [`commits`](.agents/skills/commits) and
+  [`seo-geo-audit`](.agents/skills/seo-geo-audit). The rest (`gsap-*`,
+  `payload`, `vercel-react-view-transitions`) are vendored from GreenSock,
+  Payload and Vercel, and pinned in [`skills-lock.json`](skills-lock.json).
