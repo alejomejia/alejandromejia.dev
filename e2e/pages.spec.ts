@@ -34,9 +34,10 @@ async function checkPage(page: Page, path: string, status = 200) {
   })
 }
 
-test('home and CV', async ({ page }) => {
+test('home, CV and how it’s built', async ({ page }) => {
   await checkPage(page, '/')
   await checkPage(page, '/cv')
+  await checkPage(page, '/how-its-built')
 })
 
 for (const section of SECTIONS) {

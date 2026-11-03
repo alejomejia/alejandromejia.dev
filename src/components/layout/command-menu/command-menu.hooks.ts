@@ -58,7 +58,7 @@ async function copy(text: string): Promise<'keep-open' | void> {
 }
 
 /**
- * Every row of the menu: the pages (Home, the header's links, CV),
+ * Every row of the menu: the pages (Home, the header's links, CV, How it's built),
  * the actions (copy the email or this page's link, inspect mode) and the
  * links out (email, the Site settings profiles, RSS, the source code). Rows without data
  * (no email set) are left out.
@@ -69,17 +69,19 @@ export function useCommandItems(navItems: NavLink[]): CommandItem[] {
   const inspecting = useInspectEnabled()
   const pathname = usePathname()
 
-  const pages: NavLink[] = [
+  const pages: Array<NavLink & { keywords?: string[] }> = [
     { label: header.home, href: SITE_ROUTES.home },
     ...navItems,
     { label: header.cv, href: SITE_ROUTES.cv },
+    { label: footer.howItsBuilt, href: SITE_ROUTES.howItsBuilt, keywords: ['colophon', 'stack', 'tools'] },
   ]
 
   return [
-    ...pages.map(({ label, href, newTab }) => ({
+    ...pages.map(({ label, href, newTab, keywords }) => ({
       id: `page-${href}`,
       group: 'pages' as const,
       label,
+      keywords,
       href,
       newTab,
       current: isCurrentPath(href, pathname),
@@ -135,7 +137,7 @@ export function useCommandItems(navItems: NavLink[]): CommandItem[] {
       id: 'source',
       group: 'links',
       label: footer.source,
-      keywords: ['github', 'repository', 'code', 'colophon'],
+      keywords: ['github', 'repository', 'code'],
       href: SITE.repository,
       newTab: true,
     },

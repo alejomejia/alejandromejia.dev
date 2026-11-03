@@ -9,5 +9,6 @@ export const SITE_ROUTES = {
   writing: '/writing',
   craft: '/craft',
   cv: '/cv',
+  howItsBuilt: '/how-its-built',
   rss: '/rss.xml',
 } as const

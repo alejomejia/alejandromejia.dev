@@ -77,6 +77,7 @@ export const COPY = {
     email: 'Email',
     rss: 'RSS',
     source: 'Source',
+    howItsBuilt: 'How it’s built',
   },
   inspect: {
     title: 'Inspect mode',
@@ -194,6 +195,14 @@ export const COPY = {
       month: '{count} mo',
       months: '{count} mos',
     },
+  },
+  howItsBuilt: {
+    title: 'How it’s built',
+    description: 'What this site runs on, and how I make sure it works.',
+    inspectOff: 'turn it off',
+    // "All the code is public on GitHub."
+    closing: 'All the code is public on',
+    repository: 'GitHub',
   },
   notFound: {
     label: '404',

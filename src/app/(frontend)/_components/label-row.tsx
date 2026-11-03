@@ -3,9 +3,9 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * A two-column row for short facts (the CV's skills, courses and
- * languages): a mono label at `text-subtle` in the first quarter, the
- * content in the rest. On phones the label sits above.
+ * A two-column row for short facts (the CV's skills and languages, the
+ * stack on How it's built): a mono label at `text-subtle` in the first
+ * quarter, the content in the rest. On phones the label sits above.
  */
 export function LabelRow({
   label,

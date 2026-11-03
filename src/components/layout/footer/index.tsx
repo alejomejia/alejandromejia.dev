@@ -16,7 +16,7 @@ const LIST = 'flex flex-wrap gap-x-4 gap-y-1'
  * The bottom of the sidebar (see `Sidebar`), in three quiet rows of
  * `text-caption`: the links out (email and profiles from Site settings, RSS);
  * the controls (the ⌘K trigger, inspect mode); then the copyright
- * with the link to the site's source code and the Footer global's links.
+ * with the links to the site's source code and How it's built, then the Footer global's links.
  * On phones it closes the page (under the intro, see `Sidebar`), and the ⌘K
  * trigger lives in the header instead. Empty values hide their part.
  * `children` (the sidebar's intro) open it, inside the footer landmark.
@@ -29,7 +29,11 @@ export async function Footer({ className, children }: { className?: string; chil
     ...footer.socialLinks,
     { label: copy.rss, href: SITE_ROUTES.rss },
   ]
-  const fineprint: NavLink[] = [{ label: copy.source, href: SITE.repository, newTab: true }, ...footer.links]
+  const fineprint: NavLink[] = [
+    { label: copy.source, href: SITE.repository, newTab: true },
+    { label: copy.howItsBuilt, href: SITE_ROUTES.howItsBuilt },
+    ...footer.links,
+  ]
 
   return (
     <footer className={cn('flex flex-col gap-pad-l', className)}>
