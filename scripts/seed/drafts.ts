@@ -6,8 +6,7 @@ function month(year: number, monthNumber: number): string {
 }
 
 /**
- * The case studies to write, from CONTENT-MODEL.md §1, as drafts with their
- * facts filled in. Covers and bodies are left to write in the admin.
+ * The planned case studies, as drafts with their facts filled in. Covers and bodies are left to write in the admin.
  */
 const WORK = [
   {
@@ -94,7 +93,7 @@ const WORK = [
   },
 ]
 
-/** The first articles to write, from CONTENT-MODEL.md §2, as drafts. */
+/** The first articles to write, as drafts. */
 const WRITING = [
   {
     slug: 'showing-nda-work',
@@ -148,8 +147,8 @@ const CRAFT = [
 ]
 
 /**
- * Drafts for the case studies, articles and Craft experiments planned in
- * CONTENT-MODEL.md, so the admin opens with the work to do. Existing slugs
+ * Drafts for the planned case studies, articles and Craft experiments, so the
+ * admin opens with the work to do. Existing slugs
  * are left alone.
  */
 export async function seedDrafts(payload: Payload) {

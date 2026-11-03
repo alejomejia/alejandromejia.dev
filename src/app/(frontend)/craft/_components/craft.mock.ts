@@ -22,7 +22,7 @@ export function craftSnippets(): CraftSnippet[] {
   return CRAFT.filter((entry): entry is CraftSnippet => entry.kind === 'snippet')
 }
 
-// PLACEHOLDER: the planned Craft pieces (CONTENT-MODEL.md §3) and the
+// PLACEHOLDER: the planned Craft pieces and the
 // snippets that move here from Writing. The code is lifted from this site,
 // trimmed; dates and notes are stand-ins to design against. Recordings come
 // later. This moves to the `craft` collection once the pages are signed off.

@@ -14,7 +14,7 @@ export type WritingEntry = {
   /** ISO dates; the updated date shows once it falls on a different day. */
   publishedAt: string
   updatedAt?: string
-  /** From the fixed topic list (CONTENT-MODEL.md §9). */
+  /** From the `topics` collection (seeded in `scripts/seed/profile.ts`). */
   topics: string[]
   /** Optional; most articles don't need one. */
   cover?: MediaSource

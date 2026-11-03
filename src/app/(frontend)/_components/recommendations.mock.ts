@@ -4,16 +4,13 @@ import type { Recommendation } from './recommendations.types'
 // Moves to the `profile` global with the rest of the mock.
 export const LINKEDIN_RECOMMENDATIONS_URL = 'https://www.linkedin.com/in/alejandromejiac/details/recommendations/'
 
-// From the LinkedIn export (Recommendations_Received.csv, 2026-10-28): the
-// thirteen recommendations visible on LinkedIn, newest first; the hidden ones
-// stay hidden. Quotes are word for word (only their em dashes became
-// commas, colons or semicolons). `role` and `company` are where they worked
-// with Alejandro when they wrote it, never where they work now (LinkedIn
-// exports the current ones; Alejandro confirmed each, 2026-10-29). Freelance
-// clients whose company he doesn't remember are a "Client" with no company. The featured four make one
-// point together: bring him a wild idea and he finds a way to build it,
-// learning whatever it takes, with a designer's eye and an engineer's hands. Moves to the `recommendations` collection once
-// the pages are signed off.
+// The recommendations visible on LinkedIn, newest first. Quotes are word for
+// word (only their em dashes became commas, colons or semicolons). `role` and
+// `company` are where the author worked with Alejandro when they wrote it,
+// not where they work now; a freelance client with no company is a "Client".
+// The featured four make one point together: bring a wild idea and it gets
+// built, with a designer's eye and an engineer's hands. Moves to the
+// `recommendations` collection once the pages are signed off.
 export const RECOMMENDATIONS: Recommendation[] = [
   {
     id: 'veronika-sadkova',

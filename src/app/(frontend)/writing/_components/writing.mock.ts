@@ -11,7 +11,7 @@ export function nextWriting(slug: string): WritingEntry {
   return WRITING[(index + 1) % WRITING.length]
 }
 
-// PLACEHOLDER: the planned articles (CONTENT-MODEL.md §2), with the slugs of
+// PLACEHOLDER: the planned articles, with the slugs of
 // the Payload seed drafts. Dates and bodies are stand-ins to design against;
 // related work copies the case studies' titles and summaries the way a
 // populated relationship returns them. This moves to the `writing` collection

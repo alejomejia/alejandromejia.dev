@@ -17,7 +17,7 @@ type CraftBase = {
   description: string
   /** ISO date. */
   publishedAt: string
-  /** From the fixed topic list (CONTENT-MODEL.md §9). */
+  /** From the `topics` collection (seeded in `scripts/seed/profile.ts`). */
   topics: string[]
   /** Optional notes: how it's built and why, under the code. */
   content?: StoryNode[]

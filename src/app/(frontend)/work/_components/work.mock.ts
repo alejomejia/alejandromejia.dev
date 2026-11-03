@@ -16,7 +16,7 @@ export function nextWork(slug: string): WorkEntry {
   return WORK[(index + 1) % WORK.length]
 }
 
-// PLACEHOLDER: the planned case studies (CONTENT-MODEL.md §1), with the facts
+// PLACEHOLDER: the planned case studies, with the facts
 // from the Payload seed. Covers come with the recordings; this moves to the
 // `work` collection once the pages are signed off.
 export const WORK: WorkEntry[] = [
