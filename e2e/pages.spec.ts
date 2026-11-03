@@ -2,12 +2,16 @@ import type { Page } from '@playwright/test'
 
 import { VIEWPORTS, expectAccessible, expectNoHorizontalScroll } from './support/checks'
 import { expect, test } from './support/fixtures'
-import { SECTIONS, discoverRoutes } from './support/routes'
+import { SECTIONS, discoverRoutes, onePerTemplate } from './support/routes'
 
 /**
- * Every public page, in every engine: it loads, has one `<main>` and one
- * `<h1>`, passes axe at WCAG 2.2 AA and never scrolls sideways, on a laptop
- * and on a phone. Console errors fail it too (the shared fixture).
+ * Public pages load, have one `<main>` and one `<h1>`, pass axe at WCAG 2.2
+ * AA and never scroll sideways, on a laptop and on a phone. Console errors
+ * fail them too (the shared fixture).
+ *
+ * Coverage follows what varies: content varies per page, so Chromium checks
+ * every page; rendering varies per engine, so Firefox and WebKit check one
+ * page per template.
  */
 async function checkPage(page: Page, path: string, status = 200) {
   await test.step(path, async () => {
@@ -36,12 +40,13 @@ test('home and CV', async ({ page }) => {
 })
 
 for (const section of SECTIONS) {
-  test(`every page under ${section}`, async ({ page }) => {
+  test(`pages under ${section}`, async ({ page, browserName }) => {
     // A section can hold a dozen pages, each checked twice.
     test.setTimeout(180_000)
     const routes = await discoverRoutes(page, section)
     expect(routes.length, `pages found under ${section}`).toBeGreaterThan(1)
-    for (const path of routes) await checkPage(page, path)
+    const checked = browserName === 'chromium' ? routes : onePerTemplate(routes)
+    for (const path of checked) await checkPage(page, path)
   })
 }
 

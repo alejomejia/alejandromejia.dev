@@ -29,3 +29,18 @@ async function linksUnder(page: Page, path: string, prefix: string): Promise<str
     ),
   ]
 }
+
+/**
+ * The first page of each template, told apart by URL shape: `/work`,
+ * `/work/:slug` and `/work/:slug/:chapter` are three templates, however many
+ * case studies there are.
+ */
+export function onePerTemplate(routes: string[]): string[] {
+  const templates = new Map<string, string>()
+  for (const route of routes) {
+    const [section, ...params] = route.split('/').filter(Boolean)
+    const shape = [section, ...params.map(() => ':param')].join('/')
+    if (!templates.has(shape)) templates.set(shape, route)
+  }
+  return [...templates.values()]
+}
