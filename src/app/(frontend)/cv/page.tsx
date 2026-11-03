@@ -9,6 +9,7 @@ import { SITE_ROUTES } from '@/lib/constants/routes'
 import { breadcrumbJsonLd, profilePageJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
+import { LabelRow } from '@/app/(frontend)/_components/label-row'
 import { RecommendationsList } from '@/app/(frontend)/_components/recommendations-list'
 import { RECOMMENDATIONS } from '@/app/(frontend)/_components/recommendations.mock'
 import { CV_PDF_PREVIEW_HREF, CV_SECTION_IDS } from './_components/cv.const'
@@ -16,7 +17,6 @@ import { skillKey, toCvData } from './_components/cv.utils'
 import { CvEntries } from './_components/cv-entries'
 import { CvHeader } from './_components/cv-header'
 import { CvIndex } from './_components/cv-index'
-import { CvRow } from './_components/cv-row'
 import { CvSection } from './_components/cv-section'
 import { CvSkill, CvTrace } from './_components/cv-trace'
 
@@ -118,7 +118,7 @@ export default async function CvPage() {
               <ul className="flex flex-col gap-pad-s">
                 {cv.skills.map((group) => (
                   <li key={group.label}>
-                    <CvRow label={group.label}>
+                    <LabelRow label={group.label}>
                       <ul className="flex flex-wrap gap-1">
                         {group.skills.map((skill) => (
                           <li key={skill}>
@@ -129,7 +129,7 @@ export default async function CvPage() {
                           </li>
                         ))}
                       </ul>
-                    </CvRow>
+                    </LabelRow>
                   </li>
                 ))}
               </ul>
@@ -144,16 +144,16 @@ export default async function CvPage() {
                 <ul className="flex flex-col gap-pad-s">
                   {cv.education.map(({ id, school, degree, years }) => (
                     <li key={id}>
-                      <CvRow label={years}>
+                      <LabelRow label={years}>
                         <p className="font-medium">{school}</p>
                         {degree && <p className="text-caption text-pretty text-muted">{degree}</p>}
-                      </CvRow>
+                      </LabelRow>
                     </li>
                   ))}
                 </ul>
               )}
               {cv.courses.length > 0 && (
-                <CvRow label={copy.courses}>
+                <LabelRow label={copy.courses}>
                   <ul className="flex flex-col gap-1">
                     {cv.courses.map(({ id, name, issuer }) => (
                       <li key={id}>
@@ -162,10 +162,10 @@ export default async function CvPage() {
                       </li>
                     ))}
                   </ul>
-                </CvRow>
+                </LabelRow>
               )}
               {cv.languages.length > 0 && (
-                <CvRow label={copy.languages}>
+                <LabelRow label={copy.languages}>
                   <ul className="flex flex-col gap-1">
                     {cv.languages.map(({ id, language, level }) => (
                       <li key={id}>
@@ -174,7 +174,7 @@ export default async function CvPage() {
                       </li>
                     ))}
                   </ul>
-                </CvRow>
+                </LabelRow>
               )}
             </div>
           </CvSection>
