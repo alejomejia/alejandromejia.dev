@@ -28,7 +28,9 @@
     "import:recommendations": "payload run scripts/import-recommendations.ts",
     "media:prune": "payload run scripts/prune-media.ts",
     "generate:types": "payload generate:types",
-    "generate:importmap": "payload generate:importmap"
+    "generate:importmap": "payload generate:importmap",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1160.0",
@@ -65,6 +67,8 @@
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   }
 }
