@@ -94,7 +94,10 @@ collection, add it to `src/lib/cms/search.server.ts`.
   so triggers work anywhere without a provider. Each opening bumps a session
   number that remounts the panel, so the search starts empty while the old
   contents stay visible during the fade-out.
-- `data-lenis-prevent` on the dialog lets the list scroll natively while
-  Lenis is stopped.
+- Only the list opts out of Lenis (`data-lenis-prevent`), and only while it
+  overflows: everywhere else the stopped Lenis swallows the wheel, so the page
+  behind the backdrop stays put. On the whole dialog, a wheel over the
+  backdrop scrolled the page; on a list too short to scroll, Firefox passed
+  the wheel on to the page despite `overscroll-contain`.
 - Feed and `mailto:` rows load as documents (`location.assign`); only pages
   go through the router and the page transition.

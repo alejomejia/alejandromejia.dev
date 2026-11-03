@@ -90,8 +90,6 @@ export function CommandMenu({ navItems }: CommandMenuProps) {
       onClose={handleClose}
       // Backdrop clicks land on the dialog itself; clicks inside land on its content.
       onClick={(event) => event.target === event.currentTarget && setCommandMenuOpen(false)}
-      // The list scrolls natively; Lenis would otherwise take the wheel.
-      data-lenis-prevent
       // Stays usable while inspect mode is on.
       data-inspect-ignore
       className={cn(
@@ -121,6 +119,7 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
   const [confirmedId, setConfirmedId] = useState<string | null>(null)
   const baseId = useId()
   const listId = `${baseId}-list`
+  const listRef = useRef<HTMLDivElement>(null)
 
   // Content rows join only while searching; the empty menu stays short.
   const results = filterCommands(deferredQuery.trim() ? withSearchItems(items, searchItems) : items, deferredQuery)
@@ -131,6 +130,15 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
   useEffect(() => {
     const item = results[active]
     if (item) document.getElementById(optionId(item))?.scrollIntoView({ block: 'nearest' })
+  })
+
+  // Only a list that overflows scrolls natively; anywhere else in the menu
+  // the stopped Lenis swallows the wheel, so the page behind stays put. A
+  // short list can't contain the wheel itself (Firefox passes it on to the
+  // page). Rows have fixed heights, so only a render can change this.
+  useEffect(() => {
+    const list = listRef.current
+    list?.toggleAttribute('data-lenis-prevent', list.scrollHeight > list.clientHeight)
   })
 
   async function select(item: CommandItem) {
@@ -186,6 +194,7 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
       />
 
       <div
+        ref={listRef}
         id={listId}
         role="listbox"
         aria-label={copy.label}
