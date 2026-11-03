@@ -17,13 +17,13 @@ const HOME_LIMITS = { work: 4, writing: 4, craft: 2 }
 type Status = { _status?: 'draft' | 'published' | null }
 
 export type HomeWork = Pick<Work, 'id' | 'title' | 'slug' | 'summary' | 'startDate' | 'endDate'> & Status
-export type HomeWriting = Pick<Writing, 'id' | 'title' | 'slug' | 'format' | 'publishedAt'> & Status
+export type HomeWriting = Pick<Writing, 'id' | 'title' | 'slug' | 'publishedAt'> & Status
 export type HomeCraft = Pick<Craft, 'id' | 'title' | 'slug' | 'description'> & Status
 
 export type HomeContent = {
   /** Featured case studies, by their order. */
   work: HomeWork[]
-  /** The latest entries, any format. */
+  /** The latest articles. */
   writing: HomeWriting[]
   /** The latest experiments. */
   craft: HomeCraft[]
@@ -49,7 +49,7 @@ async function findHomeContent(draft: boolean): Promise<HomeContent> {
       collection: 'writing',
       sort: '-publishedAt',
       limit: HOME_LIMITS.writing,
-      select: { title: true, slug: true, format: true, publishedAt: true, _status: true },
+      select: { title: true, slug: true, publishedAt: true, _status: true },
     }),
     payload.find({
       ...shared,

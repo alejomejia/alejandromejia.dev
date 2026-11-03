@@ -12,7 +12,7 @@ import { enter, formatMonth } from '@/lib/utils'
 import { DraftTag } from './draft-tag'
 import { LIST_ROW_CLASSNAME } from './list.const'
 
-/** The latest writing, any format: the month, the title, the format. The label enters at `enterFrom`, then each row. */
+/** The latest articles: the month and the title. The label enters at `enterFrom`, then each row. */
 export function HomeWriting({
   entries,
   copy,
@@ -55,7 +55,6 @@ export function HomeWriting({
                   className="size-4 shrink-0 text-subtle opacity-0 transition-opacity duration-250 group-hover:opacity-100"
                 />
               </span>
-              <span className="hidden font-mono text-micro text-subtle sm:inline">{copy.formats[post.format]}</span>
             </Link>
           </li>
         ))}
