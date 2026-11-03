@@ -45,3 +45,10 @@ personal site, not a template, and its content sits in a private database.
   [`seo-geo-audit`](.agents/skills/seo-geo-audit). The rest (`gsap-*`,
   `payload`, `vercel-react-view-transitions`) are vendored from GreenSock,
   Payload and Vercel, and pinned in [`skills-lock.json`](skills-lock.json).
+
+## License
+
+The code is [MIT](LICENSE): take any of it. The content is not: my writing,
+case studies, CV and images are all rights reserved, and the recommendations
+belong to the people who wrote them. The vendored skills keep their own
+licenses.
