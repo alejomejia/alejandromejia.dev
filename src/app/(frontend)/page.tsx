@@ -15,6 +15,11 @@ import { HomeWork } from './_components/home-work'
 import { HomeWriting } from './_components/home-writing'
 import { RECOMMENDATIONS } from './_components/recommendations.mock'
 
+/** Entrance steps a list section takes: its label, then one per item (none when it's left out). */
+function enterSteps(entries: unknown[]): number {
+  return entries.length > 0 ? entries.length + 1 : 0
+}
+
 /** "Alejandro Mejía · Senior Design Engineer": the name and role lead the home title. */
 function homeTitle({ name, headline }: { name: string; headline: string }): string {
   return headline ? `${name} · ${headline}` : name
@@ -34,6 +39,12 @@ export const dynamic = 'force-dynamic'
 export default async function HomePage() {
   const [{ work, writing, craft }, profile] = await Promise.all([queryHomeContent(), queryProfileIntro()])
   const copy = COPY.home
+  const recommendations = RECOMMENDATIONS.filter((recommendation) => recommendation.featured)
+  // Reading order: the loop, then each section's label and rows.
+  const workFrom = 1
+  const writingFrom = workFrom + enterSteps(work)
+  const craftFrom = writingFrom + enterSteps(writing)
+  const recommendationsFrom = craftFrom + enterSteps(craft)
 
   return (
     <div className="flex flex-col gap-pad-2xl">
@@ -47,10 +58,10 @@ export default async function HomePage() {
       <div {...enter(0, 'aspect-3/2 min-h-0 w-full sm:aspect-2/1')}>
         <HalftoneShape speed={0.8} />
       </div>
-      <HomeWork entries={work} copy={copy} />
-      <HomeWriting entries={writing} copy={copy} />
-      <HomeCraft entries={craft} copy={copy} />
-      <HomeRecommendations entries={RECOMMENDATIONS.filter((recommendation) => recommendation.featured)} copy={copy} />
+      <HomeWork entries={work} copy={copy} enterFrom={workFrom} />
+      <HomeWriting entries={writing} copy={copy} enterFrom={writingFrom} />
+      <HomeCraft entries={craft} copy={copy} enterFrom={craftFrom} />
+      <HomeRecommendations entries={recommendations} copy={copy} enterFrom={recommendationsFrom} />
     </div>
   )
 }

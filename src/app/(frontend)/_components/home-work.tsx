@@ -14,14 +14,23 @@ import { LIST_ROW_CLASSNAME } from './list.const'
 
 /**
  * The featured case studies: title and summary, the years on the right, an
- * arrow on hover. Rows enter one after another, after the loop.
+ * arrow on hover. The label enters at `enterFrom`, then each row.
  */
-export function HomeWork({ entries, copy }: { entries: HomeWorkEntry[]; copy: Copy['home'] }) {
+export function HomeWork({
+  entries,
+  copy,
+  enterFrom,
+}: {
+  entries: HomeWorkEntry[]
+  copy: Copy['home']
+  enterFrom: number
+}) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel
+        enterStep={enterFrom}
         aside={
           <TextLink href={SITE_ROUTES.work} variant="underline">
             {copy.allWork}
@@ -32,7 +41,7 @@ export function HomeWork({ entries, copy }: { entries: HomeWorkEntry[]; copy: Co
       </SectionLabel>
       <ul className="mt-pad-xs">
         {entries.map((work, index) => (
-          <li key={work.id} {...enter(1 + index)}>
+          <li key={work.id} {...enter(enterFrom + 1 + index)}>
             <Link
               href={workPath(work.slug ?? '')}
               className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}

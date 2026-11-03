@@ -7,18 +7,27 @@ import type { HomeWriting as HomeWritingEntry } from '@/lib/cms/home.server'
 import { SITE_ROUTES } from '@/lib/constants/routes'
 import type { Copy } from '@/lib/constants/copy'
 import { writingPath } from '@/lib/seo/seo.utils'
-import { formatMonth } from '@/lib/utils'
+import { enter, formatMonth } from '@/lib/utils'
 
 import { DraftTag } from './draft-tag'
 import { LIST_ROW_CLASSNAME } from './list.const'
 
-/** The latest writing, any format: the month, the title, the format. */
-export function HomeWriting({ entries, copy }: { entries: HomeWritingEntry[]; copy: Copy['home'] }) {
+/** The latest writing, any format: the month, the title, the format. The label enters at `enterFrom`, then each row. */
+export function HomeWriting({
+  entries,
+  copy,
+  enterFrom,
+}: {
+  entries: HomeWritingEntry[]
+  copy: Copy['home']
+  enterFrom: number
+}) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel
+        enterStep={enterFrom}
         aside={
           <TextLink href={SITE_ROUTES.writing} variant="underline">
             {copy.allWriting}
@@ -28,8 +37,8 @@ export function HomeWriting({ entries, copy }: { entries: HomeWritingEntry[]; co
         {copy.writing}
       </SectionLabel>
       <ul className="mt-pad-xs">
-        {entries.map((post) => (
-          <li key={post.id}>
+        {entries.map((post, index) => (
+          <li key={post.id} {...enter(enterFrom + 1 + index)}>
             <Link href={writingPath(post.slug ?? '')} className={LIST_ROW_CLASSNAME}>
               <span className="w-16 shrink-0 font-mono text-micro text-subtle">
                 {post.publishedAt ? (

@@ -46,15 +46,22 @@ export function toCSSVars(
   ) as CSSProperties
 }
 
+/** Delay between one entrance step and the next, in ms: quick enough that a list reads as one cascade. */
+export const ENTER_STAGGER = 50
+
+/** The last entrance step: items past it enter together, since a long stagger reads as slow (and they're below the fold by then). */
+export const ENTER_LAST_STEP = 12
+
 /**
  * Props for the brand's entrance (`animate-enter` in `theme.css`): a fade up
- * from a slight blur, staggered 80ms per `index`. Skipped under reduced
- * motion. Spread it on the element, with its own classes as `className`.
+ * from a slight blur, staggered `ENTER_STAGGER` ms per `index` (capped at
+ * `ENTER_LAST_STEP`). Skipped under reduced motion. Spread it on the element,
+ * with its own classes as `className`.
  * @example <li {...enter(2, 'flex gap-4')}>…</li>
  */
 export function enter(index: number, className?: string): { className: string; style: CSSProperties } {
   return {
     className: cn('motion-safe:animate-enter', className),
-    style: toCSSVars({ 'enter-delay': `${index * 80}ms` }),
+    style: toCSSVars({ 'enter-delay': `${Math.min(index, ENTER_LAST_STEP) * ENTER_STAGGER}ms` }),
   }
 }

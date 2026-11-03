@@ -50,7 +50,7 @@
   --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 0);
 
   /* Entrance (brand): fade in with an 8px rise from a 4px blur. `enter()`
-   * staggers it 80ms per item through `--enter-delay`, set here because the
+   * staggers it 50ms per item through `--enter-delay`, set here because the
    * shorthand would reset a separate animation-delay class. Reduced motion
    * skips it. */
   --animate-enter: enter 700ms var(--ease-out-quint) var(--enter-delay, 0ms) both;

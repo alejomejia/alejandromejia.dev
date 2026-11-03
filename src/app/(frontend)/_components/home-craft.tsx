@@ -8,21 +8,31 @@ import { SITE_ROUTES } from '@/lib/constants/routes'
 import type { HomeCraft as HomeCraftEntry } from '@/lib/cms/home.server'
 import type { Copy } from '@/lib/constants/copy'
 import { craftPath } from '@/lib/seo/seo.utils'
-import { cn } from '@/lib/utils'
+import { cn, enter } from '@/lib/utils'
 
 import { DraftTag } from './draft-tag'
 
 /**
  * A sneak peek at Craft: the latest two experiments as tiles, two across,
  * like the Craft page's. The frame shows the dot texture (darkening on
- * hover) until each demo has a recording.
+ * hover) until each demo has a recording. The label enters at `enterFrom`,
+ * then each tile.
  */
-export function HomeCraft({ entries, copy }: { entries: HomeCraftEntry[]; copy: Copy['home'] }) {
+export function HomeCraft({
+  entries,
+  copy,
+  enterFrom,
+}: {
+  entries: HomeCraftEntry[]
+  copy: Copy['home']
+  enterFrom: number
+}) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel
+        enterStep={enterFrom}
         aside={
           <TextLink href={SITE_ROUTES.craft} variant="underline">
             {copy.allCraft}
@@ -32,8 +42,8 @@ export function HomeCraft({ entries, copy }: { entries: HomeCraftEntry[]; copy: 
         {copy.craft}
       </SectionLabel>
       <ul className="mt-pad-s grid gap-x-pad-s gap-y-pad-m sm:grid-cols-2">
-        {entries.map((piece) => (
-          <li key={piece.id}>
+        {entries.map((piece, index) => (
+          <li key={piece.id} {...enter(enterFrom + 1 + index)}>
             <Link href={craftPath(piece.slug ?? '')} className="group flex flex-col gap-pad-xs rounded-xl">
               <MediaFrame className="aspect-video">
                 <div

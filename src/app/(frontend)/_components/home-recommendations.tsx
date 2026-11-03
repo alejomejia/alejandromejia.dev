@@ -7,20 +7,18 @@ import type { Recommendation } from './recommendations.types'
 type HomeRecommendationsProps = {
   entries: Recommendation[]
   copy: Copy['home']
+  enterFrom: number
 }
 
-/**
- * The featured LinkedIn recommendations. The last section on the home page,
- * so it has no entrance (it would play off screen), like Writing and Craft.
- */
-export function HomeRecommendations({ entries, copy }: HomeRecommendationsProps) {
+/** The featured LinkedIn recommendations, last on the home page. The label enters at `enterFrom`, then each quote. */
+export function HomeRecommendations({ entries, copy, enterFrom }: HomeRecommendationsProps) {
   if (entries.length === 0) return null
 
   return (
     <section>
-      <SectionLabel>{copy.recommendations}</SectionLabel>
+      <SectionLabel enterStep={enterFrom}>{copy.recommendations}</SectionLabel>
       <div className="mt-pad-s">
-        <RecommendationsList entries={entries} />
+        <RecommendationsList entries={entries} enterFrom={enterFrom + 1} />
       </div>
     </section>
   )
