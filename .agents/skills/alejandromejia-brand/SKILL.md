@@ -227,6 +227,11 @@ Filled as the site grows.
 - **Page header:** `PageHeader` (`src/components/ui/page-header/`): an inner
   page's `<h1>` (`text-display-s`) and a `text-muted` description, entering first.
   Case studies use `text-display-m` with a back link, facts and outcomes.
+- **Chapters** (a case study told in pages): the chapter list under the
+  header; once it scrolls away, a sticky bar (`WorkChapterBar`) with the
+  position, the title (opening every chapter in a popover) and arrows, which
+  ← / → also reach; at the end, a pager with the previous and next page
+  (the last chapter leads to the next case study).
 - **Media frame:** `MediaFrame` (`src/components/story/media-frame.tsx`):
   the surface, hairline and 12px corners every piece of work sits in,
   optional browser chrome; a halftone dot texture stands in for missing media.
