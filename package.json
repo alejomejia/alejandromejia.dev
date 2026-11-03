@@ -30,7 +30,8 @@
     "generate:types": "payload generate:types",
     "generate:importmap": "payload generate:importmap",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1160.0",
@@ -57,6 +58,8 @@
     "tempus": "^1.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22",
     "@types/react": "^19",
