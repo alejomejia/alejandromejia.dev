@@ -68,11 +68,12 @@ Anything with a conventional default, decide it yourself and mention it.
 
 Write the section list before coding. For each section, note why a visitor
 cares, where it comes from (an existing section or story block, a reference
-section, or new) and how it enters. Then check:
+section, or new). Then check:
 
 - One column, generous spacing, consistent rhythm between sections.
-- Motion from the brand's vocabulary only (page transition, staggered
-  entrance, list hovers). Template effects belong only in Craft pieces.
+- Motion from the brand's vocabulary only (page transition, list hovers;
+  staggered entrances on the home page alone). Template effects belong only
+  in Craft pieces.
 - At least one detail the page is remembered for.
 
 ## 7. Build

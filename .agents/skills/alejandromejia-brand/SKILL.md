@@ -160,8 +160,8 @@ the availability dot's status pulse.
 
 | Moment | Motion | Timing |
 | --- | --- | --- |
-| Page transition | Content (`<main>`) blurs to 4px and fades out; new content fades in from 4px blur with an 8px rise. The sidebar stays still | Out 300ms, in 600ms starting at 200ms |
-| Entrance (first view of a page) | Lines and list rows fade in with an 8px rise and 4px blur, staggered | 700ms `ease-out-quint`, 80ms stagger, at most ~8 items |
+| Page transition | Content (`<main>`) blurs to 4px and fades out; new content fades in from 4px blur with an 8px rise. The home page only fades in, fast, and its entrances stagger in once the transition ends. The sidebar stays still | Out 300ms, in 600ms starting at 200ms (home: 200ms at 100ms) |
+| Entrance (home page only) | The halftone, then each section's label and its rows fade in with an 8px rise and 4px blur, one after another in reading order. Inner pages have none: people come to read, and the page transition already says they arrived | 700ms `ease-out-quint`, 50ms stagger, capped at step 12 (`enter()`) |
 | Hover (links, rows) | Color/opacity, underline appears | 250ms ease |
 | Popover / menu | Scale from 0.96 + fade | 250ms `ease-out-quint` |
 | Signature loop | `HalftoneShape`: a cube rounding into a sphere and back, on the home page only | Continuous, paused off-screen |
@@ -210,8 +210,10 @@ Filled as the site grows.
 - **Page transition:** blur cross-fade of `<main>`, the sidebar anchored.
 - **Shell:** `Sidebar` (`src/components/layout/sidebar/`) holds the header
   and the footer; the frontend layout puts it beside `<main>`.
-- **Entrance:** `enter(index)` from `@/lib/utils` (`motion-safe:animate-enter`,
-  80ms per item).
+- **Entrance (home only):** `enter(index)` from `@/lib/utils`
+  (`motion-safe:animate-enter`, 50ms per item, capped at `ENTER_LAST_STEP`);
+  `SectionLabel` takes an `enterStep`. Each list gives its label a step,
+  then one per row. Don't add entrances to inner pages.
 - **Section label:** `SectionLabel` (`src/components/ui/section-label/`),
   mono micro text in `text-subtle` with an optional link at the end.
 - **Lists (home, Work):** whole-row links with a `bg-foreground/3` hover surface
