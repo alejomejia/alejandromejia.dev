@@ -3,30 +3,27 @@ import { ArrowUpRight } from 'lucide-react'
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { craftPath } from '@/lib/seo/seo.utils'
-import { cn, enter } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 import { LIST_ROW_CLASSNAME } from '@/app/(frontend)/_components/list.const'
-import { CRAFT_LAST_ENTER_STEP } from './craft.const'
 import type { CraftSnippet } from './craft.types'
 import { snippetLanguages } from './craft.utils'
 
 type CraftSnippetsProps = {
   entries: CraftSnippet[]
   label: string
-  /** The first row's entrance step, after what comes before it. */
-  enterFrom: number
 }
 
 /** The snippets as list rows: the title (an arrow on hover) and its why, the languages on the right. */
-export function CraftSnippets({ entries, label, enterFrom }: CraftSnippetsProps) {
+export function CraftSnippets({ entries, label }: CraftSnippetsProps) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel>{label}</SectionLabel>
       <ul className="mt-pad-xs">
-        {entries.map((snippet, index) => (
-          <li key={snippet.slug} {...enter(Math.min(enterFrom + index, CRAFT_LAST_ENTER_STEP))}>
+        {entries.map((snippet) => (
+          <li key={snippet.slug}>
             <Link
               href={craftPath(snippet.slug)}
               className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}

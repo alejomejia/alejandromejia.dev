@@ -29,7 +29,8 @@ test.describe('with reduced motion', () => {
   })
 
   test('entrances are skipped', async ({ page }) => {
-    await visit(page, '/work')
+    // The home page is the only one with entrances.
+    await visit(page, '/')
     const animation = await page
       .locator('[class*="animate-enter"]')
       .first()

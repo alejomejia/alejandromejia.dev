@@ -8,7 +8,6 @@ import { COPY } from '@/lib/constants/copy'
 import { breadcrumbJsonLd, collectionPageJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { workPath } from '@/lib/seo/seo.utils'
-import { enter } from '@/lib/utils'
 
 import { WORK } from './_components/work.mock'
 import { WorkFeatured } from './_components/work-featured'
@@ -48,10 +47,10 @@ export default async function WorkPage() {
       />
 
       <PageHeader title={copy.title} description={copy.description} />
-      <WorkFeatured entries={featured} label={copy.selected} enterFrom={2} />
-      <WorkList entries={more} label={copy.more} enterFrom={2 + featured.length} />
+      <WorkFeatured entries={featured} label={copy.selected} />
+      <WorkList entries={more} label={copy.more} />
 
-      <p {...enter(2 + WORK.length, 'text-caption text-muted')}>
+      <p className="text-caption text-muted">
         {copy.closing}{' '}
         <TextLink href={SITE_ROUTES.cv} variant="underline">
           {copy.cv}

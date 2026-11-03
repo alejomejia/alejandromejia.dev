@@ -10,7 +10,6 @@ import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata, generatedShareImage } from '@/lib/seo/metadata'
 import { caseStudyCard } from '@/lib/seo/og/og-cards'
 import { workPath } from '@/lib/seo/seo.utils'
-import { enter } from '@/lib/utils'
 
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { findWork } from '@/app/(frontend)/work/_components/work.mock'
@@ -73,24 +72,16 @@ export default async function WorkEntryPage({ params }: Args) {
       <header className="flex flex-col gap-pad-l">
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.work}>{copy.back}</BackLink>
-          <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{work.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-muted')}>{work.summary}</p>
+          <h1 className="text-display-m font-medium tracking-tight text-balance">{work.title}</h1>
+          <p className="text-lead text-pretty text-muted">{work.summary}</p>
         </div>
-        <div {...enter(3)}>
-          <WorkFacts work={work} copy={copy} />
-        </div>
-        {work.metrics && work.metrics.length > 0 && (
-          <div {...enter(4)}>
-            <Metrics items={work.metrics} />
-          </div>
-        )}
+        <WorkFacts work={work} copy={copy} />
+        {work.metrics && work.metrics.length > 0 && <Metrics items={work.metrics} />}
       </header>
 
-      <div {...enter(5)}>
-        <WorkChapters work={work} current={null} copy={copy} />
-      </div>
+      <WorkChapters work={work} current={null} copy={copy} />
 
-      <figure {...enter(6, 'flex flex-col gap-pad-xs')}>
+      <figure className="flex flex-col gap-pad-xs">
         <WorkCover cover={work.cover} />
         {work.confidential && <figcaption className="font-mono text-micro text-subtle">{copy.confidential}</figcaption>}
       </figure>

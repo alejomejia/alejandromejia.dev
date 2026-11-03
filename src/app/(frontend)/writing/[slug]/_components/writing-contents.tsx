@@ -2,13 +2,10 @@ import { storyHeadings } from '@/components/story/story.utils'
 import type { StoryNode } from '@/components/story'
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
-import { enter } from '@/lib/utils'
 
 type WritingContentsProps = {
   nodes: StoryNode[]
   label: string
-  /** Its entrance step, after the header. */
-  enterStep: number
 }
 
 // Fewer sections than this read fine without a table of contents.
@@ -18,12 +15,12 @@ const MIN_HEADINGS = 3
  * The article's sections, numbered like a case study's chapters, each
  * linking to its heading on the page. Renders nothing for a short article.
  */
-export function WritingContents({ nodes, label, enterStep }: WritingContentsProps) {
+export function WritingContents({ nodes, label }: WritingContentsProps) {
   const headings = storyHeadings(nodes)
   if (headings.length < MIN_HEADINGS) return null
 
   return (
-    <nav aria-label={label} {...enter(enterStep)}>
+    <nav aria-label={label}>
       <SectionLabel>{label}</SectionLabel>
       <ol className="mt-pad-xs flex flex-col">
         {headings.map((heading, index) => (

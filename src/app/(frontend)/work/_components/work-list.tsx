@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { workPath } from '@/lib/seo/seo.utils'
-import { cn, enter, formatYears } from '@/lib/utils'
+import { cn, formatYears } from '@/lib/utils'
 
 import { LIST_ROW_CLASSNAME } from '@/app/(frontend)/_components/list.const'
 import type { WorkEntry } from './work.types'
@@ -11,20 +11,18 @@ import type { WorkEntry } from './work.types'
 type WorkListProps = {
   entries: WorkEntry[]
   label: string
-  /** The first row's entrance step, after what comes before it. */
-  enterFrom: number
 }
 
 /** The rest of the case studies, as the home page lists them: title and summary, the years on the right. */
-export function WorkList({ entries, label, enterFrom }: WorkListProps) {
+export function WorkList({ entries, label }: WorkListProps) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel>{label}</SectionLabel>
       <ul className="mt-pad-xs">
-        {entries.map((work, index) => (
-          <li key={work.slug} {...enter(enterFrom + index)}>
+        {entries.map((work) => (
+          <li key={work.slug}>
             <Link href={workPath(work.slug)} className={cn(LIST_ROW_CLASSNAME, 'flex-col gap-1 sm:flex-row sm:gap-4')}>
               <span className="flex-1">
                 <span className="flex items-center gap-2">

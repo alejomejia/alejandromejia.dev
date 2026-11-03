@@ -55,13 +55,18 @@ export const ENTER_LAST_STEP = 12
 /**
  * Props for the brand's entrance (`animate-enter` in `theme.css`): a fade up
  * from a slight blur, staggered `ENTER_STAGGER` ms per `index` (capped at
- * `ENTER_LAST_STEP`). Skipped under reduced motion. Spread it on the element,
- * with its own classes as `className`.
+ * `ENTER_LAST_STEP`). Skipped under reduced motion, and held while a page
+ * transition runs (`view-transitions.css`). Spread it on the element, with
+ * its own classes as `className`.
  * @example <li {...enter(2, 'flex gap-4')}>…</li>
  */
-export function enter(index: number, className?: string): { className: string; style: CSSProperties } {
+export function enter(
+  index: number,
+  className?: string,
+): { className: string; style: CSSProperties; 'data-enter': '' } {
   return {
     className: cn('motion-safe:animate-enter', className),
     style: toCSSVars({ 'enter-delay': `${Math.min(index, ENTER_LAST_STEP) * ENTER_STAGGER}ms` }),
+    'data-enter': '',
   }
 }

@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 import { TextLink } from '@/components/ui/text-link'
 import { COPY } from '@/lib/constants/copy'
-import { enter } from '@/lib/utils'
 
 import { CvDownload } from './cv-download'
 
@@ -12,7 +11,6 @@ type CvIndexProps = {
   sections: Array<{ id: string; label: string }>
   /** The uploaded PDF; the button stays hidden without one. */
   pdfUrl?: string
-  enterStep: number
 }
 
 // The band of the viewport that decides the current section: a section is
@@ -24,7 +22,7 @@ const CURRENT_BAND = '-15% 0px -70% 0px'
  * sticks to the top of the viewport, so any section is one click away, and
  * marks the one being read. Screen only.
  */
-export function CvIndex({ sections, pdfUrl, enterStep }: CvIndexProps) {
+export function CvIndex({ sections, pdfUrl }: CvIndexProps) {
   const [current, setCurrent] = useState<string | null>(null)
 
   useEffect(() => {
@@ -43,12 +41,7 @@ export function CvIndex({ sections, pdfUrl, enterStep }: CvIndexProps) {
   }, [sections])
 
   return (
-    <div
-      {...enter(
-        enterStep,
-        'sticky top-0 z-10 flex flex-wrap items-center justify-between gap-x-pad-s gap-y-pad-xs border-b border-foreground/10 bg-background py-pad-s print:hidden',
-      )}
-    >
+    <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-x-pad-s gap-y-pad-xs border-b border-foreground/10 bg-background py-pad-s print:hidden">
       <nav aria-label={COPY.cv.sections}>
         <ul className="flex flex-wrap gap-x-4 gap-y-1 text-caption">
           {sections.map(({ id, label }) => (

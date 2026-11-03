@@ -4,7 +4,7 @@ import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { COPY } from '@/lib/constants/copy'
 import { SITE_ROUTES } from '@/lib/constants/routes'
-import { cn, enter } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 import { LIST_ROW_CLASSNAME } from './list.const'
 
@@ -20,9 +20,9 @@ const SECTIONS = [
  * description, so a page that failed (the 404, the error page) still leads
  * somewhere.
  */
-export function SectionLinks({ label, enterStep }: { label: string; enterStep: number }) {
+export function SectionLinks({ label }: { label: string }) {
   return (
-    <nav aria-label={label} {...enter(enterStep)}>
+    <nav aria-label={label}>
       <SectionLabel>{label}</SectionLabel>
       <ul className="mt-pad-xs">
         {SECTIONS.map(({ href, title, description }) => (

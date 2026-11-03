@@ -3,7 +3,9 @@
  *
  * A soft blur cross-fade of the page content (after shud.in, made lighter):
  * the old `<main>` blurs and fades away, then the new one fades in from a
- * blur with a small rise. The sidebar has its own snapshot and stays still.
+ * blur with a small rise. A page with entrances (`enter()`, the home page)
+ * only fades in, fast, and its lines and rows stagger in once the transition
+ * ends. The sidebar has its own snapshot and stays still.
  * The root snapshot (the background; on phones, the footer) only fades in with the new
  * content: opacity is cheap, and blurring a full-viewport snapshot is the
  * most expensive thing a transition can animate, so the blur stays on
@@ -20,6 +22,13 @@
   --vt-delay-in: 200ms;
   --vt-blur: 0.25rem; /* 4px */
   --vt-rise: 0.5rem; /* 8px, from below */
+}
+
+/* A page with entrances: they carry the arrival, so the page itself only
+ * fades in, fast, and they start right after (at 300ms). */
+:root:has([data-enter]) {
+  --vt-duration-in: 200ms;
+  --vt-delay-in: 100ms;
 }
 
 @keyframes vt-blur-out {
@@ -58,8 +67,20 @@
   animation: vt-blur-in var(--vt-duration-in) var(--ease-out-quint) var(--vt-delay-in) both;
 }
 
+:root:has([data-enter])::view-transition-new(.page-in) {
+  animation-name: vt-fade-in;
+}
+
+/* Entrances hold their first frame (hidden) while the transition runs, then
+ * stagger in on the settled page. Inside it they would play at once under
+ * the page's own fade and read as one block. Without
+ * `:active-view-transition` support they play on mount, as before. */
+:root:active-view-transition [data-enter] {
+  animation-play-state: paused;
+}
+
 /* Background (and the footer on phones): the old ones go at once, the new ones fade in with
- * the content. `PageTransition` reads this delay to start page intros. */
+ * the content. */
 ::view-transition-old(root) {
   display: none;
 }

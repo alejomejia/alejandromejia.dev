@@ -4,16 +4,13 @@ import { DOT_TEXTURE_CLASSNAME, MediaFrame } from '@/components/story/media-fram
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { craftPath } from '@/lib/seo/seo.utils'
-import { cn, enter } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
-import { CRAFT_LAST_ENTER_STEP } from './craft.const'
 import type { CraftExperiment } from './craft.types'
 
 type CraftExperimentsProps = {
   entries: CraftExperiment[]
   label: string
-  /** The first tile's entrance step, after what comes before it. */
-  enterFrom: number
 }
 
 /**
@@ -21,15 +18,15 @@ type CraftExperimentsProps = {
  * in its frame (the dot texture until there is one, darkening on hover),
  * then the title (an arrow on hover) and the description.
  */
-export function CraftExperiments({ entries, label, enterFrom }: CraftExperimentsProps) {
+export function CraftExperiments({ entries, label }: CraftExperimentsProps) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel>{label}</SectionLabel>
       <ul className="mt-pad-s grid gap-x-pad-s gap-y-pad-m sm:grid-cols-2">
-        {entries.map((piece, index) => (
-          <li key={piece.slug} {...enter(Math.min(enterFrom + index, CRAFT_LAST_ENTER_STEP))}>
+        {entries.map((piece) => (
+          <li key={piece.slug}>
             <Link href={craftPath(piece.slug)} className="group flex flex-col gap-pad-xs rounded-xl">
               <MediaFrame
                 media={piece.fallback}

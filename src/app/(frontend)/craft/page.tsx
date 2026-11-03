@@ -8,9 +8,7 @@ import { COPY } from '@/lib/constants/copy'
 import { breadcrumbJsonLd, collectionPageJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { craftPath } from '@/lib/seo/seo.utils'
-import { enter } from '@/lib/utils'
 
-import { CRAFT_LAST_ENTER_STEP } from './_components/craft.const'
 import { CRAFT, craftExperiments, craftSnippets } from './_components/craft.mock'
 import { CraftExperiments } from './_components/craft-experiments'
 import { CraftSnippets } from './_components/craft-snippets'
@@ -50,11 +48,11 @@ export default async function CraftPage() {
 
       <PageHeader title={copy.title} description={copy.description} />
 
-      {CRAFT.length === 0 && <p {...enter(2, 'text-caption text-muted')}>{copy.empty}</p>}
-      <CraftExperiments entries={experiments} label={copy.experiments} enterFrom={2} />
-      <CraftSnippets entries={snippets} label={copy.snippets} enterFrom={2 + experiments.length} />
+      {CRAFT.length === 0 && <p className="text-caption text-muted">{copy.empty}</p>}
+      <CraftExperiments entries={experiments} label={copy.experiments} />
+      <CraftSnippets entries={snippets} label={copy.snippets} />
 
-      <p {...enter(CRAFT_LAST_ENTER_STEP, 'text-caption text-muted')}>
+      <p className="text-caption text-muted">
         {copy.closing}{' '}
         <TextLink href={SITE_ROUTES.writing} variant="underline">
           {copy.writing}

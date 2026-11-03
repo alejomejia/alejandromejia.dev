@@ -8,9 +8,7 @@ import { COPY } from '@/lib/constants/copy'
 import { breadcrumbJsonLd, collectionPageJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { writingPath } from '@/lib/seo/seo.utils'
-import { enter } from '@/lib/utils'
 
-import { WRITING_LAST_ENTER_STEP } from './_components/writing.const'
 import { WRITING } from './_components/writing.mock'
 import { WritingList } from './_components/writing-list'
 
@@ -47,13 +45,9 @@ export default async function WritingPage() {
 
       <PageHeader title={copy.title} description={copy.description} />
 
-      {WRITING.length > 0 ? (
-        <WritingList entries={WRITING} enterFrom={2} />
-      ) : (
-        <p {...enter(2, 'text-caption text-muted')}>{copy.empty}</p>
-      )}
+      {WRITING.length > 0 ? <WritingList entries={WRITING} /> : <p className="text-caption text-muted">{copy.empty}</p>}
 
-      <p {...enter(WRITING_LAST_ENTER_STEP, 'text-caption text-muted')}>
+      <p className="text-caption text-muted">
         {copy.closing}{' '}
         <TextLink href={SITE_ROUTES.craft} variant="underline">
           {copy.craft}

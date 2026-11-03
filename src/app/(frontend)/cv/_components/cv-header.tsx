@@ -2,7 +2,7 @@ import { AvailabilityDot } from '@/components/layout/availability-dot'
 import { TextLink } from '@/components/ui/text-link'
 import type { NavLink } from '@/lib/cms/links'
 import { COPY } from '@/lib/constants/copy'
-import { cn, displayURL, enter, formatMessage } from '@/lib/utils'
+import { cn, displayURL, formatMessage } from '@/lib/utils'
 
 import { type PageFact, PageFacts } from '@/app/(frontend)/_components/page-facts'
 import type { CvData } from './cv.types'
@@ -83,16 +83,14 @@ export function CvHeader({
             </p>
           )}
         </div>
-        <h1 {...enter(0, 'text-display-s font-medium tracking-tight print:hidden')}>{copy.title}</h1>
-        <div {...enter(1, 'flex flex-col gap-pad-xs text-pretty text-muted')}>
+        <h1 className="text-display-s font-medium tracking-tight print:hidden">{copy.title}</h1>
+        <div className="flex flex-col gap-pad-xs text-pretty text-muted">
           {summary.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
       </div>
-      <div {...enter(2)}>
-        <PageFacts facts={facts} columns={3} />
-      </div>
+      <PageFacts facts={facts} columns={3} />
     </header>
   )
 }

@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Link } from '@/components/ui/link'
 import { SectionLabel } from '@/components/ui/section-label'
 import { workPath } from '@/lib/seo/seo.utils'
-import { enter, formatYears } from '@/lib/utils'
+import { formatYears } from '@/lib/utils'
 
 import { WorkCover } from './work-cover'
 import type { WorkEntry } from './work.types'
@@ -11,8 +11,6 @@ import type { WorkEntry } from './work.types'
 type WorkFeaturedProps = {
   entries: WorkEntry[]
   label: string
-  /** The first entry's entrance step, after what comes before it. */
-  enterFrom: number
 }
 
 /**
@@ -20,15 +18,15 @@ type WorkFeaturedProps = {
  * hover) with the years on the right, the summary, and the role and client
  * in mono. The whole entry is the link.
  */
-export function WorkFeatured({ entries, label, enterFrom }: WorkFeaturedProps) {
+export function WorkFeatured({ entries, label }: WorkFeaturedProps) {
   if (entries.length === 0) return null
 
   return (
     <section>
       <SectionLabel>{label}</SectionLabel>
       <ul className="mt-pad-s flex flex-col gap-pad-xl">
-        {entries.map((work, index) => (
-          <li key={work.slug} {...enter(enterFrom + index)}>
+        {entries.map((work) => (
+          <li key={work.slug}>
             <Link href={workPath(work.slug)} className="group flex flex-col gap-pad-s rounded-xl">
               <WorkCover cover={work.cover} />
               <span className="flex flex-col gap-1">

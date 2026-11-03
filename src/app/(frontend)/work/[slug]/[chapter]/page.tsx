@@ -9,7 +9,6 @@ import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata, generatedShareImage } from '@/lib/seo/metadata'
 import { chapterCard } from '@/lib/seo/og/og-cards'
 import { workChapterPath, workPath } from '@/lib/seo/seo.utils'
-import { enter } from '@/lib/utils'
 
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { findChapter, findWork } from '@/app/(frontend)/work/_components/work.mock'
@@ -74,13 +73,11 @@ export default async function WorkChapterPage({ params }: Args) {
 
       <header className="flex flex-col gap-pad-xs">
         <BackLink href={workPath(work.slug)}>{work.title}</BackLink>
-        <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{chapter.title}</h1>
-        <p {...enter(2, 'text-lead text-pretty text-muted')}>{chapter.summary}</p>
+        <h1 className="text-display-m font-medium tracking-tight text-balance">{chapter.title}</h1>
+        <p className="text-lead text-pretty text-muted">{chapter.summary}</p>
       </header>
 
-      <div {...enter(3)}>
-        <WorkChapters work={work} current={chapter.slug} copy={copy} />
-      </div>
+      <WorkChapters work={work} current={chapter.slug} copy={copy} />
 
       <StoryContent nodes={chapter.content} />
 

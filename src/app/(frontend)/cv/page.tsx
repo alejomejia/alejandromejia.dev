@@ -85,7 +85,7 @@ export default async function CvPage() {
         remote={cv.remote}
         className="mb-pad-l"
       />
-      <CvIndex sections={sections} pdfUrl={cv.pdfUrl ?? CV_PDF_PREVIEW_HREF} enterStep={3} />
+      <CvIndex sections={sections} pdfUrl={cv.pdfUrl ?? CV_PDF_PREVIEW_HREF} />
 
       <div className="mt-pad-xl flex flex-col gap-pad-2xl">
         <CvTrace>
@@ -96,7 +96,6 @@ export default async function CvPage() {
               aside={
                 cv.experience.some((role) => role.contract) && <span className="text-right">{copy.contractNote}</span>
               }
-              enterStep={4}
             >
               <CvEntries entries={cv.experience} />
             </CvSection>

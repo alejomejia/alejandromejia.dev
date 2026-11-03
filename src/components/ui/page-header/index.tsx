@@ -1,4 +1,4 @@
-import { cn, enter } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 type PageHeaderProps = {
   title: string
@@ -8,8 +8,7 @@ type PageHeaderProps = {
 }
 
 /**
- * The top of an inner page: its single `<h1>` and a short description. Both
- * enter first, before the page's own lists (which start at `enter(2)`).
+ * The top of an inner page: its single `<h1>` and a short description.
  *
  * @example
  * <PageHeader title="Work" description="Case studies from 13 years on the web." />
@@ -17,8 +16,8 @@ type PageHeaderProps = {
 export function PageHeader({ title, description, className }: PageHeaderProps) {
   return (
     <header className={cn('flex flex-col gap-pad-xs', className)}>
-      <h1 {...enter(0, 'text-display-s font-medium tracking-tight text-balance')}>{title}</h1>
-      {description && <p {...enter(1, 'text-pretty text-muted')}>{description}</p>}
+      <h1 className="text-display-s font-medium tracking-tight text-balance">{title}</h1>
+      {description && <p className="text-pretty text-muted">{description}</p>}
     </header>
   )
 }

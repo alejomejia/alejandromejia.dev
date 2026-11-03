@@ -10,7 +10,7 @@ import { breadcrumbJsonLd, writingJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata, generatedShareImage } from '@/lib/seo/metadata'
 import { ogImagePath, writingCard } from '@/lib/seo/og/og-cards'
 import { absoluteURL, writingPath } from '@/lib/seo/seo.utils'
-import { enter, formatMonth } from '@/lib/utils'
+import { formatMonth } from '@/lib/utils'
 
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { OnwardLink } from '@/app/(frontend)/_components/onward-link'
@@ -88,21 +88,15 @@ export default async function WritingEntryPage({ params }: Args) {
       <header className="flex flex-col gap-pad-l">
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.writing}>{copy.back}</BackLink>
-          <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{entry.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-muted')}>{entry.excerpt}</p>
+          <h1 className="text-display-m font-medium tracking-tight text-balance">{entry.title}</h1>
+          <p className="text-lead text-pretty text-muted">{entry.excerpt}</p>
         </div>
-        <div {...enter(3)}>
-          <WritingFacts entry={entry} copy={copy} />
-        </div>
+        <WritingFacts entry={entry} copy={copy} />
       </header>
 
-      {entry.cover && (
-        <div {...enter(4)}>
-          <MediaFrame media={entry.cover} />
-        </div>
-      )}
+      {entry.cover && <MediaFrame media={entry.cover} />}
 
-      <WritingContents nodes={entry.content} label={copy.contents} enterStep={4} />
+      <WritingContents nodes={entry.content} label={copy.contents} />
 
       <StoryContent nodes={entry.content} />
 

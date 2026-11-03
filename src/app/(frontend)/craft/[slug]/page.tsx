@@ -12,7 +12,7 @@ import { breadcrumbJsonLd } from '@/lib/seo/json-ld'
 import { buildMetadata, generatedShareImage } from '@/lib/seo/metadata'
 import { craftCard } from '@/lib/seo/og/og-cards'
 import { craftPath } from '@/lib/seo/seo.utils'
-import { enter, formatDate, formatMonth } from '@/lib/utils'
+import { formatDate, formatMonth } from '@/lib/utils'
 
 import { BackLink } from '@/app/(frontend)/_components/back-link'
 import { OnwardLink } from '@/app/(frontend)/_components/onward-link'
@@ -93,25 +93,19 @@ export default async function CraftEntryPage({ params }: Args) {
       <header className="flex flex-col gap-pad-l">
         <div className="flex flex-col gap-pad-xs">
           <BackLink href={SITE_ROUTES.craft}>{copy.back}</BackLink>
-          <h1 {...enter(1, 'text-display-m font-medium tracking-tight text-balance')}>{entry.title}</h1>
-          <p {...enter(2, 'text-lead text-pretty text-muted')}>{entry.description}</p>
+          <h1 className="text-display-m font-medium tracking-tight text-balance">{entry.title}</h1>
+          <p className="text-lead text-pretty text-muted">{entry.description}</p>
         </div>
-        <div {...enter(3)}>
-          <PageFacts facts={facts} />
-        </div>
+        <PageFacts facts={facts} />
       </header>
 
       {entry.kind === 'experiment' && (
-        <section aria-label={copy.demo} {...enter(4)}>
+        <section aria-label={copy.demo}>
           <CraftDemo entry={entry} />
         </section>
       )}
 
-      {entry.files && entry.files.length > 0 && (
-        <div {...enter(entry.kind === 'experiment' ? 5 : 4)}>
-          <CodeGroup files={entry.files} labels={COPY.code} />
-        </div>
-      )}
+      {entry.files && entry.files.length > 0 && <CodeGroup files={entry.files} labels={COPY.code} />}
 
       {entry.content && <StoryContent nodes={entry.content} />}
 
