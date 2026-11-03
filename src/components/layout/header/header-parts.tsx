@@ -25,7 +25,7 @@ export function HeaderIdentity({ profile, className }: { profile: ProfileIntro; 
 
 /**
  * The status in mono: one line with the dot and "Open to work" (while it is
- * on), the town (the first part of the location) and the time there; then
+ * on), the country (the last part of the location) and the time there; then
  * the Profile's availability lines under it, lined up with the text after
  * the dot: one role per line, written in full ("Design Engineer", so it never
  * reads as a design job), then where on the last. The clock's tooltip says
@@ -33,12 +33,12 @@ export function HeaderIdentity({ profile, className }: { profile: ProfileIntro; 
  */
 export function HeaderByline({ profile, className }: { profile: ProfileIntro; className?: string }) {
   const copy = COPY.header
-  const town = profile.location?.split(',')[0]
+  const country = profile.location?.split(',').at(-1)?.trim()
   const parts = [
-    town,
+    country,
     profile.timezone && (
       <span title={profile.location ? formatMessage(copy.localTime, { place: profile.location }) : undefined}>
-        <LocalClock timeZone={profile.timezone} />
+        <LocalClock timeZone={profile.timezone} showSeconds />
       </span>
     ),
   ].filter(Boolean)
