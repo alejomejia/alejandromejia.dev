@@ -107,11 +107,21 @@ export const Media: CollectionConfig = {
       const sizes = doc.sizes as { thumbnail?: { url?: string | null } } | undefined
       return sizes?.thumbnail?.url || null
     },
-    // Images and videos only: the file dialog and drop zone hide everything
-    // else, and the server rejects it. Payload has no per-field file types, so
-    // this is collection-wide; documents such as PDFs would need their own
-    // upload collection.
-    mimeTypes: ['image/*', 'video/*'],
+    // Images and videos only, listed one by one: `image/*` would take SVG,
+    // which can run script when served from the site's own origin. The file
+    // dialog and drop zone hide everything else, and the server rejects it.
+    // Payload has no per-field file types, so this is collection-wide;
+    // documents such as PDFs would need their own upload collection.
+    mimeTypes: [
+      'image/avif',
+      'image/gif',
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'video/mp4',
+      'video/quicktime',
+      'video/webm',
+    ],
     focalPoint: true,
     // Payload's crop tool crops the raw upload, skipping the WebP conversion and
     // the size cap. The focal point covers framing.
