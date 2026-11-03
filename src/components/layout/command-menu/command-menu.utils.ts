@@ -1,13 +1,13 @@
 import type { CommandGroup, CommandItem } from './command-menu.types'
 
 /** Group order on screen. */
-export const COMMAND_GROUPS: CommandGroup[] = ['pages', 'work', 'writing', 'actions', 'links']
+export const COMMAND_GROUPS: CommandGroup[] = ['pages', 'work', 'writing', 'craft', 'actions', 'links']
 
 /** Groups whose rows are pages of this site, opened through the router (and the page transition). */
-export const ROUTED_GROUPS: CommandGroup[] = ['pages', 'work', 'writing']
+export const ROUTED_GROUPS: CommandGroup[] = ['pages', 'work', 'writing', 'craft']
 
 // Content search rows per group, so a broad query never buries the actions.
-const CONTENT_GROUPS: CommandGroup[] = ['work', 'writing']
+const CONTENT_GROUPS: CommandGroup[] = ['work', 'writing', 'craft']
 const CONTENT_RESULTS_PER_GROUP = 5
 
 /**

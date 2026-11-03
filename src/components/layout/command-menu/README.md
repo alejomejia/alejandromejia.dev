@@ -58,8 +58,10 @@ property: Server Components only see a Client Component's own exports.
 Rows are built in `useCommandItems` (`command-menu.hooks.ts`). Add a row
 there with a `group`, a `label`, optional `keywords` and `detail`, and an
 `href` or a `run`. A `run` that returns `'keep-open'` shows "Copied" before
-closing. Content search rows come from `useSearchItems`; to search a new
-collection, add it to `src/lib/cms/search.server.ts`.
+closing. Content search rows come from `useSearchItems`, which loads
+`/search.json` (`src/app/search.json/route.ts`); to search a new section,
+add its entries there and its group to `COMMAND_GROUPS` (with a label in
+`COPY.commandMenu`).
 
 ## Configuration
 

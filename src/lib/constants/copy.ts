@@ -21,7 +21,6 @@ export const COPY = {
     craft: 'Craft',
     allCraft: 'All craft',
     draft: 'Draft',
-    formats: { article: 'Article', note: 'Note', snippet: 'Snippet' },
   },
   work: {
     title: 'Work',
@@ -112,6 +111,7 @@ export const COPY = {
     pages: 'Pages',
     work: 'Work',
     writing: 'Writing',
+    craft: 'Craft',
     actions: 'Actions',
     links: 'Links',
     copyEmail: 'Copy email address',
@@ -145,6 +145,7 @@ export const COPY = {
     empty: 'Nothing published yet.',
     experiments: 'Experiments',
     snippets: 'Snippets',
+    kind: { experiment: 'Experiment', snippet: 'Snippet' },
     closing: 'Longer write-ups are in',
     writing: 'Writing',
     back: 'All craft',

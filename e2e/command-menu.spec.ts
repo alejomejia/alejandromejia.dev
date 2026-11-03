@@ -22,6 +22,24 @@ test('⌘K opens the menu, filters it and navigates', async ({ page }) => {
   await expect(menu).toBeHidden()
 })
 
+// Search used to miss articles and Craft pieces: it only read published CMS
+// writing, while the pages render the mock data.
+test('search finds work, articles and craft', async ({ page }) => {
+  await visit(page, '/')
+  const menu = await openMenu(page)
+  const group = (name: string) => menu.getByRole('group', { name })
+
+  await page.keyboard.type('storybook')
+  await expect(group('Work').getByRole('option')).not.toHaveCount(0)
+  await expect(group('Writing').getByRole('option', { name: /Storybook is a product/ })).toBeVisible()
+
+  await page.keyboard.press('ControlOrMeta+a')
+  await page.keyboard.type('tocss')
+  await expect(group('Craft').getByRole('option', { name: /toCSSVars/ })).toBeVisible()
+  await page.keyboard.press('Enter')
+  await expect(page).toHaveURL('/craft/to-css-vars')
+})
+
 test('Esc closes the menu', async ({ page }) => {
   await visit(page, '/')
   const menu = await openMenu(page)

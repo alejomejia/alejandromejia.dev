@@ -1,13 +1,13 @@
 import type { NavLink } from '@/lib/cms/links'
 
-export type CommandGroup = 'pages' | 'work' | 'writing' | 'actions' | 'links'
+export type CommandGroup = 'pages' | 'work' | 'writing' | 'craft' | 'actions' | 'links'
 
 /** One row of the menu: it navigates (`href`) or runs something (`run`). */
 export type CommandItem = {
   id: string
   group: CommandGroup
   label: string
-  /** Muted text after the label (a writing format, a chapter's case study). */
+  /** Muted text after the label (a chapter's case study, a Craft piece's kind). */
   detail?: string
   /** Extra words it is found by (`mail`, `contact` for the email). */
   keywords?: string[]
