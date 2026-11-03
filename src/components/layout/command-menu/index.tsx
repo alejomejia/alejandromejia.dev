@@ -122,7 +122,8 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
   const listRef = useRef<HTMLDivElement>(null)
 
   // Content rows join only while searching; the empty menu stays short.
-  const results = filterCommands(deferredQuery.trim() ? withSearchItems(items, searchItems) : items, deferredQuery)
+  const resultsFor = (text: string) => filterCommands(text.trim() ? withSearchItems(items, searchItems) : items, text)
+  const results = resultsFor(deferredQuery)
   const active = Math.min(activeIndex, results.length - 1)
   const optionId = (item: CommandItem) => `${baseId}-${item.id}`
 
@@ -160,14 +161,17 @@ function CommandMenuPanel({ navItems, onNavigate }: CommandMenuProps & { onNavig
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    if (results.length === 0) return
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    if (event.key === 'Enter') {
+      // The list trails the input, so a quick "craft⏎" would open the stale
+      // list's first row (Home). Enter acts on what was typed.
+      const current = query === deferredQuery ? results : resultsFor(query)
+      if (current.length === 0) return
+      event.preventDefault()
+      void select(current[Math.min(activeIndex, current.length - 1)])
+    } else if ((event.key === 'ArrowDown' || event.key === 'ArrowUp') && results.length > 0) {
       event.preventDefault()
       const step = event.key === 'ArrowDown' ? 1 : -1
       setActiveIndex((active + step + results.length) % results.length)
-    } else if (event.key === 'Enter') {
-      event.preventDefault()
-      void select(results[active])
     }
   }
 
