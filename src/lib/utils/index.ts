@@ -8,7 +8,7 @@ export {
   waitUntil,
   preloadImage,
 } from './async'
-export { contrastRatio } from './color'
+export { contrastRatio, ensureContrast, mixColors } from './color'
 export {
   formatDate,
   formatMessage,

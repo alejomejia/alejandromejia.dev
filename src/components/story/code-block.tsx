@@ -1,5 +1,6 @@
+import { highlightCode } from '@/lib/code/highlight.server'
 import { CODE_LANGUAGES } from '@/lib/constants/code-languages'
-import { cn } from '@/lib/utils'
+import { cn, toCSSVars } from '@/lib/utils'
 
 import type { CodeBlockProps } from './story.types'
 
@@ -15,14 +16,20 @@ function parseLines(highlight?: string): Set<number> {
 }
 
 /**
- * The code itself, in mono: scrolls sideways (never wraps), highlighted
- * lines on a darker band. Plain monochrome for now; syntax colors (Shiki,
- * server rendered) come later. Shared by `CodeBlock` and `CodeGroup`.
- * Focusable, so keyboard users can scroll it; the focus ring is drawn inside,
- * where the frame's `overflow-hidden` can't clip it.
+ * The code itself, in mono, with syntax colors (Shiki, on the server: no
+ * JavaScript reaches the browser): scrolls sideways (never wraps),
+ * highlighted lines on a lighter band. Paper gets the light theme. Shared by
+ * `CodeBlock` and `CodeGroup`. Focusable, so keyboard users can scroll it;
+ * the focus ring is drawn inside, where the frame's `overflow-hidden` can't
+ * clip it.
  */
-export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'highlight'>) {
+export async function CodeLines({
+  code,
+  language,
+  highlight,
+}: Pick<CodeBlockProps, 'code' | 'language' | 'highlight'>) {
   const highlighted = parseLines(highlight)
+  const lines = await highlightCode(code, language)
 
   return (
     <pre
@@ -30,12 +37,19 @@ export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'hi
       className="overflow-x-auto rounded-lg py-3 font-mono text-micro leading-relaxed focus-visible:-outline-offset-2"
     >
       <code className="block min-w-max">
-        {code.split('\n').map((line, index) => (
-          <span
-            key={index}
-            className={cn('block px-4', highlighted.has(index + 1) ? 'bg-foreground/5' : 'text-foreground/70')}
-          >
-            {line || ' '}
+        {lines.map((tokens, index) => (
+          <span key={index} className={cn('block px-4', highlighted.has(index + 1) && 'bg-foreground/5')}>
+            {tokens.length === 0
+              ? ' '
+              : tokens.map((token, tokenIndex) => (
+                  <span
+                    key={tokenIndex}
+                    className="text-(--code-screen) print:text-(--code-print)"
+                    style={toCSSVars({ 'code-screen': token.screen, 'code-print': token.print })}
+                  >
+                    {token.content}
+                  </span>
+                ))}
           </span>
         ))}
       </code>
@@ -44,14 +58,14 @@ export function CodeLines({ code, highlight }: Pick<CodeBlockProps, 'code' | 'hi
 }
 
 /** Code on a surface: the file name and language above, the code below. */
-export function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
+export async function CodeBlock({ language, filename, code, highlight }: CodeBlockProps) {
   return (
     <figure className="overflow-hidden rounded-xl border border-foreground/10 bg-foreground/3">
       <figcaption className="flex justify-between gap-4 border-b border-foreground/10 px-4 py-2 font-mono text-micro text-subtle">
         <span>{filename}</span>
         <span>{CODE_LANGUAGES[language]}</span>
       </figcaption>
-      <CodeLines code={code} highlight={highlight} />
+      <CodeLines code={code} language={language} highlight={highlight} />
     </figure>
   )
 }

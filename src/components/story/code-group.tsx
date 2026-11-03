@@ -6,9 +6,8 @@ import type { CodeGroupProps } from './story.types'
 
 /**
  * One or more files in a single code block, with a copy button: one file
- * shows its name, several get tabs. The code renders on the server (ready
- * for server-side highlighting); only the tabs and the copy button run in
- * the browser.
+ * shows its name, several get tabs. The code is highlighted on the server;
+ * only the tabs and the copy button run in the browser.
  *
  * @example
  * <CodeGroup files={[{ filename: 'loop.tsx', language: 'tsx', code }]} labels={COPY.code} />
@@ -24,7 +23,7 @@ export function CodeGroup({ files, labels }: CodeGroupProps) {
         code: file.code,
       }))}
       panels={files.map((file) => (
-        <CodeLines key={file.filename} code={file.code} highlight={file.highlight} />
+        <CodeLines key={file.filename} code={file.code} language={file.language} highlight={file.highlight} />
       ))}
       labels={labels}
     />
