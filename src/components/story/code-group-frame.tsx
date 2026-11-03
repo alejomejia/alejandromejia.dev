@@ -74,7 +74,7 @@ export function CodeGroupFrame({ files, panels, labels }: CodeGroupFrameProps) {
             aria-label={labels.files}
             tabIndex={-1}
             onKeyDown={handleKeyDown}
-            className="flex min-w-0 overflow-x-auto pl-2"
+            className="flex min-w-0 gap-1 overflow-x-auto py-1 pl-2"
           >
             {files.map((file, index) => (
               <button
@@ -89,8 +89,8 @@ export function CodeGroupFrame({ files, panels, labels }: CodeGroupFrameProps) {
                 aria-controls={`${id}-panel-${index}`}
                 tabIndex={index === active ? 0 : -1}
                 onClick={() => select(index)}
-                // The active tab sits on a 1px ink line over the header's hairline.
-                className="relative shrink-0 cursor-pointer rounded-lg px-2 py-2 whitespace-nowrap transition-colors duration-250 after:absolute after:inset-x-2 after:-bottom-px after:h-px after:bg-foreground after:opacity-0 after:transition-opacity after:duration-250 hover:text-foreground focus-visible:-outline-offset-2 aria-selected:text-foreground aria-selected:after:opacity-100"
+                // Chips, so they read as choices: the active one boxed (hairline, surface, ink), the others filled on hover.
+                className="shrink-0 cursor-pointer rounded-lg border border-transparent px-2 py-1 whitespace-nowrap transition-colors duration-250 hover:bg-foreground/3 hover:text-foreground focus-visible:-outline-offset-2 aria-selected:border-foreground/10 aria-selected:bg-foreground/5 aria-selected:text-foreground"
               >
                 {file.filename}
               </button>
