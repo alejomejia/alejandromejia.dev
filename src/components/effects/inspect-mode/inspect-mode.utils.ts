@@ -28,7 +28,8 @@ export function formatLength(length: number): string {
   const px = length / rootScale()
   const rounded = Math.round(px)
   const token = Math.abs(px - rounded) < 0.05 ? SPACING_TOKENS[rounded] : undefined
-  return token ? `${round(px)} · ${token}` : `${round(px)} · ${round(px / 16)}rem`
+  // Rem keeps four decimals: one would turn 20px into 1.3rem, not 1.25rem.
+  return token ? `${round(px)} · ${token}` : `${round(px)} · ${Math.round((px / 16) * 10_000) / 10_000}rem`
 }
 
 /** Four sides as Figma lists them: one value when they match, two when opposite sides do, else all four. */
