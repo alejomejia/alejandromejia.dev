@@ -222,6 +222,18 @@ working.
 
 See [payload-admin-ux.md](./payload-admin-ux.md).
 
+## Tests
+
+Two layers, both run in CI (`.github/workflows/ci.yml`) on every push.
+**Unit tests** (Vitest) cover pure logic only: a `<name>.test.ts` next to
+the file it tests, run in Node, no DOM. **End-to-end tests** (Playwright,
+`e2e/`) cover everything a browser decides: they run the production build
+in Chromium, Firefox and WebKit, and fail on any console error, axe
+violation (WCAG 2.2 AA) or sideways scroll. Import `test` and `expect` from
+`e2e/support/fixtures`, open pages with `visit()` before pressing keys or
+scrolling, and find pages by crawling (`discoverRoutes`), never by
+hard-coded slugs. **Every bug fix ships a test** that fails without it.
+
 ## Adding Dependencies
 
 **Mandatory:** before using any new library, check whether a skill exists for

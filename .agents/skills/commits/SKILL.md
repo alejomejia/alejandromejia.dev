@@ -113,8 +113,9 @@ fix: stuff
 
 1. **Look:** `git status` and `git diff` (plus `git diff --staged`). Know
    every changed file before staging any.
-2. **Check:** if code changed, run `pnpm typecheck` and `pnpm lint`.
-   If either fails, stop and report; don't commit broken code unless the user
+2. **Check:** if code changed, run `pnpm typecheck`, `pnpm lint` and `pnpm test`
+   (and `pnpm test:e2e` when a change touches pages, layout or interactions).
+   If any fails, stop and report; don't commit broken code unless the user
    says so.
 3. **Group:** split the changes into logical commits, one concern each (a
    feature, a fix, a docs update). A Payload schema change and its migration

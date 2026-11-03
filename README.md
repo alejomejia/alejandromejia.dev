@@ -4,6 +4,8 @@
 
 **Senior Design Engineer** · Navarra, Spain
 
+[![CI](https://github.com/alejomejia/alejandromejia.dev/actions/workflows/ci.yml/badge.svg)](https://github.com/alejomejia/alejandromejia.dev/actions/workflows/ci.yml)
+
 I build design systems and the interfaces that use them: components, motion,
 accessibility and performance. 13+ years on the web, 8+ building production
 frontends in React, Next.js and TypeScript for global ecommerce, SaaS products
@@ -36,6 +38,10 @@ personal site, not a template, and its content sits in a private database.
   WebGL; it pauses off screen and holds still under reduced motion.
 - [`inspect-mode`](src/components/effects/inspect-mode): press <kbd>I</kbd> on
   the site to measure sizes and spacing, like Figma's inspect panel.
+- [`e2e`](e2e): Playwright tests that run every page in Chromium, Firefox and
+  WebKit on each push: axe at WCAG 2.2 AA, no console errors, no sideways
+  scroll on a phone, plus a test for each bug fixed so far. Unit tests for
+  the pure logic sit next to it as `*.test.ts`.
 - [`.agents/skills`](.agents/skills): the conventions that both I and AI
   agents follow when working on the site. Mine are
   [`code-conventions`](.agents/skills/code-conventions),
@@ -43,8 +49,9 @@ personal site, not a template, and its content sits in a private database.
   [`page-building`](.agents/skills/page-building),
   [`commits`](.agents/skills/commits) and
   [`seo-geo-audit`](.agents/skills/seo-geo-audit). The rest (`gsap-*`,
-  `payload`, `vercel-react-view-transitions`) are vendored from GreenSock,
-  Payload and Vercel, and pinned in [`skills-lock.json`](skills-lock.json).
+  `payload`, `vercel-react-view-transitions`, `vitest`,
+  `playwright-best-practices`) are vendored from GreenSock, Payload, Vercel,
+  Anthony Fu and Currents, and pinned in [`skills-lock.json`](skills-lock.json).
 
 ## License
 
